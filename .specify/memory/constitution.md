@@ -140,5 +140,5 @@ MUST be sensible and overridable per page. Rationale: better previews and discov
 - Dates: Ratification is the first approved adoption date; Last Amended is the date
   of the most recent merged change to this Constitution.
 
-**Version**: 1.1.0 | **Ratified**: TODO(RATIFICATION_DATE): set upon first approval | **Last Amended**: 2025-10-25
+**Version**: 1.1.0 | **Ratified**: 2025-10-25 | **Last Amended**: 2025-10-25
  
