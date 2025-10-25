@@ -70,6 +70,9 @@ A club editor (non-technical) publishes a news update with images and assigns it
 - Overlapping events/fixtures: list with distinct times and avoid visual conflicts in calendars.
 - Image-heavy posts: gracefully degrade on slow networks with sensible fallbacks and captions.
 - Very long team names or event titles: wrap text without breaking layout; ensure social previews truncate elegantly.
+- Member without portrait or consent: show initials-based placeholder or omit image to maintain layout consistency.
+- No social channels configured: post pages hide any "Discuss" links and show no placeholder to avoid dead ends.
+- Small rosters or many opt-outs: ensure roster layout gracefully handles few visible entries without awkward gaps.
 - Accessibility: all interactive elements are keyboard operable and labeled; color contrast meets AA.
 - Progressive enhancement: all content (navigation, schedules, posts) remains usable with JavaScript disabled.
 - Responsive layout: readable and navigable on ≤320px mobile and ≥1440px desktop screens.
@@ -115,17 +118,20 @@ A club editor (non-technical) publishes a news update with images and assigns it
   - Acceptance: The chosen approach is documented with example content; if manual, editors can add result entries easily; if import, outline the inputs.
   - Results sourcing: Manual entry by editors at launch; no external results integrations in the initial release.
 
-- **FR-011 Examples & Documentation**: Provide minimal example content for each content type and keep documentation up to date in this feature’s quickstart.
+- **FR-011 Examples & Documentation**: Provide minimal example content for each content type and keep documentation up to date in this feature's quickstart.
   - Acceptance: The `quickstart.md` explains content structures and the editing workflow; examples render successfully.
 
 - **FR-012 Post Interactions & Comments Policy**: No on-site comments on news/posts. Provide optional, configurable links to club social channels (site-wide or per post) for off-site discussion.
   - Acceptance: Example post template shows a "Discuss on [Platform]" link when social URLs are configured; when no social channels are configured, no discussion UI is rendered.
 
+- **FR-013 Team Roster Visibility & Fields**: Public team rosters show limited fields. Display player name and age group (e.g., U13) or role; show portraits only with consent; allow editors to exclude individuals from the public roster.
+  - Acceptance: Example team roster shows names and age group/role; portraits appear only when a consent flag is present; an "exclude from roster" flag hides individuals; layout remains consistent with multiple opt-outs.
+
 ### Key Entities *(include if feature involves data)*
 
 - **Club**: Name, logo, description, contact channels, primary sport(s).
 - **Team**: Name/age group, sport, season dates, training schedule, venue/location, coaches/managers, related posts/events/results.
-- **Member**: Name, role(s), teams, optional bio; portrait (optional, displayed only with consent); privacy flags for public display (contact details, portrait).
+- **Member**: Name, role(s), teams, age group (e.g., U13) or display role label; optional bio; portrait (optional, displayed only with consent); visibility flags (public display, show on roster, portrait consent).
 - **Role**: Title (e.g., Coach, Manager, Chairperson), description; may link to a member.
 - **Training Session**: Day(s) of week, start/end times, venue, effective dates, status (active/cancelled), last updated.
 - **Event/Fixture**: Title/opponent, date/time, location, team(s), description, registration info, status (upcoming/completed/cancelled).
@@ -160,5 +166,7 @@ A club editor (non-technical) publishes a news update with images and assigns it
 - Editorial workflow will be simplified for non-technical users; exact tool/process to be selected in planning [see FR-007 note].
 - Privacy for youth sports: Photos and personal info require consent and should be limited to public-safe details.
 - Contact privacy: Use role-based generic team emails; no personal phone numbers shown by default.
+- No user-generated content: Comments are out of scope; reduces moderation, legal, and security risks.
+- Public roster limited fields: Only name and age group/role are displayed publicly; editors can exclude individuals and portraits require consent.
 - Multilingual support is optional at launch pending clarification [see FR-009 note].
 - External results integrations, if any, will be defined in planning [see FR-010 note].
