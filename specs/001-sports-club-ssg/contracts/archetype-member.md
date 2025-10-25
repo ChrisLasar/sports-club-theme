@@ -9,7 +9,7 @@ Creates a new member profile with privacy defaults.
 title: "{{ replace .Name "-" " " | title }}"
 role: ""  # e.g., Coach, Manager, Player, Chairperson
 teams: []  # List of team slugs, e.g., ["teams/u13-boys"]
-ageGroup: ""  # For players: U13, U15, etc.; omit for staff
+group: ""  # For players: U13, U15, Beginner, etc.; omit for staff
 bio: ""
 portrait: ""  # Filename of portrait image
 visibility:

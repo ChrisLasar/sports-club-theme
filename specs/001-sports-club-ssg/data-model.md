@@ -12,7 +12,7 @@ Define the content types, front matter schemas, and relationships for the Hugo-b
 
 ### 1. Club (Site Configuration)
 
-**Storage**: `config/hugo.toml` + `data/club.yaml`
+**Storage**: `config/_default/hugo.toml` + `data/club.yaml`
 
 **Schema** (`data/club.yaml`):
 
@@ -46,7 +46,7 @@ socialChannels:
 
 ```yaml
 title: "U13 Boys Football"           # Team name
-ageGroup: "U13"                      # Age group or level
+group: "U13"                         # Group identifier (age, skill level, etc.)
 sport: "Football"                    # Sport name
 season:
   start: "2024-09-01"                # Season start date
@@ -62,9 +62,12 @@ training:
     endTime: "19:30"
     venue: "main-field"
 venue: "main-field"                  # Primary venue slug
-coaches:                             # Named contacts with generic emails
-  - name: "John Smith"
+coaches:                             # References to member entries with contact
+  - member: "members/john-smith"     # Path to member content
     role: "Head Coach"
+    email: "u13@exampleclub.org"     # Generic team email
+  - member: "members/sarah-jones"
+    role: "Assistant Coach"
     email: "u13@exampleclub.org"     # Generic team email
 members:                             # References to member content (optional)
   - "members/jane-doe"
@@ -82,16 +85,18 @@ tags:
 - **Has many**: Results (via taxonomy `teams: ["u13-boys"]`)
 - **Has many**: Posts (via taxonomy `teams: ["u13-boys"]`)
 - **Has many**: Members (via `members` list or reverse lookup)
+- **References**: Members (via `coaches[].member` paths)
 
 **Validation Rules**:
 
 - `title` required
-- `ageGroup` required
+- `group` required
 - `sport` required
 - `season.status` enum: `active`, `off-season`, `archived`
 - `training[].day` enum: Monday-Sunday
 - `training[].startTime` format: HH:MM
-- Contact email must be generic team email (enforced in CMS config)
+- `coaches[].member` must reference valid member path
+- `coaches[].email` must be generic team email (not personal)
 
 ---
 
@@ -107,7 +112,7 @@ role: "Coach"                        # Role title
 teams:                               # Team references
   - "teams/u13-boys"
   - "teams/u15-girls"
-ageGroup: "U13"                      # For players; omit for staff
+group: "U13"                         # For players (age/skill level); omit for staff
 bio: "Jane has been coaching youth football for 5 years..."
 portrait: "jane-doe.jpg"             # Image filename (in page bundle if using bundles)
 visibility:
@@ -121,6 +126,7 @@ socialImage: "jane-doe.jpg"          # Optional override
 **Relationships**:
 
 - **Belongs to many**: Teams (via `teams` list)
+- **Referenced by**: Teams (via `coaches[].member` paths)
 
 **Validation Rules**:
 
@@ -287,13 +293,17 @@ rival-stadium:
 
 **Storage**: Inline in Member front matter (no separate content type)
 
-**Schema** (part of Member):
+**Schema** (part of Member and Team coaches):
 
 ```yaml
-role: "Head Coach"  # Simple string
+role: "Head Coach"  # Simple string in Member front matter
+# In Team front matter, coaches reference members:
+coaches:
+  - member: "members/john-smith"
+    role: "Head Coach"  # Role context for this team
 ```
 
-**Note**: For complex role hierarchies, could add `data/roles.yaml`, but keeping simple per spec.
+**Note**: For complex role hierarchies, could add `data/roles.yaml`, but keeping simple per spec. Coaches are always referenced via member entries, not inline.
 
 ---
 
@@ -302,7 +312,7 @@ role: "Head Coach"  # Simple string
 Hugo taxonomies for cross-linking content:
 
 ```toml
-# config/hugo.toml
+# config/_default/hugo.toml
 [taxonomies]
   team = "teams"      # Relate posts/events/results to teams
   tag = "tags"
@@ -375,7 +385,7 @@ Implemented via front matter flags and template logic:
 
 Current structure supports migration:
 
-1. Enable `[languages]` in `config/hugo.toml`
+1. Enable `[languages]` in `config/_default/hugo.toml`
 2. Move `content/` → `content/en/`
 3. Add `content/de/`, `content/fr/`, etc.
 4. Translate `i18n/*.toml` files

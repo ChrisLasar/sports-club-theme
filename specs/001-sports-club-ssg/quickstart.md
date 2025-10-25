@@ -24,7 +24,7 @@ This quickstart explains how to add and update content for your sports club webs
 2. Click **New Team** button
 3. Fill in the form:
    - **Team Name**: e.g., "U13 Boys Football"
-   - **Age Group**: e.g., "U13"
+   - **Group**: e.g., "U13" (or "Beginner", "Advanced", etc.)
    - **Sport**: e.g., "Football"
    - **Season**: Start date, end date, status (active/off-season)
    - **Training Schedule**: Click "+ Add training" for each session
@@ -33,13 +33,15 @@ This quickstart explains how to add and update content for your sports club webs
      - End time (e.g., "19:30")
      - Venue (must match venue slug from site config)
    - **Coaches**: Click "+ Add coaches" for each coach
-     - Name
-     - Role
+     - Select existing member from dropdown (member must be created first)
+     - Role (e.g., "Head Coach", "Assistant Coach")
      - **Generic team email** (e.g., `u13@yourclub.org`) — NOT personal email
    - **Social Image**: Upload a team photo
    - **Description**: Brief text about the team
    - **Body**: Longer team information in Markdown
 4. Click **Save** (saves draft) or **Publish** (makes live)
+
+**Note**: Create member profiles for coaches before adding them to teams.
 
 ### Adding a Member Profile
 
@@ -49,7 +51,7 @@ This quickstart explains how to add and update content for your sports club webs
    - **Name**: Member's full name
    - **Role**: e.g., "Coach", "Manager", "Player"
    - **Teams**: List team paths (e.g., `teams/u13-boys`)
-   - **Age Group**: For players (e.g., "U13"); leave blank for staff
+   - **Group**: For players (e.g., "U13", "Beginner"); leave blank for staff
    - **Biography**: Optional text about the member
    - **Portrait**: Upload a photo
    - **Privacy Settings**:
@@ -60,6 +62,8 @@ This quickstart explains how to add and update content for your sports club webs
 4. Click **Publish**
 
 **Privacy Note**: Portraits are **hidden by default** unless you explicitly check "Portrait Consent". Always get consent before enabling for youth members.
+
+**Important**: Create member profiles before assigning them as coaches to teams.
 
 ### Adding an Event/Fixture
 
@@ -145,7 +149,7 @@ This quickstart explains how to add and update content for your sports club webs
 
 3. **Configure Hugo**:
 
-   Edit `config/hugo.toml`:
+   Edit `config/_default/hugo.toml`:
 
    ```toml
    baseURL = "https://yourclubsite.com"
@@ -215,7 +219,8 @@ sports-club-theme/
 ├── assets/              # Tailwind CSS, Alpine.js
 │   └── css/main.css
 ├── config/              # Site configuration
-│   └── hugo.toml
+│   └── _default/
+│       └── hugo.toml
 ├── content/             # All site content
 │   ├── teams/
 │   ├── members/
