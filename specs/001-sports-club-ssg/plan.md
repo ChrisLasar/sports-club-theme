@@ -11,8 +11,8 @@ Create a Hugo-based static site template for sports clubs that enables non-techn
 
 ## Technical Context
 
-**Language/Version**: Hugo 0.122+ (Extended edition for Tailwind processing)  
-**Primary Dependencies**: daisyUI 4.x, Tailwind CSS 3.x, Alpine.js 3.x (optional progressive enhancement), Sveltia CMS (Git-based CMS; Decap CMS documentation as reference)  
+**Language/Version**: Hugo 0.152+ (Extended edition for Tailwind processing)  
+**Primary Dependencies**: daisyUI 5.x, Tailwind CSS 4.x, Alpine.js 3.x (optional progressive enhancement), Sveltia CMS (Git-based CMS; Decap CMS documentation as reference)  
 **Storage**: Files only (Markdown + YAML/TOML front matter); page bundles supported for colocated media  
 **Testing**: HTML validation, Accessibility lint (axe-core or similar), Lighthouse CI  
 **Target Platform**: Static web hosting (Netlify, Vercel, GitHub Pages, CDN)  

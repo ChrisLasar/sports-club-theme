@@ -41,7 +41,7 @@ Resolve technical unknowns and document best practices for implementing a Hugo-b
 
 **Task**: Determine optimal daisyUI theme setup for accessibility and mobile-first design.
 
-**Decision**: Use daisyUI 4.x with custom theme extending the `light` base theme:
+**Decision**: Use daisyUI 5.x with custom theme extending the `light` base theme:
 - Configure in `tailwind.config.js` with daisyUI plugin
 - Override CSS variables for club branding (primary color, fonts)
 - Purge unused styles via Tailwind's content configuration
@@ -219,7 +219,7 @@ socialImage: "team-photo.jpg"  # relative to page bundle
 | Area | Decision | Justification |
 |------|----------|---------------|
 | Content structure | Sections + taxonomies + page bundles | Natural mapping to sports club hierarchy |
-| Styling | daisyUI 4.x + Tailwind CSS 3.x | Accessible components + customizable |
+| Styling | daisyUI 5.x + Tailwind CSS 4.x | Accessible components + customizable |
 | CMS | Sveltia CMS (Decap CMS config compat) | Modern Git-based editing with good UX |
 | Images | Hugo image processing with page resources | Zero-backend, responsive, optimized |
 | Performance | Critical CSS inline, Alpine.js minimal, lazy images | Meets LCP/CLS/JS budgets |

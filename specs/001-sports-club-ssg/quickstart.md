@@ -126,7 +126,7 @@ This quickstart explains how to add and update content for your sports club webs
 
 ### Prerequisites
 
-- Hugo Extended 0.122+ installed
+- Hugo Extended 0.152+ installed
 - Node.js 18+ and npm (for Tailwind CSS processing)
 - Git
 
@@ -281,7 +281,7 @@ Edit the created Markdown files and fill in front matter fields.
 2. Build command: `hugo --minify`
 3. Publish directory: `public`
 4. Environment variables:
-   - `HUGO_VERSION`: `0.122.0`
+   - `HUGO_VERSION`: `0.152.0`
    - `NODE_VERSION`: `18`
 
 ### Vercel
@@ -309,7 +309,7 @@ Edit the created Markdown files and fill in front matter fields.
          - uses: actions/checkout@v3
          - uses: peaceiris/actions-hugo@v2
            with:
-             hugo-version: '0.122.0'
+             hugo-version: '0.152.0'
              extended: true
          - run: npm ci
          - run: hugo --minify
@@ -362,7 +362,7 @@ npm run a11y
 
 ### Build Errors
 
-- Check Hugo version: `hugo version` (must be Extended 0.122+)
+- Check Hugo version: `hugo version` (must be Extended 0.152+)
 - Verify front matter YAML syntax in content files
 - Ensure image paths are correct (relative to page bundle or `static/`)
 
