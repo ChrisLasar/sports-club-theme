@@ -5,6 +5,17 @@
 **Status**: Draft  
 **Input**: User description: "Sports clubs are social networks in the real world. In order to increase their appeal, especially among younger people, they need a counterpart in the virtual world. This virtual presence differs in content from that of private individuals. In addition to a classic blog, a club also has training times, members with and without specific tasks in the club, events, competition results, training times, etc. We are creating a template for a static site generator that allows clubs to establish their virtual presence cost-effectively and with little technical know-how. The content can be maintained by various club members without any technical know-how."
 
+## Clarifications
+
+### Session 2025-10-25
+
+- Q: How should team contacts be presented to balance usability and privacy? → A: Named contact with generic team email; phone hidden.
+- Q: How should events/fixtures listings be presented? → A: Card list with date/time/location and filters for team/date.
+- Q: What is the default visibility policy for member portraits? → A: Portraits opt‑in with explicit consent flag.
+- Q: Should news posts support comments? → A: No comments; link to club socials.
+- Q: What is the public player roster policy? → A: Public roster with limited fields; photos only with consent.
+
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Find training times and contact (Priority: P1)
@@ -12,7 +23,6 @@
 A prospective member or parent visits the website to find training times, venue, and a contact person for a specific age group/team.
 
 **Why this priority**: This is the most common real-world task that converts interest into participation and membership.
-
 **Independent Test**: Visiting users can locate a team page and see current training schedule, venue address/map, and a contact within 30 seconds from the homepage.
 
 **Acceptance Scenarios**:
@@ -73,9 +83,13 @@ A club editor (non-technical) publishes a news update with images and assigns it
 
 - **FR-002 Team Pages**: Each team page must present training days/times, venue/location, season dates, staff contacts, and auto-related news/events.
   - Acceptance: For at least one sample team, all fields render correctly; when a field is missing (e.g., venue), a helpful default message appears.
+  - Contact policy: Display a named contact person for the team; show a generic team email address (e.g., `u13@club.tld`). Do not display personal phone numbers by default.
 
 - **FR-003 Events & Results**: Provide list and detail pages for events/fixtures and results, with filtering by team and date.
-  - Acceptance: Users can filter to a team and see both upcoming events and a results archive; a result detail shows opponent/event, date, score/placement, and notes.
+  - Listing style: Card list format showing title/opponent, date/time, location, team badge/name, and status (upcoming/completed/cancelled).
+  - Filtering: Controls for team and date range; default view shows upcoming items sorted by soonest first.
+  - Empty state: Clear message when no items match filters; suggest clearing filters or viewing all.
+  - Acceptance: Users can filter to a team and see both upcoming events and a results archive; a result detail shows opponent/event, date, score/placement, and notes; card list renders correctly on mobile and desktop.
 
 - **FR-004 Navigation & Findability**: Navigation must be mobile-first and accessible (WCAG 2.1 AA), with clear routes to Teams, Training, Events, Results, and News.
   - Acceptance: From the homepage, users reach a specific team page in ≤2 taps/clicks on mobile; keyboard-only navigation works end-to-end.
@@ -91,7 +105,7 @@ A club editor (non-technical) publishes a news update with images and assigns it
   - Editorial workflow: External file-based process with a simple web UI for repository-based content editing; no command-line required. Preview/publish steps are documented in the quickstart.
 
 - **FR-008 Data Ownership & Privacy**: Avoid collecting sensitive personal data; member profiles show only consented public info (name, role, optional portrait).
-  - Acceptance: Example member pages exclude contact details unless explicitly marked public; a privacy note is present in docs.
+  - Acceptance: Example member pages exclude contact details unless explicitly marked public; a privacy note is present in docs; portraits display only with an explicit consent flag—otherwise use a neutral placeholder or omit the image.
 
 - **FR-009 Internationalization Scope**: Define whether the initial template targets a single language or includes multi-language content structure.
   - Acceptance: If single-language, all labels/content are in one language with a documented path to add more later; if multi-language, the structure supports translated copies.
@@ -104,11 +118,14 @@ A club editor (non-technical) publishes a news update with images and assigns it
 - **FR-011 Examples & Documentation**: Provide minimal example content for each content type and keep documentation up to date in this feature’s quickstart.
   - Acceptance: The `quickstart.md` explains content structures and the editing workflow; examples render successfully.
 
+- **FR-012 Post Interactions & Comments Policy**: No on-site comments on news/posts. Provide optional, configurable links to club social channels (site-wide or per post) for off-site discussion.
+  - Acceptance: Example post template shows a "Discuss on [Platform]" link when social URLs are configured; when no social channels are configured, no discussion UI is rendered.
+
 ### Key Entities *(include if feature involves data)*
 
 - **Club**: Name, logo, description, contact channels, primary sport(s).
 - **Team**: Name/age group, sport, season dates, training schedule, venue/location, coaches/managers, related posts/events/results.
-- **Member**: Name, role(s), teams, optional bio and portrait; privacy flag for public display.
+- **Member**: Name, role(s), teams, optional bio; portrait (optional, displayed only with consent); privacy flags for public display (contact details, portrait).
 - **Role**: Title (e.g., Coach, Manager, Chairperson), description; may link to a member.
 - **Training Session**: Day(s) of week, start/end times, venue, effective dates, status (active/cancelled), last updated.
 - **Event/Fixture**: Title/opponent, date/time, location, team(s), description, registration info, status (upcoming/completed/cancelled).
@@ -142,5 +159,6 @@ A club editor (non-technical) publishes a news update with images and assigns it
 - Static publishing model: All content is published as static pages; no dynamic server required.
 - Editorial workflow will be simplified for non-technical users; exact tool/process to be selected in planning [see FR-007 note].
 - Privacy for youth sports: Photos and personal info require consent and should be limited to public-safe details.
+- Contact privacy: Use role-based generic team emails; no personal phone numbers shown by default.
 - Multilingual support is optional at launch pending clarification [see FR-009 note].
 - External results integrations, if any, will be defined in planning [see FR-010 note].
