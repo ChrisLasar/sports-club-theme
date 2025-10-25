@@ -25,7 +25,6 @@
 **Project Type**: web  
 **Constraints**: fully static output; no login; LCP ≤ 2.5s (3G), CLS ≤ 0.1; JS ≤ 50KB gzip; mobile-first; privacy by default  
 
-
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
@@ -77,6 +76,7 @@ Notes:
 
 **Structure Decision**:
 Default Hugo directory structure:
+
 - archetypes: The archetypes directory contains templates for new content.
 - assets: The assets directory contains global resources typically passed through an asset pipeline. This includes resources such as images, CSS, Sass, JavaScript, and TypeScript.
 - config: The config directory contains your site configuration, possibly split into multiple subdirectories and files. For projects with minimal configuration or projects that do not need to behave differently in different environments, a single configuration file named hugo.toml in the root of the project is sufficient.
