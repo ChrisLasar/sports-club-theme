@@ -14,10 +14,13 @@ Resolve technical unknowns and document best practices for implementing a Hugo-b
 
 **Task**: Research Hugo patterns for multi-team sports organizations with events, rosters, and news.
 
-**Decision**: Use Hugo's content organization with sections and taxonomies:
-- Content sections: `teams/`, `events/`, `results/`, `posts/`, `members/`
-- Taxonomies: `teams` (relate posts/events/results to teams), `tags`, `categories`
-- Page bundles for teams (`content/teams/u13/index.md` + images)
+**Decision**: Use Hugo's built-in content organization:
+
+- **Sections** for content types (`/content/teams/`, `/content/members/`, etc.)
+- **Taxonomies** for teams, tags, categories (cross-reference)
+- **Page bundles** for teams (colocate images/media with team pages)
+- Default values from site config (`config/_default/hugo.toml`)
+- Shared club/venue data in `/data/` YAML files
 
 **Rationale**:
 - Hugo's content organization maps naturally to sports club structure

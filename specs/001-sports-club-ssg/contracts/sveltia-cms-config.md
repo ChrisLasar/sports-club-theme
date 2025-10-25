@@ -29,7 +29,7 @@ collections:
       preview: false
     fields:
       - {label: "Team Name", name: "title", widget: "string", required: true}
-      - {label: "Age Group", name: "ageGroup", widget: "string", hint: "e.g., U13, U15, Senior"}
+      - {label: "Group", name: "group", widget: "string", hint: "e.g., U13, U15, Senior, Beginner, Advanced"}
       - {label: "Sport", name: "sport", widget: "string"}
       - label: "Season"
         name: "season"
@@ -51,8 +51,8 @@ collections:
         name: "coaches"
         widget: "list"
         fields:
-          - {label: "Name", name: "name", widget: "string"}
-          - {label: "Role", name: "role", widget: "string", default: "Coach"}
+          - {label: "Member", name: "member", widget: "relation", collection: "members", search_fields: ["title"], value_field: "{{slug}}", display_fields: ["title", "role"], hint: "Select member entry for this coach"}
+          - {label: "Role", name: "role", widget: "string", default: "Coach", hint: "Coach's role on this team"}
           - {label: "Generic Team Email", name: "email", widget: "string", hint: "Use generic team email (e.g., u13@club.org), NOT personal email"}
       - {label: "Social Image", name: "socialImage", widget: "image", required: false, hint: "Team photo for social sharing"}
       - {label: "Description", name: "description", widget: "text"}
@@ -71,7 +71,7 @@ collections:
       - {label: "Name", name: "title", widget: "string", required: true}
       - {label: "Role", name: "role", widget: "string", hint: "e.g., Coach, Manager, Player"}
       - {label: "Teams", name: "teams", widget: "list", required: false, hint: "Team paths, e.g., teams/u13-boys"}
-      - {label: "Age Group", name: "ageGroup", widget: "string", required: false, hint: "For players; omit for staff"}
+      - {label: "Group", name: "group", widget: "string", required: false, hint: "For players (age/skill level); omit for staff"}
       - {label: "Biography", name: "bio", widget: "text", required: false}
       - {label: "Portrait", name: "portrait", widget: "image", required: false}
       - label: "Privacy Settings"
