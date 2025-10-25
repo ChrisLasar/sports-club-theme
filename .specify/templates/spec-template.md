@@ -72,8 +72,11 @@
   Fill them out with the right edge cases.
 -->
 
-- What happens when [boundary condition]?
-- How does system handle [error scenario]?
+- What happens when a page has missing or minimal front matter?
+- How do we handle very long titles/descriptions for social previews?
+- What if no social image is provided — do we generate a fallback safely?
+- How does the layout behave on very small screens (≤320px) and large screens (≥1440px)?
+- What happens when JavaScript is disabled (progressive enhancement)?
 
 ## Requirements *(mandatory)*
 
@@ -84,16 +87,18 @@
 
 ### Functional Requirements
 
-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+- **FR-001**: Template MUST render [content type] pages from Markdown with front matter.
+- **FR-002**: Build MUST generate required social metadata (Open Graph, Twitter, canonical) with sensible defaults and per-page overrides.
+- **FR-003**: Navigation MUST be mobile-first and accessible (WCAG 2.1 AA), functioning without JavaScript.
+- **FR-004**: Images MAY be processed at build time (resize, WebP/AVIF) and support colocated page bundles.
+- **FR-005**: Any JavaScript MUST be progressive enhancement; if needed, prefer Alpine.js components kept under 50KB gzip total.
+- **FR-006**: A minimal example (content + usage) MUST be added for this feature under `example/` or `content/`.
+- **FR-007**: Documentation for this feature MUST be updated in parallel in `docs/` or the feature spec’s `quickstart.md`.
 
 *Example of marking unclear requirements:*
 
-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
+- **FR-008**: Social image generation rules [NEEDS CLARIFICATION: template, dimensions, fallback strategy].
+- **FR-009**: Supported front matter keys [NEEDS CLARIFICATION: list and defaults].
 
 ### Key Entities *(include if feature involves data)*
 
@@ -109,7 +114,19 @@
 
 ### Measurable Outcomes
 
-- **SC-001**: [Measurable metric, e.g., "Users can complete account creation in under 2 minutes"]
-- **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
-- **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
-- **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
+- **SC-001**: Homepage and article example meet performance budgets (LCP ≤ 2.5s on 3G, CLS ≤ 0.1, total JS ≤ 50KB gzip).
+- **SC-002**: Default components pass accessibility checks (WCAG 2.1 AA) via lint/audit on example pages.
+- **SC-003**: Social metadata is present and correct on example pages (OG title/description/image, Twitter card, canonical URL).
+- **SC-004**: Feature can be demonstrated with a minimal example content file; docs updated alongside implementation.
+
+---
+
+## Constitution Alignment Checklist
+
+> Verify the feature complies with the Constitution quality gates.
+
+- No login/auth or server/database introduced by this feature.
+- Output remains fully static; enhancements degrade gracefully without JS.
+- Content stays human-readable; front matter keys documented.
+- Mobile responsiveness and accessibility validated on example pages.
+- Social metadata defaults and overrides function as specified.

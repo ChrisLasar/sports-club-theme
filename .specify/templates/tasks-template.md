@@ -49,8 +49,8 @@ description: "Task list template for feature implementation"
 **Purpose**: Project initialization and basic structure
 
 - [ ] T001 Create project structure per implementation plan
-- [ ] T002 Initialize [language] project with [framework] dependencies
-- [ ] T003 [P] Configure linting and formatting tools
+- [ ] T002 Initialize Hugo (or chosen SSG) and pin versions in tooling
+- [ ] T003 [P] Configure linting/formatting and HTML/Accessibility lint
 
 ---
 
@@ -62,12 +62,12 @@ description: "Task list template for feature implementation"
 
 Examples of foundational tasks (adjust based on your project):
 
-- [ ] T004 Setup database schema and migrations framework
-- [ ] T005 [P] Implement authentication/authorization framework
-- [ ] T006 [P] Setup API routing and middleware structure
-- [ ] T007 Create base models/entities that all stories depend on
-- [ ] T008 Configure error handling and logging infrastructure
-- [ ] T009 Setup environment configuration management
+- [ ] T004 Create base site config (single config preferred) with site metadata
+- [ ] T005 [P] Establish layouts/partials (header, footer, list, single) and CSS variables/tokens
+- [ ] T006 [P] Add base components without JavaScript; if needed, prefer Alpine.js for enhancements
+- [ ] T007 Setup image processing pipeline for page bundles (resize, WebP/AVIF)
+- [ ] T008 Configure social metadata partial with defaults and per-page overrides
+- [ ] T009 Add accessibility and performance tooling (e.g., pa11y, Lighthouse CI locally)
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -83,17 +83,17 @@ Examples of foundational tasks (adjust based on your project):
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T010 [P] [US1] Lint/audit example pages for accessibility (WCAG 2.1 AA)
+- [ ] T011 [P] [US1] Run performance audit on example pages (budget: LCP ≤ 2.5s 3G, CLS ≤ 0.1)
 
 ### Implementation for User Story 1
 
-- [ ] T012 [P] [US1] Create [Entity1] model in src/models/[entity1].py
-- [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
-- [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
-- [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T016 [US1] Add validation and error handling
-- [ ] T017 [US1] Add logging for user story 1 operations
+- [ ] T012 [P] [US1] Add minimal example content (Markdown + front matter) demonstrating the feature
+- [ ] T013 [P] [US1] Implement layouts/partials to render the feature statically
+- [ ] T014 [US1] Add social metadata defaults and per-page override handling
+- [ ] T015 [US1] Add optional Alpine.js enhancement (if applicable) with graceful degradation
+- [ ] T016 [US1] Ensure responsive behavior and keyboard navigation
+- [ ] T017 [US1] Update docs/quickstart with example usage and screenshots
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -107,15 +107,15 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
 
-- [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T018 [P] [US2] Accessibility audit on US2 example pages
+- [ ] T019 [P] [US2] Performance audit on US2 example pages
 
 ### Implementation for User Story 2
 
-- [ ] T020 [P] [US2] Create [Entity] model in src/models/[entity].py
-- [ ] T021 [US2] Implement [Service] in src/services/[service].py
-- [ ] T022 [US2] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T023 [US2] Integrate with User Story 1 components (if needed)
+- [ ] T020 [P] [US2] Add example content for US2 variant
+- [ ] T021 [US2] Extend layouts/partials/styles as needed staying within budgets
+- [ ] T022 [US2] Verify social metadata and canonical URLs
+- [ ] T023 [US2] Verify no JS dependency; Alpine.js enhancement optional
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -129,14 +129,14 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
 
-- [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T024 [P] [US3] Accessibility audit on US3 example pages
+- [ ] T025 [P] [US3] Performance audit on US3 example pages
 
 ### Implementation for User Story 3
 
-- [ ] T026 [P] [US3] Create [Entity] model in src/models/[entity].py
-- [ ] T027 [US3] Implement [Service] in src/services/[service].py
-- [ ] T028 [US3] Implement [endpoint/feature] in src/[location]/[file].py
+- [ ] T026 [P] [US3] Add example content and verify responsive behavior
+- [ ] T027 [US3] Extend templates/styles; keep JS optional and small
+- [ ] T028 [US3] Validate OG/Twitter metadata presence and correctness
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -150,12 +150,12 @@ Examples of foundational tasks (adjust based on your project):
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] TXXX [P] Documentation updates in docs/
+- [ ] TXXX [P] Documentation updates in docs/ and feature quickstarts
 - [ ] TXXX Code cleanup and refactoring
-- [ ] TXXX Performance optimization across all stories
-- [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
-- [ ] TXXX Security hardening
-- [ ] TXXX Run quickstart.md validation
+- [ ] TXXX Performance optimization across all stories (respect budgets)
+- [ ] TXXX [P] Accessibility fixes from audits
+- [ ] TXXX Security/privacy review (no trackers by default)
+- [ ] TXXX Validate quickstart.md from a clean clone
 
 ---
 
