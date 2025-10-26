@@ -108,26 +108,26 @@ Hugo project structure with:
 
 ### Implementation for User Story 2
 
-- [ ] T039 [P] [US2] Create archetypes/events.md archetype per contracts/archetype-event.md with event schema
-- [ ] T040 [P] [US2] Create archetypes/results.md archetype per contracts/archetype-result.md with result schema
-- [ ] T041 [P] [US2] Add example content/events/u13-boys-vs-rival-2025-11-15.md upcoming fixture
-- [ ] T042 [P] [US2] Add example content/events/u15-tournament-2025-12-01.md tournament event
-- [ ] T043 [P] [US2] Add example content/events/u13-training-camp-2025-10-20.md past event
-- [ ] T044 [P] [US2] Add example content/results/u13-boys-win-3-1.md linked to completed event
-- [ ] T045 [P] [US2] Add example content/results/u15-tournament-2nd-place.md tournament result
-- [ ] T046 [US2] Create layouts/events/single.html template with event details, date/time, location, registration info, and status
-- [ ] T047 [US2] Create layouts/events/list.html template with filterable card list (upcoming/past, by team)
-- [ ] T048 [US2] Create layouts/results/single.html template with score/placement, highlights, and media gallery
-- [ ] T049 [US2] Create layouts/results/list.html template with filterable archive by team and date
-- [ ] T050 [P] [US2] Create layouts/partials/event-card.html component with date, opponent, location, team badge, and status indicator
-- [ ] T051 [P] [US2] Create layouts/partials/result-card.html component with score display and outcome
-- [ ] T052 [US2] Add Alpine.js-based filter controls to layouts/events/list.html for team and date filtering with graceful degradation
-- [ ] T053 [US2] Add Alpine.js-based filter controls to layouts/results/list.html for team filtering with graceful degradation
-- [ ] T054 [US2] Style event and result layouts with daisyUI card components and status badges
-- [ ] T055 [US2] Add empty state messaging to event and result list templates when no items match filters
-- [ ] T056 [US2] Update layouts/teams/single.html to auto-list related events and results using team taxonomy
-- [ ] T057 [US2] Add social metadata with event posters and result highlights to event and result templates
-- [ ] T058 [US2] Update homepage layouts/index.html to show upcoming events and recent results sections
+- [X] T039 [P] [US2] Create archetypes/events.md archetype per contracts/archetype-event.md with event schema
+- [X] T040 [P] [US2] Create archetypes/results.md archetype per contracts/archetype-result.md with result schema
+- [X] T041 [P] [US2] Add example content/events/u13-boys-vs-rival-2025-11-15.md upcoming fixture
+- [X] T042 [P] [US2] Add example content/events/u15-tournament-2025-12-01.md tournament event
+- [X] T043 [P] [US2] Add example content/events/u13-training-camp-2025-10-20.md past event
+- [X] T044 [P] [US2] Add example content/results/u13-boys-win-3-1.md linked to completed event
+- [X] T045 [P] [US2] Add example content/results/u15-tournament-2nd-place.md tournament result
+- [X] T046 [US2] Create layouts/events/single.html template with event details, date/time, location, registration info, and status
+- [X] T047 [US2] Create layouts/events/list.html template with filterable card list (upcoming/past, by team)
+- [X] T048 [US2] Create layouts/results/single.html template with score/placement, highlights, and media gallery
+- [X] T049 [US2] Create layouts/results/list.html template with filterable archive by team and date
+- [X] T050 [P] [US2] Create layouts/partials/event-card.html component with date, opponent, location, team badge, and status indicator
+- [X] T051 [P] [US2] Create layouts/partials/result-card.html component with score display and outcome
+- [X] T052 [US2] Add Alpine.js-based filter controls to layouts/events/list.html for team and date filtering with graceful degradation
+- [X] T053 [US2] Add Alpine.js-based filter controls to layouts/results/list.html for team filtering with graceful degradation
+- [X] T054 [US2] Style event and result layouts with daisyUI card components and status badges
+- [X] T055 [US2] Add empty state messaging to event and result list templates when no items match filters
+- [X] T056 [US2] Update layouts/teams/single.html to auto-list related events and results using team taxonomy
+- [X] T057 [US2] Add social metadata with event posters and result highlights to event and result templates
+- [X] T058 [US2] Update homepage layouts/index.html to show upcoming events and recent results sections
 
 **Checkpoint**: User Story 2 complete - users can view and filter events and results independently
 
@@ -141,23 +141,23 @@ Hugo project structure with:
 
 ### Implementation for User Story 3
 
-- [ ] T059 [P] [US3] Create archetypes/posts.md archetype per contracts/archetype-post.md with post schema
-- [ ] T060 [P] [US3] Add example content/posts/2025-10-20-season-kickoff.md with team tags and social image
-- [ ] T061 [P] [US3] Add example content/posts/2025-10-25-u13-tournament-preview.md with multiple team associations
-- [ ] T062 [P] [US3] Add example content/posts/2025-11-01-training-update.md with discuss link example
-- [ ] T063 [US3] Create layouts/posts/single.html template with featured image, author, date, body, and optional discuss link
-- [ ] T064 [US3] Create layouts/posts/list.html template with paginated post cards
-- [ ] T065 [P] [US3] Create layouts/partials/post-card.html component with summary, image, date, and team tags
-- [ ] T066 [US3] Style post layouts with daisyUI prose components and article formatting
-- [ ] T067 [US3] Add conditional discuss link display in layouts/posts/single.html (only if discussLink set)
-- [ ] T068 [US3] Update layouts/teams/single.html to show team-tagged posts automatically using team taxonomy
-- [ ] T069 [US3] Add social metadata with featured images to post template
-- [ ] T070 [US3] Update homepage layouts/index.html to display recent posts feed
-- [ ] T071 [US3] Create static/admin/index.html Sveltia CMS entry point HTML file
-- [ ] T072 [US3] Create static/admin/config.yml Sveltia CMS configuration per contracts/sveltia-cms-config.md
-- [ ] T073 [US3] Configure Git backend in static/admin/config.yml for GitHub/GitLab integration
+- [X] T059 [P] [US3] Create archetypes/posts.md archetype per contracts/archetype-post.md with post schema
+- [X] T060 [P] [US3] Add example content/posts/2025-10-20-season-kickoff.md with team tags and social image
+- [X] T061 [P] [US3] Add example content/posts/2025-10-25-u13-tournament-preview.md with multiple team associations
+- [X] T062 [P] [US3] Add example content/posts/2025-11-01-training-update.md with discuss link example
+- [X] T063 [US3] Create layouts/posts/single.html template with featured image, author, date, body, and optional discuss link
+- [X] T064 [US3] Create layouts/posts/list.html template with paginated post cards
+- [X] T065 [P] [US3] Create layouts/partials/post-card.html component with summary, image, date, and team tags
+- [X] T066 [US3] Style post layouts with daisyUI prose components and article formatting
+- [X] T067 [US3] Add conditional discuss link display in layouts/posts/single.html (only if discussLink set)
+- [X] T068 [US3] Update layouts/teams/single.html to show team-tagged posts automatically using team taxonomy
+- [X] T069 [US3] Add social metadata with featured images to post template
+- [X] T070 [US3] Update homepage layouts/index.html to display recent posts feed
+- [X] T071 [US3] Create static/admin/index.html Sveltia CMS entry point HTML file
+- [X] T072 [US3] Create static/admin/config.yml Sveltia CMS configuration per contracts/sveltia-cms-config.md
+- [X] T073 [US3] Configure Git backend in static/admin/config.yml for GitHub/GitLab integration
 - [ ] T074 [US3] Test content creation workflow through Sveltia CMS for posts, teams, members, events, and results
-- [ ] T075 [US3] Document CMS access and usage in specs/001-sports-club-ssg/quickstart.md editor section
+- [X] T075 [US3] Document CMS access and usage in specs/001-sports-club-ssg/quickstart.md editor section
 
 **Checkpoint**: User Story 3 complete - editors can manage all content through Sveltia CMS without technical knowledge
 
@@ -167,30 +167,30 @@ Hugo project structure with:
 
 **Purpose**: Improvements that affect multiple user stories and final quality checks
 
-- [ ] T076 [P] Apply daisyUI theme customization in tailwind.config.js with club branding colors
-- [ ] T077 [P] Optimize Tailwind CSS purge configuration to remove unused styles for production builds
-- [ ] T078 [P] Add font preloading and font-display: swap to layouts/partials/head.html
+- [X] T076 [P] Apply daisyUI theme customization in tailwind.config.js with club branding colors
+- [X] T077 [P] Optimize Tailwind CSS purge configuration to remove unused styles for production builds
+- [X] T078 [P] Add font preloading and font-display: swap to layouts/partials/head.html (N/A - using system fonts)
 - [ ] T079 [P] Ensure all images have width/height attributes for CLS optimization
 - [ ] T080 [P] Add loading="lazy" to below-fold images in all templates
-- [ ] T081 Configure Hugo minify settings in config/_default/hugo.toml for HTML, CSS, and JS
+- [X] T081 Configure Hugo minify settings in config/_default/hugo.toml for HTML, CSS, and JS
 - [ ] T082 [P] Verify keyboard navigation works across all interactive elements (nav, filters, links)
 - [ ] T083 [P] Verify color contrast meets WCAG 2.1 AA (≥4.5:1 for body text) across all components
-- [ ] T084 [P] Add ARIA labels to interactive elements (mobile menu toggle, filter controls)
+- [X] T084 [P] Add ARIA labels to interactive elements (mobile menu toggle, filter controls)
 - [ ] T085 [P] Test all layouts with JavaScript disabled to ensure core functionality
 - [ ] T086 [P] Validate responsive breakpoints on mobile (≤320px) and desktop (≥1440px) screens
 - [ ] T087 Create example media/images for teams, events, results, and posts in appropriate directories
-- [ ] T088 [P] Update specs/001-sports-club-ssg/quickstart.md with deployment instructions (Netlify, Vercel, GitHub Pages)
-- [ ] T089 [P] Add build and development scripts to package.json (dev, build, clean)
-- [ ] T090 [P] Create .nvmrc or document Node.js version requirement
+- [X] T088 [P] Update specs/001-sports-club-ssg/quickstart.md with deployment instructions (Netlify, Vercel, GitHub Pages)
+- [X] T089 [P] Add build and development scripts to package.json (dev, build, clean)
+- [X] T090 [P] Create .nvmrc or document Node.js version requirement
 - [ ] T091 Verify performance metrics: LCP ≤ 2.5s on 3G, CLS ≤ 0.1, total JS ≤ 50KB gzip
 - [ ] T092 [P] Validate social share previews (title, description, image) for homepage, team page, and post
-- [ ] T093 [P] Add content security policy meta tags to layouts/partials/head.html
-- [ ] T094 [P] Create CONTRIBUTING.md with editor guidelines and content standards
+- [X] T093 [P] Add content security policy meta tags to layouts/partials/head.html
+- [X] T094 [P] Create CONTRIBUTING.md with editor guidelines and content standards
 - [ ] T095 Perform final accessibility audit on all example pages (homepage, teams, members, events, results, posts)
 - [ ] T096 [P] Validate HTML output with W3C validator
 - [ ] T097 Test complete quickstart workflow from fresh clone following specs/001-sports-club-ssg/quickstart.md
-- [ ] T098 [P] Add example robots.txt and sitemap.xml configuration to config/_default/hugo.toml
-- [ ] T099 [P] Document privacy policy considerations for member data in specs/001-sports-club-ssg/quickstart.md
+- [X] T098 [P] Add example robots.txt and sitemap.xml configuration to config/_default/hugo.toml
+- [X] T099 [P] Document privacy policy considerations for member data in specs/001-sports-club-ssg/quickstart.md
 - [ ] T100 Final review: verify all FR-001 through FR-013 requirements from spec.md are met
 
 ---
