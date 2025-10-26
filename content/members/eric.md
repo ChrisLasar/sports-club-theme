@@ -8,7 +8,7 @@ portrait: /images/uploads/pexels-italo-melo-881954-2379005.jpg
 visibility:
   publicDisplay: true
   showOnRoster: true
-  portraitConsent: false
+  portraitConsent: true
 contactPublic: false
 ---
 Some more information in file body
