@@ -1,0 +1,121 @@
+{{ define "main" }}
+<div class="container mx-auto px-4 py-8">
+  <header class="mb-8">
+    <h1 class="text-4xl font-bold mb-4">Events & Fixtures</h1>
+    <p class="text-lg text-base-content/70">Browse upcoming and past events for all teams</p>
+  </header>
+  
+  {{- /* Filter Controls */ -}}
+  <div class="mb-8" x-data="{ 
+    selectedStatus: 'all', 
+    selectedTeam: 'all',
+    showEmpty: false,
+    checkEmpty() {
+      this.$nextTick(() => {
+        const visibleCards = this.$el.querySelectorAll('.grid > div[x-show]:not([style*=\'display: none\'])');
+        this.showEmpty = visibleCards.length === 0;
+      });
+    }
+  }" x-init="$watch('selectedStatus', () => checkEmpty()); $watch('selectedTeam', () => checkEmpty()); checkEmpty();">
+    <div class="flex flex-wrap gap-4 mb-6">
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text font-semibold">Status</span>
+        </label>
+        <select class="select select-bordered" x-model="selectedStatus">
+          <option value="all">All Events</option>
+          <option value="upcoming">Upcoming</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+      
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text font-semibold">Team</span>
+        </label>
+        <select class="select select-bordered" x-model="selectedTeam">
+          <option value="all">All Teams</option>
+          {{ $teams := slice }}
+          {{ range where site.RegularPages "Type" "events" }}
+            {{ range .Params.teams }}
+              {{ $teams = $teams | append . }}
+            {{ end }}
+          {{ end }}
+          {{ range $teams | uniq }}
+            {{ with site.GetPage (printf "teams/%s" .) }}
+            <option value="{{ path.Base .RelPermalink }}">{{ .Title }}</option>
+            {{ end }}
+          {{ end }}
+        </select>
+      </div>
+    </div>
+    
+    {{- /* Events Grid */ -}}
+    {{ $events := where site.RegularPages "Type" "events" }}
+    {{ $events = sort $events ".Params.date" "desc" }}
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {{ range $index, $event := $events }}
+        {{ $eventTeams := $event.Params.teams }}
+        <div 
+          x-show="(selectedStatus === 'all' || selectedStatus === '{{ $event.Params.status }}') && (selectedTeam === 'all' {{ range $eventTeams }}|| selectedTeam === '{{ . }}'{{ end }})"
+          x-transition
+          class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
+          
+          {{ with $event.Params.socialImage }}
+          <figure>
+            {{- partial "responsive-image.html" (dict "context" $ "src" . "alt" $.Title "class" "h-48 w-full object-cover") -}}
+          </figure>
+          {{ end }}
+          
+          <div class="card-body">
+            <div class="flex gap-2 flex-wrap mb-2">
+              <span class="badge {{ if eq $event.Params.eventType "fixture" }}badge-primary{{ else if eq $event.Params.eventType "tournament" }}badge-secondary{{ else }}badge-accent{{ end }} badge-sm">
+                {{ $event.Params.eventType | humanize }}
+              </span>
+              {{ if eq $event.Params.status "upcoming" }}
+                <span class="badge badge-success badge-sm">Upcoming</span>
+              {{ else if eq $event.Params.status "completed" }}
+                <span class="badge badge-ghost badge-sm">Completed</span>
+              {{ end }}
+            </div>
+            
+            <h3 class="card-title">{{ $event.Title }}</h3>
+            
+            {{ with $event.Params.date }}
+            <p class="text-sm opacity-70">
+              <time datetime="{{ . }}">{{ dateFormat "Jan 2, 2006 3:04 PM" . }}</time>
+            </p>
+            {{ end }}
+            
+            {{ with $event.Params.location }}
+            <p class="text-sm">📍 {{ . }}</p>
+            {{ end }}
+            
+            {{ with $event.Params.opponent }}
+            <p class="text-sm"><strong>vs</strong> {{ . }}</p>
+            {{ end }}
+            
+            <div class="card-actions justify-end mt-4">
+              <a href="{{ $event.RelPermalink }}" class="btn btn-sm btn-outline">Details</a>
+            </div>
+          </div>
+        </div>
+      {{ end }}
+    </div>
+    
+    {{- /* Empty State Message */ -}}
+    <div x-show="showEmpty" x-cloak class="alert alert-info mt-6">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      <span>No events match your filter criteria.</span>
+    </div>
+  </div>
+  
+  {{ if not $events }}
+  <div class="alert">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    <span>No events have been created yet. Check back soon!</span>
+  </div>
+  {{ end }}
+</div>
+{{ end }}

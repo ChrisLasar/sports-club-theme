@@ -82,7 +82,7 @@
     <h2 class="text-2xl font-bold mb-4">Upcoming Events</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {{ range first 6 $upcomingEvents }}
-        {{- partial "event-card.html" . -}}
+        {{- partial "event-card.html" (dict "event" .) -}}
       {{ end }}
     </div>
     {{ if gt (len $upcomingEvents) 6 }}
@@ -102,7 +102,7 @@
     <h2 class="text-2xl font-bold mb-4">Recent Results</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       {{ range first 6 (sort $relatedResults ".Params.date" "desc") }}
-        {{- partial "result-card.html" . -}}
+        {{- partial "result-card.html" (dict "result" .) -}}
       {{ end }}
     </div>
     {{ if gt (len $relatedResults) 6 }}

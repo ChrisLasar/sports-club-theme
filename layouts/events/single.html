@@ -1,0 +1,135 @@
+{{ define "main" }}
+<article class="container mx-auto px-4 py-8">
+  {{- /* Event Header */ -}}
+  <header class="mb-8">
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+      <div class="flex-grow">
+        <div class="flex gap-2 flex-wrap mb-2">
+          <span class="badge badge-lg {{ if eq .Params.eventType "fixture" }}badge-primary{{ else if eq .Params.eventType "tournament" }}badge-secondary{{ else if eq .Params.eventType "training-camp" }}badge-accent{{ else }}badge-neutral{{ end }}">
+            {{ .Params.eventType | humanize }}
+          </span>
+          {{ if eq .Params.status "upcoming" }}
+            <span class="badge badge-lg badge-success">Upcoming</span>
+          {{ else if eq .Params.status "completed" }}
+            <span class="badge badge-lg badge-ghost">Completed</span>
+          {{ else if eq .Params.status "cancelled" }}
+            <span class="badge badge-lg badge-error">Cancelled</span>
+          {{ end }}
+        </div>
+        
+        <h1 class="text-4xl font-bold mb-2">{{ .Title }}</h1>
+        
+        {{ with .Params.description }}
+          <p class="text-lg text-base-content/70">{{ . }}</p>
+        {{ end }}
+      </div>
+      
+      {{ with .Params.socialImage }}
+      <figure class="w-full md:w-64 rounded-lg overflow-hidden shadow-lg">
+        {{- partial "responsive-image.html" (dict "context" $ "src" . "alt" $.Title "class" "w-full") -}}
+      </figure>
+      {{ end }}
+    </div>
+    
+    {{- /* Event Details Card */ -}}
+    <div class="card bg-base-200 shadow-xl">
+      <div class="card-body">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {{ with .Params.date }}
+          <div>
+            <h3 class="font-semibold text-sm uppercase tracking-wide opacity-70 mb-1">Date & Time</h3>
+            <p class="text-lg">
+              <time datetime="{{ . }}">{{ dateFormat "Monday, January 2, 2006 at 3:04 PM" . }}</time>
+            </p>
+          </div>
+          {{ end }}
+          
+          {{ with .Params.location }}
+          <div>
+            <h3 class="font-semibold text-sm uppercase tracking-wide opacity-70 mb-1">Location</h3>
+            <p class="text-lg">{{ . }}</p>
+          </div>
+          {{ end }}
+          
+          {{ with .Params.opponent }}
+          <div>
+            <h3 class="font-semibold text-sm uppercase tracking-wide opacity-70 mb-1">Opponent</h3>
+            <p class="text-lg">{{ . }}</p>
+          </div>
+          {{ end }}
+          
+          {{ with .Params.teams }}
+          <div>
+            <h3 class="font-semibold text-sm uppercase tracking-wide opacity-70 mb-1">Teams</h3>
+            <div class="flex gap-2 flex-wrap">
+              {{ range . }}
+                {{ with site.GetPage (printf "teams/%s" .) }}
+                <a href="{{ .RelPermalink }}" class="badge badge-primary badge-lg">
+                  {{ .Title }}
+                </a>
+                {{ end }}
+              {{ end }}
+            </div>
+          </div>
+          {{ end }}
+        </div>
+        
+        {{ if .Params.registrationRequired }}
+        <div class="alert alert-info mt-4">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <div>
+            <strong>Registration Required</strong>
+            {{ with .Params.registrationDeadline }}
+            <p class="text-sm">Deadline: {{ dateFormat "January 2, 2006" . }}</p>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </header>
+  
+  {{- /* Main Content */ -}}
+  <div class="prose max-w-none mb-8">
+    {{ .Content }}
+  </div>
+  
+  {{- /* Related Result */ -}}
+  {{ if eq .Params.status "completed" }}
+    {{ $eventPath := .File.Path }}
+    {{ $relatedResults := where site.RegularPages "Type" "results" }}
+    {{ range $relatedResults }}
+      {{ if eq .Params.event $eventPath }}
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold mb-4">Match Result</h2>
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h3 class="card-title">{{ .Title }}</h3>
+            {{ with .Params.score }}
+              {{ if .home }}
+              <div class="text-center my-4">
+                <div class="text-sm opacity-70 mb-2">Final Score</div>
+                <div class="text-4xl font-bold">{{ .home }} - {{ .away }}</div>
+                <div class="text-sm mt-2">
+                  <span>{{ .homeTeam }}</span> vs <span>{{ .awayTeam }}</span>
+                </div>
+              </div>
+              {{ end }}
+            {{ end }}
+            {{ with .Params.placement }}
+            <div class="text-center my-4">
+              <div class="text-sm opacity-70 mb-2">Final Placement</div>
+              <div class="text-4xl font-bold">{{ . }}</div>
+            </div>
+            {{ end }}
+            <div class="card-actions justify-end">
+              <a href="{{ .RelPermalink }}" class="btn btn-primary">View Full Result</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      {{ end }}
+    {{ end }}
+  {{ end }}
+</article>
+{{ end }}

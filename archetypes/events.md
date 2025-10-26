@@ -1,6 +1,6 @@
 ---
 title: "{{ replace .Name "-" " " | title }}"
-type: "fixture"  # fixture | tournament | training-camp | social
+eventType: "fixture"  # fixture | tournament | training-camp | social
 date: "{{ .Date }}"
 location: ""
 venue: ""  # Venue slug from data/venues.yaml
