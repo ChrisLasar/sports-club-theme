@@ -3,7 +3,7 @@
     <div class="navbar-start">
       <a href="{{ site.BaseURL | relURL }}" class="btn btn-ghost normal-case text-xl">
         {{ with site.Data.club.logo }}
-          <img src="{{ . }}" alt="{{ site.Data.club.name }} logo" class="h-8 w-auto mr-2">
+          <img src="{{ . }}" alt="{{ site.Data.club.name }} logo" class="h-8 w-auto mr-2" width="32" height="32" loading="eager">
         {{ end }}
         {{ site.Data.club.name }}
       </a>

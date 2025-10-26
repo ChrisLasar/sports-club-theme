@@ -9,6 +9,11 @@
   body {
     @apply antialiased;
   }
+  
+  /* Alpine.js: Hide elements with x-cloak until Alpine loads */
+  [x-cloak] {
+    display: none !important;
+  }
 }
 
 /* Custom component styles */
