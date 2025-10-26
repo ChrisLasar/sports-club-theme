@@ -8,7 +8,7 @@ teams:
   - karate
 opponent: ''
 description: Gemeinschaftsdienst
-requiresRegistration: false
+registrationRequired: false
 registrationDeadline: ''
 status: upcoming
 socialImage: /images/uploads/pexels-picjumbo-com-55570-196648.jpg

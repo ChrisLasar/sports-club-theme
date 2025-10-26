@@ -92,7 +92,7 @@ collections:
       - {label: "Teams", name: "teams", widget: "list", hint: "Team slugs (taxonomy)"}
       - {label: "Opponent", name: "opponent", widget: "string", required: false, hint: "For fixtures"}
       - {label: "Description", name: "description", widget: "text"}
-      - {label: "Registration Required", name: "requiresRegistration", widget: "boolean", default: false}
+      - {label: "Registration Required", name: "registrationRequired", widget: "boolean", default: false}
       - {label: "Registration Deadline", name: "registrationDeadline", widget: "datetime", time_format: false, required: false}
       - {label: "Status", name: "status", widget: "select", options: ["upcoming", "completed", "cancelled", "postponed"], default: "upcoming"}
       - {label: "Social Image", name: "socialImage", widget: "image", required: false}
