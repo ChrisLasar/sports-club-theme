@@ -66,7 +66,7 @@ Hugo automatically:
 For development and testing, you can use placeholder services:
 
 ```markdown
-![Placeholder](https://via.placeholder.com/1200x630/1e40af/ffffff?text=Sports+Club)
+![Placeholder](https://placehold.co/1200x630/1e40af/ffffff?text=Sports+Club)
 ```
 
 Or use the included placeholder images in `static/images/placeholders/`.
