@@ -7,6 +7,7 @@ The project has been configured to follow daisyUI 5 best practices according to 
 ### Configuration Files
 
 #### 1. CSS Configuration (`assets/css/main.css`)
+
 All Tailwind CSS 4 and daisyUI 5 configuration is now done in the CSS file:
 
 ```css
@@ -14,16 +15,13 @@ All Tailwind CSS 4 and daisyUI 5 configuration is now done in the CSS file:
 @plugin "daisyui";
 ```
 
-**Custom Themes Configured:**
-- `sportclub` (default light theme) - with club branding colors
-- `sportclub-dark` (dark mode theme with `prefersdark: true`)
+**Themes:**
+- Using daisyUI's standard built-in themes (light and dark)
+- No custom theme configuration
+- Themes automatically switch based on system preferences (`prefers-color-scheme`)
 
-**Color Palette:**
-- Primary: Sports blue (oklch format for better color consistency)
-- Secondary: Victory green
-- Accent: Energy orange
-- Neutral: Dark gray
-- Info, Success, Warning, Error: Standard semantic colors
+**To customize themes later:**
+Add a `@plugin "daisyui/theme"` block in `main.css` with your custom colors using OKLCH format.
 
 #### 2. Tailwind Config (`tailwind.config.js`)
 ⚠️ **DEPRECATED**: This file is no longer used in Tailwind CSS v4. It's kept for reference only and can be deleted. All configuration is now in `assets/css/main.css`.
@@ -100,14 +98,26 @@ The project currently uses these daisyUI components correctly:
 
 ### Theme Customization
 
-To customize the theme colors, edit `assets/css/main.css`:
+Currently using daisyUI's standard themes. To customize theme colors:
 
-1. Find the `@plugin "daisyui/theme"` block
-2. Modify the OKLCH color values
-3. Colors use OKLCH format: `oklch(L% C H)` where:
+1. Add a `@plugin "daisyui/theme"` block to `assets/css/main.css`
+2. Define your custom colors using OKLCH format: `oklch(L% C H)` where:
    - L = Lightness (0-100%)
    - C = Chroma (saturation, usually 0-0.4)
    - H = Hue (0-360)
+3. Use the [daisyUI Theme Generator](https://daisyui.com/theme-generator/) for visual customization
+
+Example:
+```css
+@plugin "daisyui/theme" {
+  name: "mytheme";
+  default: true;
+  color-scheme: light;
+  --color-primary: oklch(55% 0.3 240);
+  --color-secondary: oklch(70% 0.25 200);
+  /* ... other colors */
+}
+```
 
 ### Browser Compatibility
 
