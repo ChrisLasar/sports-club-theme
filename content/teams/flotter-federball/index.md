@@ -20,7 +20,7 @@ coaches:
   - member: john-smith
     role: Coach
     email: senior@club.org
-socialImage: https://images.pexels.com/photos/5767580/pexels-photo-5767580.jpeg?cs=srgb&dl=pexels-leozhao-5767580.jpg&fm=jpg&w=4813&h=3209
+socialImage: pexels-leozhao-5767580.jpg
 description: What a nice team. Similar to sqidish.
 tags: []
 ---
