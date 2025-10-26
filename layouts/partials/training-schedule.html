@@ -1,0 +1,80 @@
+{{- /* Training Schedule Partial */ -}}
+<div class="card bg-base-100 shadow-xl">
+  <div class="card-body">
+    <h2 class="card-title">Training Schedule</h2>
+    
+    {{- /* Check season status */ -}}
+    {{ if eq .Params.season.status "off-season" }}
+    <div class="alert alert-warning">
+      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+      <span>This team is currently in off-season. Training will resume when the new season starts.</span>
+    </div>
+    {{ else if eq .Params.season.status "archived" }}
+    <div class="alert alert-info">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      <span>This team is archived. Please contact the club for current team information.</span>
+    </div>
+    {{ else }}
+    
+    {{- /* Active season training schedule */ -}}
+    {{ with .Params.training }}
+    <div class="overflow-x-auto">
+      <table class="table table-zebra w-full">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Time</th>
+            <th>Venue</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{ range . }}
+          <tr>
+            <td class="font-semibold">{{ .day }}</td>
+            <td>{{ .startTime }} - {{ .endTime }}</td>
+            <td>
+              {{ $trainingVenue := .venue }}
+              {{ with site.Data.venues }}
+                {{ $venueData := index . $trainingVenue }}
+                {{ with $venueData }}
+                  <div>
+                    <div class="font-medium">{{ .name }}</div>
+                    {{ with .address }}
+                    <div class="text-sm opacity-70">{{ . }}</div>
+                    {{ end }}
+                    {{ with .mapLink }}
+                    <a href="{{ . }}" target="_blank" rel="noopener" class="link link-primary text-sm">
+                      View Map →
+                    </a>
+                    {{ end }}
+                  </div>
+                {{ end }}
+              {{ end }}
+            </td>
+          </tr>
+          {{ end }}
+        </tbody>
+      </table>
+    </div>
+    {{ end }}
+    
+    {{- /* Venue details */ -}}
+    {{ with site.Data.venues }}
+      {{ $venue := index . $.Params.venue }}
+      {{ with $venue }}
+      <div class="mt-4 p-4 bg-base-200 rounded-lg">
+        <h3 class="font-semibold mb-2">Venue Information</h3>
+        <p class="text-sm"><strong>{{ .name }}</strong></p>
+        {{ with .address }}
+        <p class="text-sm">{{ . }}</p>
+        {{ end }}
+        {{ with .facilities }}
+        <p class="text-sm mt-2"><strong>Facilities:</strong> {{ . }}</p>
+        {{ end }}
+      </div>
+      {{ end }}
+    {{ end }}
+    
+    {{ end }}
+  </div>
+</div>

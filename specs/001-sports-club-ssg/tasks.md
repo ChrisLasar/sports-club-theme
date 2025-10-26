@@ -35,14 +35,14 @@ Hugo project structure with:
 
 **Purpose**: Project initialization and basic Hugo structure
 
-- [ ] T001 Initialize Hugo Extended 0.152+ site structure with required directories (archetypes/, assets/, content/, data/, layouts/, static/, config/_default/)
-- [ ] T002 Create config/_default/hugo.toml with base configuration, taxonomies (team, tag, category), and performance settings
-- [ ] T003 Initialize Node.js project with package.json and install Tailwind CSS 4.x, daisyUI 5.x, PostCSS, and autoprefixer
-- [ ] T004 Create tailwind.config.js with daisyUI plugin, content paths, and custom theme configuration
-- [ ] T005 Create postcss.config.js for Tailwind CSS processing
-- [ ] T006 [P] Create assets/css/main.css entry point with Tailwind directives
-- [ ] T007 [P] Create .gitignore with Hugo, Node.js, and editor-specific exclusions
-- [ ] T008 [P] Create README.md with project overview, prerequisites, and setup instructions
+- [X] T001 Initialize Hugo Extended 0.152+ site structure with required directories (archetypes/, assets/, content/, data/, layouts/, static/, config/_default/)
+- [X] T002 Create config/_default/hugo.toml with base configuration, taxonomies (team, tag, category), and performance settings
+- [X] T003 Initialize Node.js project with package.json and install Tailwind CSS 4.x, daisyUI 5.x, PostCSS, and autoprefixer
+- [X] T004 Create tailwind.config.js with daisyUI plugin, content paths, and custom theme configuration
+- [X] T005 Create postcss.config.js for Tailwind CSS processing
+- [X] T006 [P] Create assets/css/main.css entry point with Tailwind directives
+- [X] T007 [P] Create .gitignore with Hugo, Node.js, and editor-specific exclusions
+- [X] T008 [P] Create README.md with project overview, prerequisites, and setup instructions
 
 ---
 
@@ -52,18 +52,18 @@ Hugo project structure with:
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T009 Create data/club.yaml with club metadata schema (name, logo, description, contact, socialChannels)
-- [ ] T010 Create data/venues.yaml with venue definitions schema (name, address, mapLink, facilities)
-- [ ] T011 Create layouts/_default/baseof.html with semantic HTML5 structure, head, header, main, and footer blocks
-- [ ] T012 [P] Create layouts/partials/head.html with meta tags, CSS imports, and Hugo Pipes CSS processing
-- [ ] T013 [P] Create layouts/partials/head/social-meta.html with Open Graph, Twitter Card, and canonical URL logic
-- [ ] T014 [P] Create layouts/partials/header.html with accessible site navigation and mobile-first layout
-- [ ] T015 [P] Create layouts/partials/footer.html with club info and social links
-- [ ] T016 [P] Create layouts/index.html homepage template with hero section and recent content listings
-- [ ] T017 Configure Hugo image processing settings in config/_default/hugo.toml for responsive images and WebP/AVIF generation
-- [ ] T018 Create layouts/partials/responsive-image.html partial for image processing with srcset and lazy loading
-- [ ] T019 [P] Add Alpine.js 3.x CDN script to baseof.html for optional progressive enhancements
-- [ ] T020 [P] Create layouts/partials/accessibility-skip-links.html for screen reader navigation
+- [X] T009 Create data/club.yaml with club metadata schema (name, logo, description, contact, socialChannels)
+- [X] T010 Create data/venues.yaml with venue definitions schema (name, address, mapLink, facilities)
+- [X] T011 Create layouts/_default/baseof.html with semantic HTML5 structure, head, header, main, and footer blocks
+- [X] T012 [P] Create layouts/partials/head.html with meta tags, CSS imports, and Hugo Pipes CSS processing
+- [X] T013 [P] Create layouts/partials/head/social-meta.html with Open Graph, Twitter Card, and canonical URL logic
+- [X] T014 [P] Create layouts/partials/header.html with accessible site navigation and mobile-first layout
+- [X] T015 [P] Create layouts/partials/footer.html with club info and social links
+- [X] T016 [P] Create layouts/index.html homepage template with hero section and recent content listings
+- [X] T017 Configure Hugo image processing settings in config/_default/hugo.toml for responsive images and WebP/AVIF generation
+- [X] T018 Create layouts/partials/responsive-image.html partial for image processing with srcset and lazy loading
+- [X] T019 [P] Add Alpine.js 3.x CDN script to baseof.html for optional progressive enhancements
+- [X] T020 [P] Create layouts/partials/accessibility-skip-links.html for screen reader navigation
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -77,24 +77,24 @@ Hugo project structure with:
 
 ### Implementation for User Story 1
 
-- [ ] T021 [P] [US1] Create archetypes/teams/index.md archetype per contracts/archetype-team.md with all required front matter fields
-- [ ] T022 [P] [US1] Create archetypes/members.md archetype per contracts/archetype-member.md with privacy defaults
-- [ ] T023 [P] [US1] Add example content/teams/u13-boys/index.md with complete team data (training, coaches, season)
-- [ ] T024 [P] [US1] Add example content/teams/u15-girls/index.md with different sport/schedule
-- [ ] T025 [P] [US1] Add example content/members/john-smith.md coach profile with role and teams
-- [ ] T026 [P] [US1] Add example content/members/sarah-jones.md coach profile with different role
-- [ ] T027 [US1] Create layouts/teams/single.html template with training schedule table, venue info, coaches list, and contact section
-- [ ] T028 [US1] Create layouts/teams/list.html template with team cards grouped by sport
-- [ ] T029 [US1] Create layouts/members/single.html template with privacy-aware portrait display and role information
-- [ ] T030 [US1] Create layouts/members/list.html template with filterable member roster
-- [ ] T031 [P] [US1] Create layouts/partials/team-card.html component with team name, group, sport, and quick info
-- [ ] T032 [P] [US1] Create layouts/partials/member-card.html component with portrait consent checking
-- [ ] T033 [P] [US1] Create layouts/partials/training-schedule.html component with training times table and venue details
-- [ ] T034 [US1] Style team and member layouts with daisyUI components and Tailwind utilities for mobile-first responsive design
-- [ ] T035 [US1] Add venue data to data/venues.yaml for example teams (main-field, tennis-court)
-- [ ] T036 [US1] Implement off-season messaging logic in layouts/teams/single.html based on season.status
-- [ ] T037 [US1] Add social metadata support to team and member templates using social-meta.html partial
-- [ ] T038 [US1] Update homepage layouts/index.html to prominently link to teams listing
+- [X] T021 [P] [US1] Create archetypes/teams/index.md archetype per contracts/archetype-team.md with all required front matter fields
+- [X] T022 [P] [US1] Create archetypes/members.md archetype per contracts/archetype-member.md with privacy defaults
+- [X] T023 [P] [US1] Add example content/teams/u13-boys/index.md with complete team data (training, coaches, season)
+- [X] T024 [P] [US1] Add example content/teams/u15-girls/index.md with different sport/schedule
+- [X] T025 [P] [US1] Add example content/members/john-smith.md coach profile with role and teams
+- [X] T026 [P] [US1] Add example content/members/sarah-jones.md coach profile with different role
+- [X] T027 [US1] Create layouts/teams/single.html template with training schedule table, venue info, coaches list, and contact section
+- [X] T028 [US1] Create layouts/teams/list.html template with team cards grouped by sport
+- [X] T029 [US1] Create layouts/members/single.html template with privacy-aware portrait display and role information
+- [X] T030 [US1] Create layouts/members/list.html template with filterable member roster
+- [X] T031 [P] [US1] Create layouts/partials/team-card.html component with team name, group, sport, and quick info
+- [X] T032 [P] [US1] Create layouts/partials/member-card.html component with portrait consent checking
+- [X] T033 [P] [US1] Create layouts/partials/training-schedule.html component with training times table and venue details
+- [X] T034 [US1] Style team and member layouts with daisyUI components and Tailwind utilities for mobile-first responsive design
+- [X] T035 [US1] Add venue data to data/venues.yaml for example teams (main-field, tennis-court)
+- [X] T036 [US1] Implement off-season messaging logic in layouts/teams/single.html based on season.status
+- [X] T037 [US1] Add social metadata support to team and member templates using social-meta.html partial
+- [X] T038 [US1] Update homepage layouts/index.html to prominently link to teams listing
 
 **Checkpoint**: User Story 1 complete - users can find training times and contacts for teams
 

@@ -1,0 +1,19 @@
+{{- /* Result Card Partial - Placeholder for Phase 4 */ -}}
+<div class="card bg-base-100 shadow-xl">
+  <div class="card-body">
+    <h3 class="card-title text-lg">{{ .Title }}</h3>
+    {{ with .Params.date }}
+    <p class="text-sm opacity-70">
+      <time datetime="{{ . }}">{{ dateFormat "Jan 2, 2006" . }}</time>
+    </p>
+    {{ end }}
+    {{ with .Params.score }}
+    <div class="text-center my-2">
+      <span class="text-2xl font-bold">{{ .home }} - {{ .away }}</span>
+    </div>
+    {{ end }}
+    <div class="card-actions justify-end">
+      <a href="{{ .RelPermalink }}" class="btn btn-sm btn-outline">View Result</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<header class="bg-base-200 sticky top-0 z-40 shadow-md">
+  <div class="navbar container mx-auto px-4">
+    <div class="navbar-start">
+      <a href="{{ site.BaseURL | relURL }}" class="btn btn-ghost normal-case text-xl">
+        {{ with site.Data.club.logo }}
+          <img src="{{ . }}" alt="{{ site.Data.club.name }} logo" class="h-8 w-auto mr-2">
+        {{ end }}
+        {{ site.Data.club.name }}
+      </a>
+    </div>
+    
+    <div class="navbar-center hidden lg:flex">
+      <nav id="site-navigation" aria-label="Main navigation">
+        <ul class="menu menu-horizontal px-1">
+          <li><a href="{{ site.BaseURL | relURL }}">Home</a></li>
+          <li><a href="{{ "teams" | relURL }}">Teams</a></li>
+          <li><a href="{{ "events" | relURL }}">Events</a></li>
+          <li><a href="{{ "results" | relURL }}">Results</a></li>
+          <li><a href="{{ "posts" | relURL }}">News</a></li>
+          <li><a href="{{ "members" | relURL }}">Members</a></li>
+        </ul>
+      </nav>
+    </div>
+    
+    <div class="navbar-end">
+      {{- /* Mobile menu toggle */ -}}
+      <div class="dropdown dropdown-end lg:hidden">
+        <label tabindex="0" class="btn btn-ghost" aria-label="Open menu" aria-expanded="false" x-data @click="$event.target.setAttribute('aria-expanded', $event.target.getAttribute('aria-expanded') === 'true' ? 'false' : 'true')">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </label>
+        <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+          <li><a href="{{ site.BaseURL | relURL }}">Home</a></li>
+          <li><a href="{{ "teams" | relURL }}">Teams</a></li>
+          <li><a href="{{ "events" | relURL }}">Events</a></li>
+          <li><a href="{{ "results" | relURL }}">Results</a></li>
+          <li><a href="{{ "posts" | relURL }}">News</a></li>
+          <li><a href="{{ "members" | relURL }}">Members</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
