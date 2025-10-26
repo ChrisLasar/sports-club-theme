@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+/* Custom base styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply antialiased;
+  }
+  
+  /* Alpine.js: Hide elements with x-cloak until Alpine loads */
+  [x-cloak] {
+    display: none !important;
+  }
+}
+
+/* Custom component styles - only use if daisyUI components don't provide what you need */
+@layer components {
+  /* Add custom component classes here if needed */
+}
+
+/* Custom utility styles - only use for customization beyond daisyUI */
+@layer utilities {
+  /* Add custom utilities here if needed */
+}

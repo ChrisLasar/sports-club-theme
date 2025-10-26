@@ -1,0 +1,17 @@
+name: "Example Sports Club"
+logo: "/images/club-logo.svg"  # Add your logo file to static/images/
+description: "A community sports club for all ages and abilities"
+founded: 2010
+primarySports:
+  - Football
+  - Tennis
+  - Athletics
+contact:
+  email: "info@exampleclub.org"
+  phone: "+1 (555) 123-4567"
+  address: "123 Club Lane, Hometown, ST 12345"
+socialChannels:
+  facebook: "https://facebook.com/exampleclub"
+  twitter: "https://twitter.com/exampleclub"
+  instagram: "https://instagram.com/exampleclub"
+  youtube: ""

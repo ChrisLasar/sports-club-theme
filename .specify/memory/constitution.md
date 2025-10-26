@@ -108,8 +108,8 @@ MUST be sensible and overridable per page. Rationale: better previews and discov
 
 ### Authoring Flow
 
-- Edit content in `content/` (Markdown with front matter) and media in `static/`.
-- Update simple settings in the root config file (e.g., `config.toml`/`config.yaml`).
+- Edit content in `content/` (Markdown with front matter) and add media.
+- Update settings in a config file if necessary.
 - Preview locally with a single command and no credentials.
 
 ### Quality Gates (Constitution Check)
@@ -141,4 +141,3 @@ MUST be sensible and overridable per page. Rationale: better previews and discov
   of the most recent merged change to this Constitution.
 
 **Version**: 1.1.0 | **Ratified**: 2025-10-25 | **Last Amended**: 2025-10-25
- 

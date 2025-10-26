@@ -17,15 +17,13 @@
   the iteration process.
 -->
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [for SSG: files only; page bundles supported; no DB]  
-**Testing**: [e.g., HTML/Accessibility lint, Lighthouse; unit tests if applicable]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [SSG-specific: fully static output; no login; LCP ≤ 2.5s (3G), CLS ≤ 0.1; JS ≤ 50KB gzip; mobile-first; privacy by default]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Language/Version**: Hugo 152.2  
+**Primary Dependencies**: daisyUI, Tailwind, alpine, sveltia CMS (see Documentation of Decap CMS),
+**Storage**: SSG: files only; page bundles supported;  
+**Testing**: HTML/Accessibility lint, Lighthouse; unit tests if applicable
+**Target Platform**: Static Web Hosting, CDN
+**Project Type**: web  
+**Constraints**: fully static output; no login; LCP ≤ 2.5s (3G), CLS ≤ 0.1; JS ≤ 50KB gzip; mobile-first; privacy by default  
 
 ## Constitution Check
 
@@ -57,60 +55,17 @@ specs/[###-feature]/
 ```
 
 ### Source Code (repository root)
-<!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
--->
-
-```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
-src/
-├── models/
-├── services/
-├── cli/
-└── lib/
-
-tests/
-├── contract/
-├── integration/
-└── unit/
-
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
-
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
-```
-
-### [REMOVE IF UNUSED] Option 4: Static Site (Hugo/Jekyll/Eleventy)
 
 ```text
 archetypes/
 assets/
 content/
 data/
+i18n/
 layouts/
 static/
-themes/
-config.toml (or .yaml/.json)
+config/
+config/_default/hugo.toml (or .yaml/.json)
 ```
 
 Notes:
@@ -119,8 +74,19 @@ Notes:
 - Support colocated page bundles/resources under `content/`.
 - Keep JS optional; if needed, prefer Alpine.js for enhancements.
 
-**Structure Decision**: [Document the selected structure and reference the real
-directories captured above]
+**Structure Decision**:
+Default Hugo directory structure:
+
+- archetypes: The archetypes directory contains templates for new content.
+- assets: The assets directory contains global resources typically passed through an asset pipeline. This includes resources such as images, CSS, Sass, JavaScript, and TypeScript.
+- config: The config directory contains your site configuration, possibly split into multiple subdirectories and files. For projects with minimal configuration or projects that do not need to behave differently in different environments, a single configuration file named hugo.toml in the root of the project is sufficient.
+- content: The content directory contains the markup files (typically Markdown) and page resources that comprise the content of your site.
+- data: The data directory contains data files (JSON, TOML, YAML, or XML) that augment content, configuration, localization, and navigation.
+- i18n: The i18n directory contains translation tables for multilingual sites.
+- layouts: The layouts directory contains templates to transform content, data, and resources into a complete website.
+- public: The public directory contains the published website, generated when you run the hugo or hugo server commands. Hugo recreates this directory and its content as needed.
+- resources: The resources directory contains cached output from Hugo’s asset pipelines, generated when you run the hugo or hugo server commands. By default this cache directory includes CSS and images. Hugo recreates this directory and its content as needed.
+- static: The static directory contains files that will be copied to the public directory when you build your site. For example: favicon.ico, robots.txt, and files that verify site ownership. Before the introduction of page bundles and asset pipelines, the static directory was also used for images, CSS, and JavaScript.
 
 ## Complexity Tracking
 

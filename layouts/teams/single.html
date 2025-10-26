@@ -1,0 +1,136 @@
+{{ define "main" }}
+<article class="container mx-auto px-4 py-8">
+  {{- /* Team Header */ -}}
+  <header class="mb-8">
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+      <div>
+        <h1 class="text-4xl font-bold mb-2">{{ .Title }}</h1>
+        <div class="flex gap-2 flex-wrap mb-4">
+          <span class="badge badge-primary">{{ .Params.sport }}</span>
+          <span class="badge badge-secondary">{{ .Params.group }}</span>
+          {{ if eq .Params.season.status "active" }}
+            <span class="badge badge-success">Active Season</span>
+          {{ else if eq .Params.season.status "off-season" }}
+            <span class="badge badge-warning">Off Season</span>
+          {{ else }}
+            <span class="badge badge-ghost">{{ .Params.season.status | humanize }}</span>
+          {{ end }}
+        </div>
+        {{ with .Params.description }}
+          <p class="text-lg text-base-content/70">{{ . }}</p>
+        {{ end }}
+      </div>
+      
+      {{ with .Params.socialImage }}
+      <figure class="w-full md:w-64 rounded-lg overflow-hidden shadow-lg">
+        {{- partial "responsive-image.html" (dict "context" $ "src" . "alt" $.Title "class" "w-full") -}}
+      </figure>
+      {{ end }}
+    </div>
+  </header>
+  
+  {{- /* Training Schedule */ -}}
+  {{ if .Params.training }}
+  <section class="mb-8">
+    {{- partial "training-schedule.html" . -}}
+  </section>
+  {{ end }}
+  
+  {{- /* Main Content */ -}}
+  <div class="prose max-w-none mb-8">
+    {{ .Content }}
+  </div>
+  
+  {{- /* Coaches Section */ -}}
+  {{ with .Params.coaches }}
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Coaches</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {{ range . }}
+        {{ $coachRole := .role }}
+        {{ $coachEmail := .email }}
+        {{ with site.GetPage .member }}
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h3 class="card-title">{{ .Title }}</h3>
+            <p class="text-sm opacity-70">{{ $coachRole }}</p>
+            {{ with .Params.bio }}
+              <p class="text-sm">{{ . | truncate 150 }}</p>
+            {{ end }}
+            <div class="card-actions justify-between items-center mt-4">
+              <a href="{{ .RelPermalink }}" class="btn btn-sm btn-outline">View Profile</a>
+              {{ with $coachEmail }}
+                <a href="mailto:{{ . }}" class="link link-primary text-sm">{{ . }}</a>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+  
+  {{- /* Related Events */ -}}
+  {{ $teamSlug := path.Base .RelPermalink }}
+  {{ $relatedEvents := where site.RegularPages "Type" "events" }}
+  {{ $relatedEvents = where $relatedEvents ".Params.teams" "intersect" (slice $teamSlug) }}
+  {{ $upcomingEvents := where $relatedEvents ".Params.status" "upcoming" }}
+  
+  {{ if $upcomingEvents }}
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Upcoming Events</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {{ range first 6 $upcomingEvents }}
+        {{- partial "event-card.html" (dict "event" .) -}}
+      {{ end }}
+    </div>
+    {{ if gt (len $upcomingEvents) 6 }}
+    <div class="text-center mt-4">
+      <a href="{{ "events" | relURL }}?team={{ $teamSlug }}" class="btn btn-outline btn-sm">View All Events</a>
+    </div>
+    {{ end }}
+  </section>
+  {{ end }}
+  
+  {{- /* Recent Results */ -}}
+  {{ $relatedResults := where site.RegularPages "Type" "results" }}
+  {{ $relatedResults = where $relatedResults ".Params.teams" "intersect" (slice $teamSlug) }}
+  
+  {{ if $relatedResults }}
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Recent Results</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {{ range first 6 (sort $relatedResults ".Params.date" "desc") }}
+        {{- partial "result-card.html" (dict "result" .) -}}
+      {{ end }}
+    </div>
+    {{ if gt (len $relatedResults) 6 }}
+    <div class="text-center mt-4">
+      <a href="{{ "results" | relURL }}?team={{ $teamSlug }}" class="btn btn-outline btn-sm">View All Results</a>
+    </div>
+    {{ end }}
+  </section>
+  {{ end }}
+  
+  {{- /* Team News */ -}}
+  {{ $relatedPosts := where site.RegularPages "Type" "posts" }}
+  {{ $relatedPosts = where $relatedPosts ".Params.teams" "intersect" (slice $teamSlug) }}
+  
+  {{ if $relatedPosts }}
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Team News</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {{ range first 3 (sort $relatedPosts ".Date" "desc") }}
+        {{- partial "post-card.html" . -}}
+      {{ end }}
+    </div>
+    {{ if gt (len $relatedPosts) 3 }}
+    <div class="text-center mt-4">
+      <a href="{{ "posts" | relURL }}?team={{ $teamSlug }}" class="btn btn-outline btn-sm">View All News</a>
+    </div>
+    {{ end }}
+  </section>
+  {{ end }}
+</article>
+{{ end }}

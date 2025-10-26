@@ -1,0 +1,71 @@
+{{- /* Social Meta Tags for Open Graph, Twitter Card, and more */ -}}
+
+{{- $title := .Title -}}
+{{- if .IsHome -}}
+  {{- $title = site.Title -}}
+{{- else -}}
+  {{- $title = printf "%s | %s" .Title site.Title -}}
+{{- end }}
+
+{{- $description := .Description | default .Summary | default site.Params.description | default site.Data.club.description -}}
+{{- $description = $description | plainify | truncate 200 -}}
+
+{{- /* Social image logic */ -}}
+{{- $socialImage := "" -}}
+{{- with .Params.socialImage -}}
+  {{- /* Try page resource first */ -}}
+  {{- $resource := $.Resources.Get . -}}
+  {{- if $resource -}}
+    {{- $socialImage = ($resource.Resize "1200x630 webp").Permalink -}}
+  {{- else -}}
+    {{- /* Fallback to static path */ -}}
+    {{- $socialImage = . | absURL -}}
+  {{- end -}}
+{{- else -}}
+  {{- /* Default to club logo */ -}}
+  {{- with site.Data.club.logo -}}
+    {{- $socialImage = . | absURL -}}
+  {{- end -}}
+{{- end }}
+
+{{- /* Open Graph */ -}}
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $description }}">
+<meta property="og:url" content="{{ .Permalink }}">
+{{ with $socialImage }}
+<meta property="og:image" content="{{ . }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+{{ end }}
+<meta property="og:site_name" content="{{ site.Title }}">
+{{ with site.Language.Lang }}
+<meta property="og:locale" content="{{ . }}">
+{{ end }}
+
+{{- /* Twitter Card */ -}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ $description }}">
+{{ with $socialImage }}
+<meta name="twitter:image" content="{{ . }}">
+{{ end }}
+{{ with site.Data.club.socialChannels.twitter }}
+<meta name="twitter:site" content="{{ . }}">
+{{ end }}
+
+{{- /* Article-specific metadata */ -}}
+{{ if .IsPage }}
+{{ if not .PublishDate.IsZero }}
+<meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" }}">
+{{ end }}
+{{ if not .Lastmod.IsZero }}
+<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+{{ end }}
+{{ with .Params.author }}
+<meta property="article:author" content="{{ . }}">
+{{ end }}
+{{ range .Params.tags }}
+<meta property="article:tag" content="{{ . }}">
+{{ end }}
+{{ end }}

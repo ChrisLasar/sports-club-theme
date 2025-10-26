@@ -1,0 +1,90 @@
+{{ define "main" }}
+<div class="container mx-auto px-4 py-8">
+  {{- /* Hero Section */ -}}
+  <section class="hero min-h-[50vh] bg-base-200 rounded-lg mb-12">
+    <div class="hero-content text-center">
+      <div class="max-w-2xl">
+        <h1 class="text-5xl font-bold mb-6">{{ site.Data.club.name }}</h1>
+        <p class="text-xl mb-6">{{ site.Data.club.description }}</p>
+        <div class="flex gap-4 justify-center flex-wrap">
+          <a href="{{ "teams" | relURL }}" class="btn btn-primary">View Teams</a>
+          <a href="{{ "events" | relURL }}" class="btn btn-secondary">Upcoming Events</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  {{- /* Recent News */ -}}
+  {{ with site.RegularPages.ByDate.Reverse }}
+  {{ $posts := where . "Type" "posts" | first 3 }}
+  {{ if $posts }}
+  <section class="mb-12">
+    <h2 class="text-3xl font-bold mb-6">Latest News</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {{ range $posts }}
+        {{- partial "post-card.html" . -}}
+      {{ end }}
+    </div>
+    <div class="text-center mt-6">
+      <a href="{{ "posts" | relURL }}" class="btn btn-outline">View All News</a>
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+  
+  {{- /* Upcoming Events */ -}}
+  {{ with site.RegularPages }}
+  {{ $events := where . "Type" "events" }}
+  {{ $upcomingEvents := where $events ".Params.status" "upcoming" | first 4 }}
+  {{ if $upcomingEvents }}
+  <section class="mb-12">
+    <h2 class="text-3xl font-bold mb-6">Upcoming Events</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {{ range $upcomingEvents }}
+        {{- partial "event-card.html" (dict "event" .) -}}
+      {{ end }}
+    </div>
+    <div class="text-center mt-6">
+      <a href="{{ "events" | relURL }}" class="btn btn-outline">View All Events</a>
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+  
+  {{- /* Recent Results */ -}}
+  {{ with site.RegularPages }}
+  {{ $results := where . "Type" "results" | first 3 }}
+  {{ if $results }}
+  <section class="mb-12">
+    <h2 class="text-3xl font-bold mb-6">Recent Results</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {{ range $results }}
+        {{- partial "result-card.html" (dict "result" .) -}}
+      {{ end }}
+    </div>
+    <div class="text-center mt-6">
+      <a href="{{ "results" | relURL }}" class="btn btn-outline">View All Results</a>
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+  
+  {{- /* Teams Overview */ -}}
+  {{ with site.RegularPages }}
+  {{ $teams := where . "Type" "teams" | first 6 }}
+  {{ if $teams }}
+  <section class="mb-12">
+    <h2 class="text-3xl font-bold mb-6">Our Teams</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {{ range $teams }}
+        {{- partial "team-card.html" . -}}
+      {{ end }}
+    </div>
+    <div class="text-center mt-6">
+      <a href="{{ "teams" | relURL }}" class="btn btn-outline">View All Teams</a>
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+</div>
+{{ end }}

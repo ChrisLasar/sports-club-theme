@@ -1,0 +1,47 @@
+{{- /* 
+  Responsive Image Partial
+  Usage: {{ partial "responsive-image.html" (dict "context" . "src" "image.jpg" "alt" "Description" "sizes" "(min-width: 768px) 50vw, 100vw") }}
+*/ -}}
+
+{{- $context := .context -}}
+{{- $src := .src -}}
+{{- $alt := .alt | default "" -}}
+{{- $class := .class | default "" -}}
+{{- $sizes := .sizes | default "100vw" -}}
+{{- $loading := .loading | default "lazy" -}}
+
+{{- /* Try to get image as page resource first */ -}}
+{{- $img := $context.Resources.Get $src -}}
+
+{{- if $img -}}
+  {{- /* Generate responsive variants */ -}}
+  {{- $small := $img.Resize "480x webp" -}}
+  {{- $medium := $img.Resize "768x webp" -}}
+  {{- $large := $img.Resize "1200x webp" -}}
+  {{- $fallback := $img.Resize "1200x" -}}
+  
+  <picture>
+    <source 
+      srcset="{{ $small.RelPermalink }} 480w,
+              {{ $medium.RelPermalink }} 768w,
+              {{ $large.RelPermalink }} 1200w"
+      type="image/webp"
+      sizes="{{ $sizes }}">
+    <img 
+      src="{{ $fallback.RelPermalink }}" 
+      alt="{{ $alt }}"
+      {{ with $class }}class="{{ . }}"{{ end }}
+      loading="{{ $loading }}"
+      width="{{ $img.Width }}"
+      height="{{ $img.Height }}"
+      decoding="async">
+  </picture>
+{{- else -}}
+  {{- /* Fallback to static image */ -}}
+  <img 
+    src="{{ $src | relURL }}" 
+    alt="{{ $alt }}"
+    {{ with $class }}class="{{ . }}"{{ end }}
+    loading="{{ $loading }}"
+    decoding="async">
+{{- end -}}

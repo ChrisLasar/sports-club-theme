@@ -1,0 +1,47 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+{{- $title := .Title -}}
+{{- if .IsHome -}}
+  {{- $title = site.Title -}}
+{{- else -}}
+  {{- $title = printf "%s | %s" .Title site.Title -}}
+{{- end }}
+<title>{{ $title }}</title>
+
+{{- $description := .Description | default site.Params.description | default site.Data.club.description -}}
+<meta name="description" content="{{ $description }}">
+
+{{- partial "head/social-meta.html" . -}}
+
+{{- /* Favicon and app icons */ -}}
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" href="/favicon.png">
+
+{{- /* Canonical URL */ -}}
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{- /* RSS Feed */ -}}
+{{ with .OutputFormats.Get "RSS" }}
+  <link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .Permalink }}">
+{{ end }}
+
+{{- /* Process and include CSS */ -}}
+{{ $css := resources.Get "css/main.css" }}
+{{ $css = $css | css.PostCSS }}
+{{ if hugo.IsProduction }}
+  {{ $css = $css | minify | fingerprint }}
+{{ end }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" {{ if hugo.IsProduction }}integrity="{{ $css.Data.Integrity }}"{{ end }}>
+
+{{- /* Security Headers (meta tags) */ -}}
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https:; connect-src 'self';">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+{{- /* Theme color for mobile browsers */ -}}
+<meta name="theme-color" content="#1a365d">
+
+{{- /* Alpine.js for progressive enhancement */ -}}
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
