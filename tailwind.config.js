@@ -1,3 +1,19 @@
+/**
+ * DEPRECATED: This file is no longer used in Tailwind CSS v4
+ * 
+ * All Tailwind CSS and daisyUI configuration is now done in the CSS file:
+ * assets/css/main.css
+ * 
+ * This file is kept for reference only and can be deleted.
+ * 
+ * According to daisyUI 5 docs:
+ * - Tailwind CSS v4 only needs `@import "tailwindcss";` in the CSS file
+ * - daisyUI is added with `@plugin "daisyui";` in the CSS file
+ * - Custom themes are configured with `@plugin "daisyui/theme" { ... }` blocks
+ * 
+ * See: https://daisyui.com/docs/install/
+ */
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
