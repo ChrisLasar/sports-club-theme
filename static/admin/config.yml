@@ -26,8 +26,8 @@ collections:
         name: "season"
         widget: "object"
         fields:
-          - {label: "Start Date", name: "start", widget: "date", format: "YYYY-MM-DD"}
-          - {label: "End Date", name: "end", widget: "date", format: "YYYY-MM-DD"}
+          - {label: "Start Date", name: "start", widget: "datetime", time_format: false, format: "YYYY-MM-DD"}
+          - {label: "End Date", name: "end", widget: "datetime", time_format: false, format: "YYYY-MM-DD"}
           - {label: "Status", name: "status", widget: "select", options: ["active", "off-season", "archived"]}
       - label: "Training Schedule"
         name: "training"
@@ -93,7 +93,7 @@ collections:
       - {label: "Opponent", name: "opponent", widget: "string", required: false, hint: "For fixtures"}
       - {label: "Description", name: "description", widget: "text"}
       - {label: "Registration Required", name: "requiresRegistration", widget: "boolean", default: false}
-      - {label: "Registration Deadline", name: "registrationDeadline", widget: "date", required: false}
+      - {label: "Registration Deadline", name: "registrationDeadline", widget: "datetime", time_format: false, required: false}
       - {label: "Status", name: "status", widget: "select", options: ["upcoming", "completed", "cancelled", "postponed"], default: "upcoming"}
       - {label: "Social Image", name: "socialImage", widget: "image", required: false}
       - {label: "Tags", name: "tags", widget: "list", required: false}
@@ -110,7 +110,7 @@ collections:
     fields:
       - {label: "Title", name: "title", widget: "string", required: true}
       - {label: "Event Reference", name: "event", widget: "string", hint: "Path to event, e.g., events/u13-boys-vs-rival"}
-      - {label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD"}
+      - {label: "Date", name: "date", widget: "datetime", time_format: false, format: "YYYY-MM-DD"}
       - {label: "Teams", name: "teams", widget: "list", hint: "Team slugs (taxonomy)"}
       - label: "Score"
         name: "score"
