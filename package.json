@@ -1,0 +1,30 @@
+{
+  "name": "sports-club-theme",
+  "version": "1.0.0",
+  "description": "Hugo static site template for sports clubs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "hugo server --buildDrafts --buildFuture --disableFastRender",
+    "build": "hugo --minify",
+    "clean": "rm -rf public resources"
+  },
+  "keywords": [
+    "hugo",
+    "sports",
+    "club",
+    "static-site"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
+    "autoprefixer": "^10.4.20",
+    "daisyui": "^5.0.0",
+    "postcss": "^8.4.49",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

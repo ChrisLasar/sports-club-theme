@@ -1,0 +1,100 @@
+baseURL = "https://example.org/"
+languageCode = "en-us"
+title = "Sports Club"
+
+# Hugo version requirement
+[module]
+  [module.hugoVersion]
+    extended = true
+    min = "0.152.0"
+
+# Taxonomies for cross-referencing content
+[taxonomies]
+  team = "teams"
+  tag = "tags"
+  category = "categories"
+
+# Performance settings
+[caches]
+  [caches.getjson]
+    dir = ":cacheDir/:project"
+    maxAge = "10s"
+  [caches.getcsv]
+    dir = ":cacheDir/:project"
+    maxAge = "10s"
+  [caches.getresource]
+    dir = ":cacheDir/:project"
+    maxAge = "1h"
+  [caches.images]
+    dir = ":resourceDir/_gen"
+    maxAge = -1
+  [caches.assets]
+    dir = ":resourceDir/_gen"
+    maxAge = -1
+
+# Image processing defaults
+[imaging]
+  quality = 85
+  resampleFilter = "Lanczos"
+  anchor = "Smart"
+  [imaging.exif]
+    disableDate = false
+    disableLatLong = true
+    includeFields = ""
+    excludeFields = ""
+
+# Markup configuration
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = false
+    [markup.goldmark.parser]
+      [markup.goldmark.parser.attribute]
+        block = true
+        title = true
+  [markup.highlight]
+    style = "monokai"
+    lineNos = false
+    lineNumbersInTable = false
+    tabWidth = 2
+
+# Minification for production
+[minify]
+  [minify.tdewolff]
+    [minify.tdewolff.html]
+      keepWhitespace = false
+    [minify.tdewolff.css]
+      precision = 0
+    [minify.tdewolff.js]
+      precision = 0
+
+# Enable robots.txt and sitemap
+enableRobotsTXT = true
+
+# Pagination
+paginate = 10
+
+# Disable unused Hugo features for performance
+disableKinds = []
+
+# Permalinks structure
+[permalinks]
+  posts = "/news/:year/:month/:slug/"
+  events = "/events/:year/:month/:slug/"
+  results = "/results/:year/:month/:slug/"
+
+# Output formats
+[outputs]
+  home = ["HTML", "RSS"]
+  page = ["HTML"]
+  section = ["HTML", "RSS"]
+
+# Privacy configuration
+[privacy]
+  [privacy.youtube]
+    privacyEnhanced = true
+
+# Security headers (for static site hosting)
+[security]
+  [security.funcs]
+    getenv = ["^HUGO_", "^CI$"]
