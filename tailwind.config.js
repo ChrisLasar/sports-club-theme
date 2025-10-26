@@ -12,7 +12,18 @@ module.exports = {
         // Example: 'club-primary': '#1a365d',
       },
       fontFamily: {
-        // Example: sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: [
+          'system-ui',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+          'sans-serif',
+          'Apple Color Emoji',
+          'Segoe UI Emoji',
+        ],
       }
     },
   },

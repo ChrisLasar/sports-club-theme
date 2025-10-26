@@ -1,22 +1,65 @@
-{{- /* Post Card Partial - Placeholder for Phase 5 */ -}}
-<div class="card bg-base-100 shadow-xl">
-  {{ with .Params.socialImage }}
-  <figure>
-    {{- partial "responsive-image.html" (dict "context" $ "src" . "alt" $.Title "loading" "lazy") -}}
+{{- /*
+  Post Card Partial
+  Displays post/news cards with featured images, categories, and metadata
+  
+  Context: Page object for the post
+*/ -}}
+
+<div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow h-full">
+  {{ with .Params.featured_image }}
+  <figure class="aspect-video overflow-hidden">
+    {{- partial "responsive-image.html" (dict "context" $ "src" . "alt" $.Title "class" "w-full h-full object-cover" "loading" "lazy") -}}
   </figure>
+  {{ else }}
+    {{ with .Resources.GetMatch "featured*" }}
+    <figure class="aspect-video overflow-hidden">
+      {{- partial "responsive-image.html" (dict "context" $ "src" .RelPermalink "alt" $.Title "class" "w-full h-full object-cover" "loading" "lazy") -}}
+    </figure>
+    {{ end }}
   {{ end }}
+  
   <div class="card-body">
+    {{- /* Categories */ -}}
+    {{ with .Params.categories }}
+    <div class="flex gap-2 flex-wrap mb-2">
+      {{ range . }}
+      <span class="badge badge-secondary badge-sm">{{ . }}</span>
+      {{ end }}
+    </div>
+    {{ end }}
+    
     <h3 class="card-title">{{ .Title }}</h3>
-    {{ with .Date }}
-    <p class="text-sm opacity-70">
-      <time datetime="{{ . }}">{{ dateFormat "January 2, 2006" . }}</time>
-    </p>
-    {{ end }}
+    
+    <div class="flex gap-3 text-xs text-base-content/70 mb-2">
+      {{ with .Params.author }}
+      <p>By {{ . }}</p>
+      {{ end }}
+      {{ with .Date }}
+      <p>
+        <time datetime="{{ . }}">{{ dateFormat "Jan 2, 2006" . }}</time>
+      </p>
+      {{ end }}
+    </div>
+    
     {{ with .Params.summary }}
-    <p>{{ . | truncate 120 }}</p>
+    <p class="text-sm line-clamp-3">{{ . }}</p>
+    {{ else }}
+    <p class="text-sm line-clamp-3">{{ .Summary }}</p>
     {{ end }}
-    <div class="card-actions justify-end">
-      <a href="{{ .RelPermalink }}" class="btn btn-primary btn-sm">Read More</a>
+    
+    {{- /* Team Tags */ -}}
+    {{ with .Params.teams }}
+    <div class="flex gap-2 flex-wrap mt-2">
+      {{ range . }}
+        {{ with site.GetPage (printf "teams/%s" .) }}
+        <span class="badge badge-primary badge-sm">{{ .Title }}</span>
+        {{ end }}
+      {{ end }}
+    </div>
+    {{ end }}
+    
+    <div class="card-actions justify-end mt-4">
+      <a href="{{ .RelPermalink }}" class="btn btn-sm btn-outline">Read More</a>
     </div>
   </div>
 </div>

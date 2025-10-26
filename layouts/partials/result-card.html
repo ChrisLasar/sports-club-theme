@@ -1,19 +1,73 @@
-{{- /* Result Card Partial - Placeholder for Phase 4 */ -}}
-<div class="card bg-base-100 shadow-xl">
+{{- /*
+  Result Card Partial
+  Displays result cards with scores, placements, and highlights
+  
+  Context (dict):
+    - result: Page object for the result
+*/ -}}
+
+{{ $result := .result }}
+
+<div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow h-full">
+  {{ with $result.Resources.GetMatch "featured*" }}
+  <figure class="aspect-video overflow-hidden">
+    {{- partial "responsive-image.html" (dict "context" $ "src" .RelPermalink "alt" $result.Title "class" "w-full h-full object-cover") -}}
+  </figure>
+  {{ end }}
+  
   <div class="card-body">
-    <h3 class="card-title text-lg">{{ .Title }}</h3>
-    {{ with .Params.date }}
-    <p class="text-sm opacity-70">
-      <time datetime="{{ . }}">{{ dateFormat "Jan 2, 2006" . }}</time>
+    <h3 class="card-title text-lg">{{ $result.Title }}</h3>
+    
+    {{ with $result.Params.date }}
+    <p class="text-sm text-base-content/70">
+      <time datetime="{{ . }}">{{ dateFormat "January 2, 2006" . }}</time>
     </p>
     {{ end }}
-    {{ with .Params.score }}
-    <div class="text-center my-2">
-      <span class="text-2xl font-bold">{{ .home }} - {{ .away }}</span>
+    
+    {{- /* Score Display */ -}}
+    {{ with $result.Params.score }}
+      {{ if .home }}
+      <div class="text-center my-4">
+        <div class="text-3xl font-bold">
+          <span class="{{ if gt .home .away }}text-success{{ end }}">{{ .home }}</span>
+          <span class="text-base-content/50 mx-2">-</span>
+          <span class="{{ if gt .away .home }}text-success{{ end }}">{{ .away }}</span>
+        </div>
+        <div class="text-xs opacity-70 mt-1">
+          {{ .homeTeam }} vs {{ .awayTeam }}
+        </div>
+      </div>
+      {{ end }}
+    {{ end }}
+    
+    {{- /* Tournament Placement */ -}}
+    {{ with $result.Params.placement }}
+    <div class="text-center my-4">
+      <div class="text-3xl font-bold">{{ . }}</div>
+      {{ if eq . "1st" }}
+        <div class="text-xl">🥇</div>
+      {{ else if eq . "2nd" }}
+        <div class="text-xl">🥈</div>
+      {{ else if eq . "3rd" }}
+        <div class="text-xl">🥉</div>
+      {{ end }}
     </div>
     {{ end }}
-    <div class="card-actions justify-end">
-      <a href="{{ .RelPermalink }}" class="btn btn-sm btn-outline">View Result</a>
+    
+    {{ with $result.Params.highlights }}
+    <p class="text-sm line-clamp-3 italic">{{ . }}</p>
+    {{ end }}
+    
+    <div class="flex gap-2 flex-wrap mt-2">
+      {{ range $result.Params.teams }}
+        {{ with site.GetPage (printf "teams/%s" .) }}
+        <span class="badge badge-primary badge-sm">{{ .Title }}</span>
+        {{ end }}
+      {{ end }}
+    </div>
+    
+    <div class="card-actions justify-end mt-4">
+      <a href="{{ $result.RelPermalink }}" class="btn btn-sm btn-outline">View Result</a>
     </div>
   </div>
 </div>

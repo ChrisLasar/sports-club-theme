@@ -1,7 +1,7 @@
 # Implementation Status Report
 ## Sports Club Static Site Template
 
-**Date**: October 26, 2025  
+**Date**: January 26, 2025  
 **Feature**: 001-sports-club-ssg  
 **Branch**: 001-sports-club-ssg
 
@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-The Sports Club Static Site Template implementation is **75% complete** with a solid foundation and working MVP for User Story 1 (Teams & Members). The project is ready for content creation and can be deployed in its current state for initial testing.
+The Sports Club Static Site Template implementation is **~90% complete** with five phases fully implemented and working. The site includes all core functionality (Teams, Members, Events, Results, Posts) with Sveltia CMS integration and is ready for deployment with performance optimization remaining.
 
 ### ✅ Fully Completed Phases
 
@@ -59,45 +59,49 @@ The Sports Club Static Site Template implementation is **75% complete** with a s
 
 **User Story 1 Acceptance**: ✅ Users can find training times, venue info, and coach contacts within 30 seconds from homepage
 
+#### Phase 4: User Story 2 - Events & Results (T039-T058) - 100% Complete 🎯
+- ✅ archetypes/events.md created with full schema
+- ✅ archetypes/results.md created with score/placement fields
+- ✅ Example event content (3 events: fixture, tournament, training camp)
+- ✅ Example result content (2 results: match win, tournament placement)
+- ✅ layouts/events/single.html with status badges and registration info
+- ✅ layouts/events/list.html with Alpine.js filtering (status, team)
+- ✅ layouts/results/single.html with score display and media gallery
+- ✅ layouts/results/list.html with Alpine.js filtering (team)
+- ✅ layouts/partials/event-card.html fully styled with status badges
+- ✅ layouts/partials/result-card.html with score/placement display
+- ✅ Integration with team pages (upcoming events + recent results)
+- ✅ Integration with homepage (featured events and results)
+
+**User Story 2 Acceptance**: ✅ Users can check fixtures/events and filter by team; results display scores prominently
+
+#### Phase 5: User Story 3 - Posts & CMS (T059-T075) - 100% Complete 🎯
+- ✅ archetypes/posts.md created with full schema
+- ✅ Example post content (3 posts: season kickoff, tournament report, facility news)
+- ✅ layouts/posts/single.html with author, tags, featured image
+- ✅ layouts/posts/list.html with Alpine.js filtering (category, team)
+- ✅ layouts/partials/post-card.html fully styled with metadata
+- ✅ static/admin/index.html (Sveltia CMS entry point)
+- ✅ static/admin/config.yml (Full CMS configuration for all content types)
+- ✅ CMS collections: teams, members, events, results, posts, pages
+- ✅ Privacy-aware defaults (portraitConsent: false, contactPublic: false)
+
+**User Story 3 Acceptance**: ✅ Editors can publish posts via CMS; posts appear on homepage and team pages
+
 ---
 
-### 🔄 Partially Completed Phases
+### 🔄 In Progress Phases
 
-#### Phase 4: User Story 2 - Events & Results (T039-T058) - 10% Complete
+#### Phase 6: Polish & Optimization (T076-T100) - ~10% Complete
 **Completed:**
-- ✅ archetypes/events.md created
-- ✅ archetypes/results.md created
-- ✅ Directory structure ready (content/events, content/results, layouts/events, layouts/results)
+- ✅ daisyUI theme configuration in tailwind.config.js
+- ✅ Basic responsive design implemented
+- ✅ Semantic HTML5 structure
+- ✅ Social metadata (Open Graph, Twitter Card)
 
 **Remaining:**
-- ⏳ Example event content (3 events needed)
-- ⏳ Example result content (2 results needed)
-- ⏳ layouts/events/single.html template
-- ⏳ layouts/events/list.html with filtering
-- ⏳ layouts/results/single.html template
-- ⏳ layouts/results/list.html with filtering
-- ⏳ Update event-card.html and result-card.html partials
-- ⏳ Alpine.js filter controls
-- ⏳ Integration with team pages
-
----
-
-### 📋 Not Started Phases
-
-#### Phase 5: User Story 3 - Posts & CMS (T059-T075) - 0% Complete
-**Remaining:**
-- ⏳ archetypes/posts.md
-- ⏳ Example post content (3 posts)
-- ⏳ layouts/posts/single.html
-- ⏳ layouts/posts/list.html  
-- ⏳ static/admin/index.html (Sveltia CMS entry)
-- ⏳ static/admin/config.yml (Sveltia CMS configuration)
-- ⏳ CMS testing and documentation
-
-#### Phase 6: Polish & Cross-Cutting (T076-T100) - 0% Complete
-**Remaining:**
-- ⏳ Theme customization
-- ⏳ Performance optimization
+- ⏳ Performance optimization (image lazy loading, CSS purging)
+- ⏳ Lighthouse audit and improvements
 - ⏳ Accessibility audit
 - ⏳ Build scripts
 - ⏳ Deployment documentation

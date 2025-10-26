@@ -1,5 +1,5 @@
 name: "Example Sports Club"
-logo: "/images/club-logo.svg"
+# logo: "/images/club-logo.svg"  # Add your logo file to static/images/
 description: "A community sports club for all ages and abilities"
 founded: 2010
 primarySports:
