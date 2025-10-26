@@ -33,15 +33,31 @@ module.exports = {
   daisyui: {
     themes: [
       {
-        light: {
+        sportclub: {
           ...require('daisyui/src/theming/themes')['light'],
-          // Override theme colors here for club branding
-          // primary: '#1a365d',
-          // secondary: '#2d3748',
+          // Club branding colors - customize these for your club
+          'primary': '#1e40af',          // Sports blue
+          'primary-content': '#ffffff',
+          'secondary': '#059669',        // Victory green
+          'secondary-content': '#ffffff',
+          'accent': '#f59e0b',          // Energy orange
+          'accent-content': '#ffffff',
+          'neutral': '#1f2937',         // Dark gray
+          'neutral-content': '#ffffff',
+          'base-100': '#ffffff',        // Background
+          'base-200': '#f3f4f6',        // Secondary background
+          'base-300': '#e5e7eb',        // Border
+          'base-content': '#1f2937',    // Text
+          'info': '#3b82f6',
+          'success': '#10b981',
+          'warning': '#f59e0b',
+          'error': '#ef4444',
         },
       },
+      'dark',  // Optional dark mode
     ],
-    // Set base theme
+    // Set default theme
+    darkTheme: 'dark',
     base: true,
     styled: true,
     utils: true,
