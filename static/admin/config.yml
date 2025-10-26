@@ -1,6 +1,7 @@
 backend:
-  name: git-gateway
-  branch: main
+  name: github
+  repo: ChrisLasar/sports-club-theme
+  branch: 001-validation
 
 media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
