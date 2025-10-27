@@ -5,10 +5,10 @@ date: 2025-11-29T20:00:00+01:00
 location: Gemeindehalle
 venue: Gemeindehalle
 teams:
-  - karate
+  - Badminton
 opponent: ''
 description: Gemeinschaftsdienst
-registrationRequired: false
+requiresRegistration: false
 registrationDeadline: ''
 status: upcoming
 socialImage: /images/uploads/pexels-picjumbo-com-55570-196648.jpg
