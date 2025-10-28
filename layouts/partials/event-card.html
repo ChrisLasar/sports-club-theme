@@ -58,7 +58,7 @@
     <p class="text-sm line-clamp-3">{{ . }}</p>
     {{ end }}
     
-    {{ if and (eq $event.Params.status "upcoming") (eq $event.Params.requiresRegistration true) }}
+    {{ if and (eq $event.Params.status "upcoming") (eq $event.Params.registrationRequired true) }}
     <div class="mt-2">
       {{ with $event.Params.registrationDeadline }}
       <p class="text-xs opacity-70">Register by {{ dateFormat "Jan 2, 2006" . }}</p>

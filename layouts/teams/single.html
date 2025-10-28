@@ -72,9 +72,9 @@
   {{ end }}
   
   {{- /* Related Events */ -}}
-  {{ $teamSlug := path.Base .RelPermalink }}
-  {{ $relatedEvents := where site.RegularPages "Type" "events" }}
-  {{ $relatedEvents = where $relatedEvents ".Params.teams" "intersect" (slice $teamSlug) }}
+  {{ $teamSlug := .File.ContentBaseName }}
+  {{ $allEvents := where site.RegularPages "Type" "events" }}
+  {{ $relatedEvents := where $allEvents ".Params.teams" "intersect" (slice $teamSlug) }}
   {{ $upcomingEvents := where $relatedEvents ".Params.status" "upcoming" }}
   
   {{ if $upcomingEvents }}
