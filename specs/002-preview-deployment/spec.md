@@ -5,6 +5,16 @@
 **Status**: Draft  
 **Input**: User description: "I want to be able to see and evaluate the results of changes to the template as quickly as possible on the internet using the example. This applies to changes in the main branch as well as in all other branches."
 
+## Clarifications
+
+### Session 2025-10-29
+
+- Q: GitHub Pages branch preview URL structure? → A: Use path-based URLs under main site: `https://username.github.io/repo-name/preview/branch-name/` (main at root, branches in subdirectories)
+- Q: GitHub Pages deployment branch management? → A: Single `gh-pages` branch containing all previews (main at root, feature branches in `/preview/` subdirectories)
+- Q: Preview index location and format? → A: Auto-generated HTML index page at `/preview/index.html` on GitHub Pages with links to all branch previews
+- Q: Build failure handling strategy? → A: Preserve last successful build with main branch and show error page with all other branches that fail
+- Q: GitHub Actions concurrency control? → A: Cancel in-progress deployments when new push occurs to same branch
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - View Main Branch Preview (Priority: P1)
@@ -94,10 +104,13 @@ As a project maintainer, I want old preview deployments to be automatically clea
 - How do we handle branches with identical names but different remote repositories (forks)?
 - What if deployment service has rate limits or quotas?
 - How do we handle very large sites (1000+ pages) that take long to build?
-- What happens if two developers push to the same branch simultaneously?
+- What happens if two developers push to the same branch simultaneously? (Handled by cancelling in-progress deployment)
 - How do we ensure preview URLs remain stable across deployments (don'\''t change on every push)?
 - What happens when the Hugo version changes between branches?
 - How do we handle branches with custom dependencies or build configurations?
+- What happens if the gh-pages branch becomes too large with many preview directories?
+- How do we handle concurrent deployments that both need to update the gh-pages branch?
+- How should error pages for failed feature branch builds be styled and what information should they display?
 
 ## Requirements *(mandatory)*
 
@@ -105,22 +118,22 @@ As a project maintainer, I want old preview deployments to be automatically clea
 
 - **FR-001**: The system MUST automatically deploy the main branch to a publicly accessible preview URL whenever changes are pushed
 - **FR-002**: The system MUST automatically deploy each feature branch to a unique, publicly accessible preview URL whenever changes are pushed to that branch
-- **FR-003**: Each branch preview MUST be accessible via a stable, predictable URL pattern (e.g., `https://preview.example.com/branch-name` or `https://branch-name.preview.example.com`)
+- **FR-003**: Each branch preview MUST be accessible via a stable, predictable URL pattern using path-based routing: main branch at root (`https://username.github.io/repo-name/`) and feature branches in subdirectories (`https://username.github.io/repo-name/preview/branch-name/`)
 - **FR-004**: Preview deployments MUST build and deploy the complete Hugo site including all example content, theme files, and assets
-- **FR-005**: The system MUST provide a way to view the list of all currently active preview URLs (e.g., dashboard, README, or index page)
+- **FR-005**: The system MUST provide an auto-generated HTML index page at `/preview/index.html` listing all currently active preview URLs with branch names, commit hashes, and deployment timestamps
 - **FR-006**: Deployment status and progress MUST be visible to developers (e.g., via commit status checks, deployment logs, or dashboard)
 - **FR-007**: Preview deployments MUST be publicly accessible without requiring authentication or login
-- **FR-008**: Failed deployments MUST display helpful error messages and not break existing previews
+- **FR-008**: Failed deployments MUST be handled differently based on branch: main branch failures preserve the last successful build without updating, while feature branch failures deploy an error page explaining the build failure with error details and commit information
 - **FR-009**: The system SHOULD complete deployments within 5 minutes of a push for most changes
 - **FR-010**: Preview deployments MUST be automatically removed immediately when their associated branch is deleted (no retention period for inactive branches)
-- **FR-011**: The system MUST support concurrent deployments for multiple branches
+- **FR-011**: The system MUST support concurrent deployments for multiple branches, and MUST cancel any in-progress deployment for a branch when a new push occurs to that same branch (ensuring only the latest commit is deployed)
 - **FR-012**: Each preview MUST display which branch and commit it was built from (e.g., in footer or header)
 
 ### Key Entities
 
-- **Branch Preview**: A deployed instance of the Hugo site for a specific Git branch, accessible via unique URL, containing metadata (branch name, commit hash, deployment timestamp, build status)
-- **Deployment**: A build and publish process triggered by a Git push, containing metadata (status, start/end time, logs, errors)
-- **Preview Index**: A list or dashboard showing all active branch previews with their URLs and metadata
+- **Branch Preview**: A deployed instance of the Hugo site for a specific Git branch, accessible via unique URL path, containing metadata (branch name, commit hash, deployment timestamp, build status). Main branch content is deployed to the root of the gh-pages branch, while feature branches are deployed to `/preview/{branch-name}/` subdirectories.
+- **Deployment**: A build and publish process triggered by a Git push, containing metadata (status, start/end time, logs, errors). Each deployment updates the gh-pages branch with the built site content in the appropriate directory.
+- **Preview Index**: An auto-generated HTML page at `/preview/index.html` showing all active branch previews with their URLs, branch names, commit hashes, and deployment timestamps. Updated automatically on each deployment.
 
 ## Success Criteria *(mandatory)*
 
@@ -135,26 +148,27 @@ As a project maintainer, I want old preview deployments to be automatically clea
 - **SC-007**: Stakeholders can access and evaluate branch previews by following a shared URL without any setup or authentication
 - **SC-008**: Deleted branches have their previews removed automatically when the branch deletion is detected
 - **SC-009**: Each preview clearly displays the branch name and commit hash it represents
-- **SC-010**: Failed deployments preserve the last successful preview and show clear error information
+- **SC-010**: Failed deployments are handled appropriately: main branch preserves last successful preview, feature branches show clear error page with build failure details
 
 ---
 
 ## Assumptions
 
-- The project is hosted on a Git platform that supports webhooks or CI/CD integration (e.g., GitHub, GitLab)
-- A deployment platform or service is available that supports automatic deployments from Git branches (e.g., Netlify, Vercel, Cloudflare Pages, GitHub Pages with Actions)
+- The project is hosted on GitHub with a repository that has GitHub Pages enabled
+- GitHub Actions is available and enabled for the repository
 - The Hugo site builds successfully with the example content in the repository
+- The repository uses a single GitHub Pages deployment branch (gh-pages) with path-based routing for branch previews
 - Preview URLs can be made publicly accessible (no firewall or corporate network restrictions)
-- Standard deployment platforms provide reasonable free tier or acceptable costs for preview deployments
+- GitHub Pages free tier limits are acceptable for the expected number of branches and traffic
 - Developers have push access to the repository and can create feature branches
 
 ## Dependencies
 
-- Git repository hosting service (GitHub, GitLab, etc.)
-- Deployment/hosting service that supports branch-based deployments
-- Hugo Extended edition must be available in deployment environment
-- Node.js and npm must be available for Tailwind CSS processing
-- Deployment service must support webhook or CI/CD triggers on push events
+- GitHub repository with GitHub Pages enabled
+- GitHub Actions for CI/CD automation with concurrency control (cancel-in-progress for same branch deployments)
+- Hugo Extended edition must be available in GitHub Actions environment
+- Node.js and npm must be available in GitHub Actions for Tailwind CSS processing
+- GitHub Pages deployment branch (gh-pages) for hosting static site content
 
 ---
 
