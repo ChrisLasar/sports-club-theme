@@ -1,0 +1,226 @@
+# GitHub Actions Workflow: Deploy Main Branch
+# Purpose: Deploy main branch to GitHub Pages root
+# Trigger: Push to main branch
+# Target: https://username.github.io/repo-name/
+
+name: Deploy Main Branch
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Prevent concurrent deployments
+concurrency:
+  group: deploy-main
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+env:
+  HUGO_VERSION: "0.152.0"
+  NODE_VERSION: "22"
+  BASE_URL: "https://chrislasar.github.io/sports-club-theme/"
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy Main
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for .GitInfo
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install npm dependencies
+        run: npm ci
+        
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+          
+      - name: Setup Hugo Cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/hugo_cache
+          key: hugo-main-${{ github.run_id }}
+          restore-keys: |
+            hugo-main-
+            hugo-
+            
+      - name: Build Hugo Site
+        env:
+          HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
+        run: |
+          hugo \
+            --minify \
+            --baseURL "${{ env.BASE_URL }}/" \
+            --environment production
+            
+      - name: Generate Preview Metadata
+        run: |
+          mkdir -p public/.meta
+          cat > public/.meta/deployment.json <<EOF
+          {
+            "branch": "main",
+            "commit": "${{ github.sha }}",
+            "commit_message": "${{ github.event.head_commit.message }}",
+            "commit_author": "${{ github.event.head_commit.author.name }}",
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "build_status": "success",
+            "hugo_version": "${{ env.HUGO_VERSION }}",
+            "environment": "production"
+          }
+          EOF
+          
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages-deploy
+          
+      - name: Deploy to Root
+        run: |
+          # Remove old main content (keep preview/ directory)
+          cd gh-pages-deploy
+          find . -maxdepth 1 ! -name '.' ! -name '..' ! -name '.git' ! -name 'preview' -exec rm -rf {} +
+          
+          # Copy new build to root
+          cp -r ../public/* .
+          
+          # Ensure .nojekyll exists
+          touch .nojekyll
+          
+          # Git config
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Commit and push
+          git add -A
+          git commit -m "Deploy main branch: ${{ github.sha }}" || echo "No changes to commit"
+          git push origin gh-pages
+          
+      - name: Regenerate Preview Index
+        run: |
+          cd gh-pages-deploy
+          
+          # Check if preview directory exists
+          if [ ! -d "preview" ]; then
+            echo "No preview directory found, skipping index generation"
+            exit 0
+          fi
+          
+          # Generate preview list JSON
+          echo '{"generated_at":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'","total_previews":0,"previews":[]}' > preview/.preview-list.json
+          
+          PREVIEWS=""
+          COUNT=0
+          
+          for dir in preview/*/; do
+            if [ -d "$dir" ] && [ -f "$dir/.preview-meta.json" ]; then
+              PREVIEW_DATA=$(cat "$dir/.preview-meta.json")
+              if [ -z "$PREVIEWS" ]; then
+                PREVIEWS="$PREVIEW_DATA"
+              else
+                PREVIEWS="$PREVIEWS,$PREVIEW_DATA"
+              fi
+              COUNT=$((COUNT + 1))
+            fi
+          done
+          
+          # Update preview list
+          echo "{\"generated_at\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\",\"total_previews\":$COUNT,\"previews\":[$PREVIEWS]}" > preview/.preview-list.json
+          
+          # Generate HTML index
+          cat > preview/index.html <<'EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview Deployments</title>
+    <style>
+        body { font-family: system-ui; max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        h1 { color: #333; }
+        .preview-list { display: grid; gap: 1rem; }
+        .preview-card { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; }
+        .preview-card.success { border-left: 4px solid #22c55e; }
+        .preview-card.error { border-left: 4px solid #ef4444; }
+        .preview-header { display: flex; justify-content: space-between; align-items: start; }
+        .branch-name { font-size: 1.25rem; font-weight: 600; }
+        .status { padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.875rem; }
+        .status.success { background: #dcfce7; color: #166534; }
+        .status.error { background: #fee2e2; color: #991b1b; }
+        .commit-info { color: #666; font-size: 0.875rem; margin-top: 0.5rem; }
+        .actions { margin-top: 1rem; display: flex; gap: 0.5rem; }
+        .btn { padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px; font-size: 0.875rem; }
+        .btn-primary { background: #3b82f6; color: white; }
+        .btn-secondary { background: #e5e7eb; color: #374151; }
+    </style>
+</head>
+<body>
+    <h1>🚀 Preview Deployments</h1>
+    <p>Active preview deployments for feature branches</p>
+    <div class="preview-list" id="previews">Loading...</div>
+    
+    <script>
+        fetch('.preview-list.json')
+            .then(r => r.json())
+            .then(data => {
+                const container = document.getElementById('previews');
+                if (data.total_previews === 0) {
+                    container.innerHTML = '<p>No active previews</p>';
+                    return;
+                }
+                
+                container.innerHTML = data.previews.map(p => `
+                    <div class="preview-card ${p.build_status}">
+                        <div class="preview-header">
+                            <div class="branch-name">${p.branch}</div>
+                            <span class="status ${p.build_status}">${p.build_status}</span>
+                        </div>
+                        <div class="commit-info">
+                            <div>${p.commit_message}</div>
+                            <div>by ${p.author} • ${new Date(p.timestamp).toLocaleString()}</div>
+                        </div>
+                        <div class="actions">
+                            ${p.build_status === 'success' 
+                                ? `<a href="${p.url}" class="btn btn-primary">View Preview</a>`
+                                : `<a href="${p.url}error.html" class="btn btn-secondary">View Error</a>`
+                            }
+                            <a href="https://github.com/${{ github.repository }}/commit/${p.commit}" class="btn btn-secondary">View Commit</a>
+                        </div>
+                    </div>
+                `).join('');
+            })
+            .catch(err => {
+                document.getElementById('previews').innerHTML = '<p>Error loading previews</p>';
+            });
+    </script>
+</body>
+</html>
+EOF
+          
+          # Commit index updates
+          git add preview/
+          git commit -m "Update preview index after main deployment" || echo "No changes to preview index"
+          git push origin gh-pages
+          
+      - name: Summary
+        run: |
+          echo "✅ Main branch deployed successfully"
+          echo "🌐 Site URL: ${{ env.BASE_URL }}/"
+          echo "📦 Commit: ${{ github.sha }}"
