@@ -1,0 +1,163 @@
+backend:
+  name: github
+  repo: ChrisLasar/sports-club-theme
+  branch: 001-validation
+
+media_folder: "static/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "teams"
+    label: "Teams"
+    label_singular: "Team"
+    folder: "content/teams"
+    path: "{{slug}}/index"
+    media_folder: ""
+    public_folder: ""
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - {label: "Team Name", name: "title", widget: "string", required: true}
+      - {label: "Group", name: "group", widget: "string", hint: "e.g., U13, U15, Senior, Beginner, Advanced"}
+      - {label: "Sport", name: "sport", widget: "string"}
+      - label: "Season"
+        name: "season"
+        widget: "object"
+        fields:
+          - {label: "Start Date", name: "start", widget: "datetime", time_format: false, format: "YYYY-MM-DD"}
+          - {label: "End Date", name: "end", widget: "datetime", time_format: false, format: "YYYY-MM-DD"}
+          - {label: "Status", name: "status", widget: "select", options: ["active", "off-season", "archived"]}
+      - label: "Training Schedule"
+        name: "training"
+        widget: "list"
+        fields:
+          - {label: "Day", name: "day", widget: "select", options: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]}
+          - {label: "Start Time", name: "startTime", widget: "string", pattern: ["^([01]?[0-9]|2[0-3]):[0-5][0-9]$", "Must be HH:MM format"]}
+          - {label: "End Time", name: "endTime", widget: "string", pattern: ["^([01]?[0-9]|2[0-3]):[0-5][0-9]$", "Must be HH:MM format"]}
+          - {label: "Venue", name: "venue", widget: "string", hint: "Venue slug from data/venues.yaml"}
+      - {label: "Primary Venue", name: "venue", widget: "string"}
+      - label: "Coaches"
+        name: "coaches"
+        widget: "list"
+        fields:
+          - {label: "Member", name: "member", widget: "relation", collection: "members", search_fields: ["title"], value_field: "{{slug}}", display_fields: ["title", "role"], hint: "Select member entry for this coach"}
+          - {label: "Role", name: "role", widget: "string", default: "Coach", hint: "Coach's role on this team"}
+          - {label: "Generic Team Email", name: "email", widget: "string", hint: "Use generic team email (e.g., u13@club.org), NOT personal email"}
+      - {label: "Social Image", name: "socialImage", widget: "image", required: false, hint: "Team photo for social sharing"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "members"
+    label: "Members"
+    label_singular: "Member"
+    folder: "content/members"
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - {label: "Name", name: "title", widget: "string", required: true}
+      - {label: "Role", name: "role", widget: "string", hint: "e.g., Coach, Manager, Player"}
+      - {label: "Teams", name: "teams", widget: "list", required: false, hint: "Team paths, e.g., teams/u13-boys"}
+      - {label: "Group", name: "group", widget: "string", required: false, hint: "For players (age/skill level); omit for staff"}
+      - {label: "Biography", name: "bio", widget: "text", required: false}
+      - {label: "Portrait", name: "portrait", widget: "image", required: false}
+      - label: "Privacy Settings"
+        name: "visibility"
+        widget: "object"
+        fields:
+          - {label: "Show on Public Site", name: "publicDisplay", widget: "boolean", default: true}
+          - {label: "Show on Team Roster", name: "showOnRoster", widget: "boolean", default: true}
+          - {label: "Portrait Consent (opt-in)", name: "portraitConsent", widget: "boolean", default: false, hint: "Explicit consent required to display portrait"}
+      - {label: "Show Contact Publicly", name: "contactPublic", widget: "boolean", default: false, hint: "Do not enable for youth members"}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "events"
+    label: "Events & Fixtures"
+    label_singular: "Event"
+    folder: "content/events"
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - {label: "Event Title", name: "title", widget: "string", required: true}
+      - {label: "Event Type", name: "eventType", widget: "select", options: ["fixture", "tournament", "training-camp", "social"]}
+      - {label: "Date & Time", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ"}
+      - {label: "Location", name: "location", widget: "string"}
+      - {label: "Venue Slug", name: "venue", widget: "string", required: false}
+      - {label: "Teams", name: "teams", widget: "list", hint: "Team slugs (taxonomy)"}
+      - {label: "Opponent", name: "opponent", widget: "string", required: false, hint: "For fixtures"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Registration Required", name: "registrationRequired", widget: "boolean", default: false}
+      - {label: "Registration Deadline", name: "registrationDeadline", widget: "datetime", time_format: false, required: false}
+      - {label: "Status", name: "status", widget: "select", options: ["upcoming", "completed", "cancelled", "postponed"], default: "upcoming"}
+      - {label: "Social Image", name: "socialImage", widget: "image", required: false}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "results"
+    label: "Results"
+    label_singular: "Result"
+    folder: "content/results"
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - {label: "Title", name: "title", widget: "string", required: true}
+      - {label: "Event Reference", name: "event", widget: "string", hint: "Path to event, e.g., events/u13-boys-vs-rival"}
+      - {label: "Date", name: "date", widget: "datetime", time_format: false, format: "YYYY-MM-DD"}
+      - {label: "Teams", name: "teams", widget: "list", hint: "Team slugs (taxonomy)"}
+      - label: "Score"
+        name: "score"
+        widget: "object"
+        required: false
+        fields:
+          - {label: "Home Score", name: "home", widget: "number", value_type: "int", default: 0}
+          - {label: "Away Score", name: "away", widget: "number", value_type: "int", default: 0}
+          - {label: "Home Team", name: "homeTeam", widget: "string"}
+          - {label: "Away Team", name: "awayTeam", widget: "string"}
+      - {label: "Placement", name: "placement", widget: "string", required: false, hint: "For tournaments: 1st, 2nd, 3rd"}
+      - {label: "Highlights", name: "highlights", widget: "text"}
+      - {label: "Notes", name: "notes", widget: "text", required: false}
+      - {label: "Media Gallery", name: "mediaGallery", widget: "list", required: false}
+      - {label: "Social Image", name: "socialImage", widget: "image", required: false}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "posts"
+    label: "News & Posts"
+    label_singular: "Post"
+    folder: "content/posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - {label: "Title", name: "title", widget: "string", required: true}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Author", name: "author", widget: "string", default: "Club Admin"}
+      - {label: "Summary", name: "summary", widget: "text", required: true, hint: "Used in previews and social sharing"}
+      - {label: "Featured Image", name: "featured_image", widget: "image", required: false}
+      - {label: "Teams", name: "teams", widget: "list", required: false, hint: "Optional team tags"}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - {label: "Categories", name: "categories", widget: "list", required: false}
+      - {label: "Social Image", name: "socialImage", widget: "image", required: false}
+      - {label: "Body", name: "body", widget: "markdown", required: true}
+
+  - name: "pages"
+    label: "Pages"
+    label_singular: "Page"
+    folder: "content/pages"
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - {label: "Title", name: "title", widget: "string", required: true}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Body", name: "body", widget: "markdown"}
