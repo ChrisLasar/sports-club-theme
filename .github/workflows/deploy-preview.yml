@@ -121,109 +121,109 @@ jobs:
           EOF
           
           # Create error page
-          cat > public/error.html <<'EOF'
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Build Failed - ${{ github.ref_name }}</title>
-    <style>
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            max-width: 800px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-            line-height: 1.6;
-        }
-        .error-container {
-            border: 2px solid #ef4444;
-            border-radius: 8px;
-            padding: 2rem;
-            background: #fef2f2;
-        }
-        h1 {
-            color: #991b1b;
-            margin-top: 0;
-        }
-        .info-grid {
-            display: grid;
-            grid-template-columns: 150px 1fr;
-            gap: 0.5rem 1rem;
-            margin: 1.5rem 0;
-        }
-        .label {
-            font-weight: 600;
-            color: #666;
-        }
-        .value {
-            font-family: 'Courier New', monospace;
-            color: #333;
-        }
-        .actions {
-            margin-top: 2rem;
-            display: flex;
-            gap: 1rem;
-        }
-        .btn {
-            padding: 0.75rem 1.5rem;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 500;
-        }
-        .btn-primary {
-            background: #3b82f6;
-            color: white;
-        }
-        .btn-secondary {
-            background: #e5e7eb;
-            color: #374151;
-        }
-        pre {
-            background: #f9fafb;
-            border: 1px solid #d1d5db;
-            border-radius: 4px;
-            padding: 1rem;
-            overflow-x: auto;
-        }
-    </style>
-</head>
-<body>
-    <div class="error-container">
-        <h1>❌ Build Failed</h1>
-        <p>The Hugo build for this preview deployment failed. Please check the workflow logs for detailed error information.</p>
-        
-        <div class="info-grid">
-            <div class="label">Branch:</div>
-            <div class="value">${{ github.ref_name }}</div>
-            
-            <div class="label">Commit:</div>
-            <div class="value">${{ github.sha }}</div>
-            
-            <div class="label">Time:</div>
-            <div class="value">$(date -u +"%Y-%m-%d %H:%M:%S UTC")</div>
-            
-            <div class="label">Hugo Version:</div>
-            <div class="value">${{ env.HUGO_VERSION }}</div>
-        </div>
-        
-        <div class="actions">
-            <a href="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" 
-               class="btn btn-primary">
-                View Full Logs
-            </a>
-            <a href="https://github.com/${{ github.repository }}/commit/${{ github.sha }}" 
-               class="btn btn-secondary">
-                View Commit
-            </a>
-            <a href="../../" class="btn btn-secondary">
-                Back to Preview Index
-            </a>
-        </div>
-    </div>
-</body>
-</html>
-EOF
+          cat > public/error.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Build Failed - ${{ github.ref_name }}</title>
+              <style>
+                  body {
+                      font-family: system-ui, -apple-system, sans-serif;
+                      max-width: 800px;
+                      margin: 4rem auto;
+                      padding: 0 2rem;
+                      line-height: 1.6;
+                  }
+                  .error-container {
+                      border: 2px solid #ef4444;
+                      border-radius: 8px;
+                      padding: 2rem;
+                      background: #fef2f2;
+                  }
+                  h1 {
+                      color: #991b1b;
+                      margin-top: 0;
+                  }
+                  .info-grid {
+                      display: grid;
+                      grid-template-columns: 150px 1fr;
+                      gap: 0.5rem 1rem;
+                      margin: 1.5rem 0;
+                  }
+                  .label {
+                      font-weight: 600;
+                      color: #666;
+                  }
+                  .value {
+                      font-family: 'Courier New', monospace;
+                      color: #333;
+                  }
+                  .actions {
+                      margin-top: 2rem;
+                      display: flex;
+                      gap: 1rem;
+                  }
+                  .btn {
+                      padding: 0.75rem 1.5rem;
+                      text-decoration: none;
+                      border-radius: 6px;
+                      font-weight: 500;
+                  }
+                  .btn-primary {
+                      background: #3b82f6;
+                      color: white;
+                  }
+                  .btn-secondary {
+                      background: #e5e7eb;
+                      color: #374151;
+                  }
+                  pre {
+                      background: #f9fafb;
+                      border: 1px solid #d1d5db;
+                      border-radius: 4px;
+                      padding: 1rem;
+                      overflow-x: auto;
+                  }
+              </style>
+          </head>
+          <body>
+              <div class="error-container">
+                  <h1>❌ Build Failed</h1>
+                  <p>The Hugo build for this preview deployment failed. Please check the workflow logs for detailed error information.</p>
+                  
+                  <div class="info-grid">
+                      <div class="label">Branch:</div>
+                      <div class="value">${{ github.ref_name }}</div>
+                      
+                      <div class="label">Commit:</div>
+                      <div class="value">${{ github.sha }}</div>
+                      
+                      <div class="label">Time:</div>
+                      <div class="value">$(date -u +"%Y-%m-%d %H:%M:%S UTC")</div>
+                      
+                      <div class="label">Hugo Version:</div>
+                      <div class="value">${{ env.HUGO_VERSION }}</div>
+                  </div>
+                  
+                  <div class="actions">
+                      <a href="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" 
+                         class="btn btn-primary">
+                          View Full Logs
+                      </a>
+                      <a href="https://github.com/${{ github.repository }}/commit/${{ github.sha }}" 
+                         class="btn btn-secondary">
+                          View Commit
+                      </a>
+                      <a href="../../" class="btn btn-secondary">
+                          Back to Preview Index
+                      </a>
+                  </div>
+              </div>
+          </body>
+          </html>
+          EOF
           
       - name: Checkout gh-pages branch
         uses: actions/checkout@v4
@@ -288,76 +288,76 @@ EOF
           echo "{\"generated_at\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\",\"total_previews\":$COUNT,\"previews\":[$PREVIEWS]}" > preview/.preview-list.json
           
           # Generate HTML index (same as deploy-main.yml)
-          cat > preview/index.html <<'INDEXEOF'
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preview Deployments</title>
-    <style>
-        body { font-family: system-ui; max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
-        h1 { color: #333; }
-        .preview-list { display: grid; gap: 1rem; }
-        .preview-card { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; }
-        .preview-card.success { border-left: 4px solid #22c55e; }
-        .preview-card.error { border-left: 4px solid #ef4444; }
-        .preview-header { display: flex; justify-content: space-between; align-items: start; }
-        .branch-name { font-size: 1.25rem; font-weight: 600; }
-        .status { padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.875rem; }
-        .status.success { background: #dcfce7; color: #166534; }
-        .status.error { background: #fee2e2; color: #991b1b; }
-        .commit-info { color: #666; font-size: 0.875rem; margin-top: 0.5rem; }
-        .actions { margin-top: 1rem; display: flex; gap: 0.5rem; }
-        .btn { padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px; font-size: 0.875rem; }
-        .btn-primary { background: #3b82f6; color: white; }
-        .btn-secondary { background: #e5e7eb; color: #374151; }
-    </style>
-</head>
-<body>
-    <h1>🚀 Preview Deployments</h1>
-    <p>Active preview deployments for feature branches</p>
-    <div class="preview-list" id="previews">Loading...</div>
-    
-    <script>
-        fetch('.preview-list.json')
-            .then(r => r.json())
-            .then(data => {
-                const container = document.getElementById('previews');
-                if (data.total_previews === 0) {
-                    container.innerHTML = '<p>No active previews</p>';
-                    return;
-                }
-                
-                container.innerHTML = data.previews
-                    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
-                    .map(p => `
-                        <div class="preview-card ${p.build_status}">
-                            <div class="preview-header">
-                                <div class="branch-name">${p.branch}</div>
-                                <span class="status ${p.build_status}">${p.build_status}</span>
-                            </div>
-                            <div class="commit-info">
-                                <div>${p.commit_message}</div>
-                                <div>by ${p.commit_author} • ${new Date(p.timestamp).toLocaleString()}</div>
-                            </div>
-                            <div class="actions">
-                                ${p.build_status === 'success' 
-                                    ? `<a href="${p.url}" class="btn btn-primary">View Preview</a>`
-                                    : `<a href="${p.url}error.html" class="btn btn-secondary">View Error</a>`
-                                }
-                                <a href="https://github.com/REPO_PLACEHOLDER/commit/${p.commit}" class="btn btn-secondary">View Commit</a>
-                            </div>
-                        </div>
-                    `).join('');
-            })
-            .catch(err => {
-                document.getElementById('previews').innerHTML = '<p>Error loading previews</p>';
-            });
-    </script>
-</body>
-</html>
-INDEXEOF
+          cat > preview/index.html << 'INDEXEOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Preview Deployments</title>
+              <style>
+                  body { font-family: system-ui; max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+                  h1 { color: #333; }
+                  .preview-list { display: grid; gap: 1rem; }
+                  .preview-card { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; }
+                  .preview-card.success { border-left: 4px solid #22c55e; }
+                  .preview-card.error { border-left: 4px solid #ef4444; }
+                  .preview-header { display: flex; justify-content: space-between; align-items: start; }
+                  .branch-name { font-size: 1.25rem; font-weight: 600; }
+                  .status { padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.875rem; }
+                  .status.success { background: #dcfce7; color: #166534; }
+                  .status.error { background: #fee2e2; color: #991b1b; }
+                  .commit-info { color: #666; font-size: 0.875rem; margin-top: 0.5rem; }
+                  .actions { margin-top: 1rem; display: flex; gap: 0.5rem; }
+                  .btn { padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px; font-size: 0.875rem; }
+                  .btn-primary { background: #3b82f6; color: white; }
+                  .btn-secondary { background: #e5e7eb; color: #374151; }
+              </style>
+          </head>
+          <body>
+              <h1>🚀 Preview Deployments</h1>
+              <p>Active preview deployments for feature branches</p>
+              <div class="preview-list" id="previews">Loading...</div>
+              
+              <script>
+                  fetch('.preview-list.json')
+                      .then(r => r.json())
+                      .then(data => {
+                          const container = document.getElementById('previews');
+                          if (data.total_previews === 0) {
+                              container.innerHTML = '<p>No active previews</p>';
+                              return;
+                          }
+                          
+                          container.innerHTML = data.previews
+                              .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+                              .map(p => \`
+                                  <div class="preview-card \${p.build_status}">
+                                      <div class="preview-header">
+                                          <div class="branch-name">\${p.branch}</div>
+                                          <span class="status \${p.build_status}">\${p.build_status}</span>
+                                      </div>
+                                      <div class="commit-info">
+                                          <div>\${p.commit_message}</div>
+                                          <div>by \${p.commit_author} • \${new Date(p.timestamp).toLocaleString()}</div>
+                                      </div>
+                                      <div class="actions">
+                                          \${p.build_status === 'success' 
+                                              ? \`<a href="\${p.url}" class="btn btn-primary">View Preview</a>\`
+                                              : \`<a href="\${p.url}error.html" class="btn btn-secondary">View Error</a>\`
+                                          }
+                                          <a href="https://github.com/REPO_PLACEHOLDER/commit/\${p.commit}" class="btn btn-secondary">View Commit</a>
+                                      </div>
+                                  </div>
+                              \`).join('');
+                      })
+                      .catch(err => {
+                          document.getElementById('previews').innerHTML = '<p>Error loading previews</p>';
+                      });
+              </script>
+          </body>
+          </html>
+          INDEXEOF
           
           # Replace placeholder with actual repo
           sed -i "s|REPO_PLACEHOLDER|${{ github.repository }}|g" preview/index.html
