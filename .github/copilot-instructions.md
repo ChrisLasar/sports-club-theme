@@ -23,6 +23,7 @@ tests/
 Hugo 0.152+ (Extended edition for Tailwind processing): Follow standard conventions
 
 ## Recent Changes
+- 002-preview-deployment: Added Hugo 0.152+ (Extended edition for Tailwind processing)
 - 001-sports-club-ssg: Added Hugo 0.152+ (Extended edition for Tailwind processing) + daisyUI 5.x, Tailwind CSS 4.x, Alpine.js 3.x (optional progressive enhancement), Sveltia CMS (Git-based CMS; Decap CMS documentation as reference)
 
 <!-- MANUAL ADDITIONS START -->
