@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: ChrisLasar/sports-club-theme
-  branch: 001-validation
+  branch: main
 
 media_folder: "assets/images/uploads"
 public_folder: "/images/uploads"
