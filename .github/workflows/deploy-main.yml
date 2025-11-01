@@ -98,8 +98,8 @@ jobs:
           cd gh-pages-deploy
           find . -maxdepth 1 ! -name '.' ! -name '..' ! -name '.git' ! -name 'preview' -exec rm -rf {} +
           
-          # Copy new build to root
-          cp -r ../public/* .
+          # Copy new build to root (including hidden files)
+          cp -r ../public/. .
           
           # Ensure .nojekyll exists
           touch .nojekyll
