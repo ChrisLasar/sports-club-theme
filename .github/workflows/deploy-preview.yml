@@ -247,8 +247,8 @@ jobs:
           # Remove old preview content
           rm -rf preview/${{ steps.sanitize.outputs.branch }}/*
           
-          # Copy new build to preview directory
-          cp -r ../public/* preview/${{ steps.sanitize.outputs.branch }}/
+          # Copy new build to preview directory (including hidden files)
+          cp -r ../public/. preview/${{ steps.sanitize.outputs.branch }}/
           
           # Ensure .nojekyll exists at root
           touch .nojekyll
