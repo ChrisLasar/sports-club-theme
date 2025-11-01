@@ -1,0 +1,11 @@
+{
+  "branch": "fix-logo-odes-not-show-up",
+  "commit": "cb53446e06404543a80ef67a12c813bf795442d2",
+  "commit_message": "Update deployment scripts to include hidden files in copy operations\n",
+  "commit_author": "Christian Lasarczyk",
+  "timestamp": "2025-11-01T16:21:51Z",
+  "build_status": "success",
+  "build_duration_seconds": 0,
+  "hugo_version": "0.152.0",
+  "error_message": null
+}
