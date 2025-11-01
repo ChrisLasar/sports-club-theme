@@ -278,8 +278,8 @@ jobs:
               META=$(cat "$dir/.preview-meta.json")
               BRANCH_NAME=$(basename "$dir")
               
-              # Add URL to metadata
-              PREVIEW_WITH_URL=$(echo "$META" | jq --arg url "/preview/$BRANCH_NAME/" '. + {url: $url}')
+              # Add URL to metadata (relative path)
+              PREVIEW_WITH_URL=$(echo "$META" | jq --arg url "$BRANCH_NAME/" '. + {url: $url}')
               
               if [ -z "$PREVIEWS" ]; then
                 PREVIEWS="$PREVIEW_WITH_URL"
