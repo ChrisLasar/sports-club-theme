@@ -11,7 +11,7 @@ description: Gemeinschaftsdienst
 registrationRequired: false
 registrationDeadline: ''
 status: upcoming
-socialImage: /images/uploads/pexels-picjumbo-com-55570-196648.jpg
+socialImage: pexels-picjumbo-com-55570-196648.jpg
 tags: []
 ---
 We run the kitchen.
