@@ -10,6 +10,7 @@
 ### Session 2025-11-01
 
 - Q: Migration strategy for existing card partials? → A: Remove old templates immediately.
+- Q: Initial card variants to support? → A: Default + Compact.
 
 ## User Scenarios & Testing (mandatory)
 
@@ -72,7 +73,7 @@ As a developer, I want all card renderings to use one definition so there is a s
 
 - FR-001: Provide a single card definition that all card instances use across events, posts, results, teams, and members.
 - FR-002: Define a standard card input model (title, description/excerpt, href, image URL + alt, primary meta, secondary meta, badge/label, tag list) that can be mapped from each archetype’s fields.
-- FR-003: Support a small set of presentational variants to cover common use cases [NEEDS CLARIFICATION: exact variant set and names].
+- FR-003: Support two presentational variants to cover common use cases: Default and Compact (reduced spacing/typography), selectable per usage.
 - FR-004: Ensure visual consistency: spacing, typography scale, color roles, and hover/focus states are uniform for all variants.
 - FR-005: Accessibility: cards are fully keyboard-navigable; focus is visible; images include alt text (or are marked decorative); contrast meets WCAG 2.1 AA.
 - FR-006: Graceful data fallbacks: if an optional field is empty (e.g., image, secondary meta), the card hides that section without leaving visual gaps.
