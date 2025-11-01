@@ -54,6 +54,9 @@ collections:
     label: "Members"
     label_singular: "Member"
     folder: "content/members"
+    path: "{{slug}}/index"
+    media_folder: ""
+    public_folder: ""
     create: true
     slug: "{{slug}}"
     editor:
@@ -79,6 +82,9 @@ collections:
     label: "Events & Fixtures"
     label_singular: "Event"
     folder: "content/events"
+    path: "{{slug}}/index"
+    media_folder: ""
+    public_folder: ""   
     create: true
     slug: "{{slug}}"
     editor:
@@ -103,6 +109,9 @@ collections:
     label: "Results"
     label_singular: "Result"
     folder: "content/results"
+    path: "{{slug}}/index"
+    media_folder: ""
+    public_folder: ""
     create: true
     slug: "{{slug}}"
     editor:
@@ -133,6 +142,9 @@ collections:
     label: "News & Posts"
     label_singular: "Post"
     folder: "content/posts"
+    path: "{{slug}}/index"
+    media_folder: ""
+    public_folder: ""
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     editor:
