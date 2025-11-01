@@ -4,7 +4,7 @@ role: Chief Instructor
 teams: []
 group: ''
 bio: Super strong and powerful
-portrait: /images/uploads/pexels-italo-melo-881954-2379005.jpg
+portrait: pexels-italo-melo-881954-2379005.jpg
 visibility:
   publicDisplay: true
   showOnRoster: true

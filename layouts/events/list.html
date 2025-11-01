@@ -61,10 +61,10 @@
           x-show="(selectedStatus === 'all' || selectedStatus === '{{ $event.Params.status }}') && (selectedTeam === 'all' {{ range $eventTeams }}|| selectedTeam === '{{ . }}'{{ end }})"
           x-transition
           class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
-          
+
           {{ with $event.Params.socialImage }}
           <figure>
-            {{- partial "responsive-image.html" (dict "context" $ "src" . "alt" $.Title "class" "h-48 w-full object-cover") -}}
+            {{- partial "responsive-image.html" (dict "context" $event "src" . "alt" $.Title "class" "h-48 w-full object-cover") -}}
           </figure>
           {{ end }}
           
