@@ -1,12 +1,12 @@
-{"generated_at":"2025-11-01T17:42:20Z","total_previews":1,"previews":[{
+{"generated_at":"2025-11-01T17:46:34Z","total_previews":1,"previews":[{
   "branch": "fix-logo-does-not-show-up",
-  "commit": "a0c211f7e6ffaf0f2dc09d66d789bcd7eee4b924",
-  "commit_message": "Leading slash will alway lead to an url relative to domain root, which is problematic with github\n",
+  "commit": "11beaa1f5c033809974c73eb3d329ccaaadd3222",
+  "commit_message": "Merge branch main into fix-logo-does-not-show-up\n",
   "commit_author": "Christian Lasarczyk",
-  "timestamp": "2025-11-01T17:42:19Z",
+  "timestamp": "2025-11-01T17:46:32Z",
   "build_status": "success",
   "build_duration_seconds": 0,
   "hugo_version": "0.152.0",
   "error_message": null,
-  "url": "/preview/fix-logo-does-not-show-up/"
+  "url": "fix-logo-does-not-show-up/"
 }]}
