@@ -82,6 +82,9 @@ collections:
     label: "Events & Fixtures"
     label_singular: "Event"
     folder: "content/events"
+    path: "{{slug}}/index"
+    media_folder: ""
+    public_folder: ""   
     create: true
     slug: "{{slug}}"
     editor:
