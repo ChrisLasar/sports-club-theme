@@ -4,7 +4,7 @@
       <a href="{{ site.BaseURL | relURL }}" class="btn btn-ghost normal-case text-xl">
         {{ with site.Data.club.logo }}
           {{ $logo := . }}
-          <img src="{{ $logo | absURL }}" alt="{{ site.Data.club.name }} logo" class="h-8 w-auto mr-2" width="32" height="32" loading="eager">
+          <img src="{{ $logo | relURL }}" alt="{{ site.Data.club.name }} logo" class="h-8 w-auto mr-2" width="32" height="32" loading="eager">
         {{ end }}
         {{ site.Data.club.name }}
       </a>
