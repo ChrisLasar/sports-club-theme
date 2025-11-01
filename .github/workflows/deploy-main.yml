@@ -131,11 +131,16 @@ jobs:
           
           for dir in preview/*/; do
             if [ -d "$dir" ] && [ -f "$dir/.preview-meta.json" ]; then
-              PREVIEW_DATA=$(cat "$dir/.preview-meta.json")
+              META=$(cat "$dir/.preview-meta.json")
+              BRANCH_NAME=$(basename "$dir")
+              
+              # Add URL to metadata (relative path)
+              PREVIEW_WITH_URL=$(echo "$META" | jq --arg url "$BRANCH_NAME/" '. + {url: $url}')
+              
               if [ -z "$PREVIEWS" ]; then
-                PREVIEWS="$PREVIEW_DATA"
+                PREVIEWS="$PREVIEW_WITH_URL"
               else
-                PREVIEWS="$PREVIEWS,$PREVIEW_DATA"
+                PREVIEWS="$PREVIEWS,$PREVIEW_WITH_URL"
               fi
               COUNT=$((COUNT + 1))
             fi
