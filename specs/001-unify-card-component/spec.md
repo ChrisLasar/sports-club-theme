@@ -5,6 +5,12 @@
 **Status**: Draft  
 **Input**: User description: "Unify all archetype card layouts behind a single source of truth so changing the card layout in one place updates cards for events, posts, results, teams, and members consistently across the site. Reduce duplicated partials and enforce consistent usage."
 
+## Clarifications
+
+### Session 2025-11-01
+
+- Q: Migration strategy for existing card partials? → A: Remove old templates immediately.
+
 ## User Scenarios & Testing (mandatory)
 
 ### User Story 1 - Update once, reflect everywhere (Priority: P1)
@@ -43,7 +49,7 @@ As a developer, I want all card renderings to use one definition so there is a s
 
 **Why this priority**: Reduces maintenance burden and defect surface; speeds up future design changes.
 
-**Independent Test**: Search the codebase and confirm all list-page and widget card renderings reference the unified card system, with any previous per-type card templates deprecated or aliased to the unified system.
+**Independent Test**: Search the codebase and confirm all list-page and widget card renderings reference the unified card system, and any previous per-type card templates have been removed.
 
 **Acceptance Scenarios**:
 
@@ -71,7 +77,7 @@ As a developer, I want all card renderings to use one definition so there is a s
 - FR-005: Accessibility: cards are fully keyboard-navigable; focus is visible; images include alt text (or are marked decorative); contrast meets WCAG 2.1 AA.
 - FR-006: Graceful data fallbacks: if an optional field is empty (e.g., image, secondary meta), the card hides that section without leaving visual gaps.
 - FR-007: Performance: card usage must not materially regress page load experience; list pages maintain perceived speed comparable to baseline (see Success Criteria).
-- FR-008: Adoption: all templates that currently render cards must adopt the unified system; prior per-type card renderers are deprecated or routed through the unified system [NEEDS CLARIFICATION: deprecation vs. aliasing strategy].
+- FR-008: Adoption: all templates that currently render cards must adopt the unified system; prior per-type card renderers are removed immediately in this change and references are updated accordingly.
 - FR-009: Documentation: provide usage guidance showing how each archetype maps its fields into the card model, including examples for typical and edge cases.
 - FR-010: Examples for testing: create representative list pages or example content demonstrating all supported variants and archetypes for visual QA and accessibility checks.
 - FR-011: Field mapping defaults: propose a default mapping for each archetype (see Key Entities) and allow override per usage [NEEDS CLARIFICATION: confirm mandatory vs. optional fields per archetype].
