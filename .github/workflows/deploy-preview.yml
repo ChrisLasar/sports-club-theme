@@ -55,6 +55,12 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
         
+      - name: Update CMS branch config
+        run: |
+          # Replace branch: main with current branch in Sveltia CMS config
+          sed -i "s/^  branch: main$/  branch: ${{ github.ref_name }}/" static/admin/config.yml
+          echo "Updated static/admin/config.yml to use branch: ${{ github.ref_name }}"
+        
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
