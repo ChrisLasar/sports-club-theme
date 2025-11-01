@@ -9,7 +9,7 @@
 {{ $result := .result }}
 
 <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow h-full">
-  {{ with $result.Resources.GetMatch "featured*" }}
+  {{ with $result.Resources.Get $result.Params.socialImage }}
   <figure class="aspect-video overflow-hidden">
     {{- partial "responsive-image.html" (dict "context" $ "src" .RelPermalink "alt" $result.Title "class" "w-full h-full object-cover") -}}
   </figure>

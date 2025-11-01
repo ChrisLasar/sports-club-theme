@@ -9,9 +9,9 @@
 {{ $event := .event }}
 
 <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow h-full">
-  {{ with $event.Resources.GetMatch "featured*" }}
+  {{ with $event.Resources.Get $event.Params.socialImage }}
   <figure class="aspect-video overflow-hidden">
-    {{- partial "responsive-image.html" (dict "context" $ "src" .RelPermalink "alt" $event.Title "class" "w-full h-full object-cover") -}}
+    {{- partial "responsive-image.html" (dict "context" $event "src" .RelPermalink "alt" $event.Title "class" "w-full h-full object-cover") -}}
   </figure>
   {{ end }}
   
