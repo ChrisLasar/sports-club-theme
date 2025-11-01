@@ -11,6 +11,7 @@
 
 - Q: Migration strategy for existing card partials? → A: Remove old templates immediately.
 - Q: Initial card variants to support? → A: Default + Compact.
+- Q: Mandatory fields per archetype? → A: Type-specific mandates now (per list below).
 
 ## User Scenarios & Testing (mandatory)
 
@@ -81,17 +82,18 @@ As a developer, I want all card renderings to use one definition so there is a s
 - FR-008: Adoption: all templates that currently render cards must adopt the unified system; prior per-type card renderers are removed immediately in this change and references are updated accordingly.
 - FR-009: Documentation: provide usage guidance showing how each archetype maps its fields into the card model, including examples for typical and edge cases.
 - FR-010: Examples for testing: create representative list pages or example content demonstrating all supported variants and archetypes for visual QA and accessibility checks.
-- FR-011: Field mapping defaults: propose a default mapping for each archetype (see Key Entities) and allow override per usage [NEEDS CLARIFICATION: confirm mandatory vs. optional fields per archetype].
+- FR-011: Field mapping defaults: define mandatory vs. optional fields per archetype (below) and allow override per usage when optional fields are present.
+- FR-012: Enforcement: If a content item lacks any mandatory field for its archetype, it must not render as a card; pages remain valid and other items render normally.
 
 ### Key Entities (data involved)
 
 - Card: a display model comprising attributes: title, excerpt/description, href, image (src, alt), primary meta (e.g., date/score), secondary meta (e.g., venue/opponent), badge/label, tags, and variant.
-- Archetype mapping: a per-content-type mapping that transforms native fields into the card model. Examples (defaults):
-  - Event → title, date (primary meta), venue (secondary meta), image, href.
-  - Post → title, published date (primary meta), excerpt (description), image, href, tags.
-  - Result → title or opponent, score (primary meta), competition/round (secondary meta), image (optional), href.
-  - Team → team name (title), age group/category (primary meta), coach (secondary meta), image (optional), href.
-  - Member → name (title), role (primary meta), team/department (secondary meta), image, href.
+- Archetype mapping: a per-content-type mapping that transforms native fields into the card model. Defaults and mandates:
+  - Event → Mandatory: title, href, date. Optional: venue, image, tags.
+  - Post → Mandatory: title, href, at least one of (published date, excerpt). Optional: image, tags.
+  - Result → Mandatory: title (or opponent as title), href, score. Optional: competition/round, image.
+  - Team → Mandatory: team name (title), href. Optional: age group/category, coach, image.
+  - Member → Mandatory: name (title), href, image. Optional: role, team/department.
 
 ## Success Criteria (mandatory)
 
@@ -124,10 +126,4 @@ As a developer, I want all card renderings to use one definition so there is a s
 - Where images are optional, visual balance is preserved without requiring placeholders.
 - Card is link-centric: the whole card or its title acts as the primary navigation to the detail page.
 
-## Items Requiring Clarification (max 3)
-
-1) Variants scope [NEEDS CLARIFICATION]: Which exact variants should the unified card support initially (e.g., Default, Compact, Media-left/Horizontal)?
-
-2) Deprecation approach [NEEDS CLARIFICATION]: Should existing per-type card templates be removed, or kept as thin aliases to the unified system during a transition period?
-
-3) Mandatory fields per archetype [NEEDS CLARIFICATION]: For each archetype, which fields are mandatory vs. optional for cards (e.g., is image required for members; is venue required for events)?
+<!-- All prior clarifications resolved in Clarifications: Session 2025-11-01 -->
