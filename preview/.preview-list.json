@@ -1,4 +1,4 @@
-{"generated_at":"2025-11-01T16:56:20Z","total_previews":1,"previews":[{
+{"generated_at":"2025-11-01T17:23:25Z","total_previews":1,"previews":[{
   "branch": "fix-logo-does-not-show-up",
   "commit": "f3df0ade89d04c1bf71debc688a1d624872bc499",
   "commit_message": "Ensure logo is handled relativ to baseurl\n",
@@ -8,5 +8,5 @@
   "build_duration_seconds": 0,
   "hugo_version": "0.152.0",
   "error_message": null,
-  "url": "/preview/fix-logo-does-not-show-up/"
+  "url": "fix-logo-does-not-show-up/"
 }]}
