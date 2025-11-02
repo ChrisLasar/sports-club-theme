@@ -23,7 +23,8 @@
       
       {{ with .Params.socialImage }}
       <figure class="w-full md:w-64 rounded-lg overflow-hidden shadow-lg">
-        {{- partial "responsive-image.html" (dict "context" $ "src" . "alt" $.Title "class" "w-full") -}}
+        {{- $teamImage := $.Resources.Get . -}}
+        {{- partial "responsive-image.html" (dict "resource" $teamImage "alt" $.Title "class" "w-full") -}}
       </figure>
       {{ end }}
     </div>
@@ -80,9 +81,11 @@
   {{ if $upcomingEvents }}
   <section class="mb-8">
     <h2 class="text-2xl font-bold mb-4">Upcoming Events</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
       {{ range first 6 $upcomingEvents }}
-        {{- partial "event-card.html" (dict "event" .) -}}
+        {{- /* Use unified card system */ -}}
+        {{ $cardData := partial "mappers/event-to-card.html" . }}
+        {{ partial "card.html" $cardData }}
       {{ end }}
     </div>
     {{ if gt (len $upcomingEvents) 6 }}
@@ -100,9 +103,11 @@
   {{ if $relatedResults }}
   <section class="mb-8">
     <h2 class="text-2xl font-bold mb-4">Recent Results</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
       {{ range first 6 (sort $relatedResults ".Params.date" "desc") }}
-        {{- partial "result-card.html" (dict "result" .) -}}
+        {{- /* Use unified card system */ -}}
+        {{ $cardData := partial "mappers/result-to-card.html" . }}
+        {{ partial "card.html" $cardData }}
       {{ end }}
     </div>
     {{ if gt (len $relatedResults) 6 }}
@@ -120,9 +125,11 @@
   {{ if $relatedPosts }}
   <section class="mb-8">
     <h2 class="text-2xl font-bold mb-4">Team News</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
       {{ range first 3 (sort $relatedPosts ".Date" "desc") }}
-        {{- partial "post-card.html" . -}}
+        {{- /* Use unified card system */ -}}
+        {{ $cardData := partial "mappers/post-to-card.html" . }}
+        {{ partial "card.html" $cardData }}
       {{ end }}
     </div>
     {{ if gt (len $relatedPosts) 3 }}

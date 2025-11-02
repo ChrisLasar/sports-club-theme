@@ -63,7 +63,7 @@
     {{ $posts := where site.RegularPages "Type" "posts" }}
     {{ $posts = sort $posts ".Date" "desc" }}
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
       {{ range $posts }}
         {{ $postCategories := .Params.categories }}
         {{ $postTeams := .Params.teams }}
@@ -71,7 +71,9 @@
           x-show="(selectedCategory === 'all' {{ range $postCategories }}|| selectedCategory === '{{ . }}'{{ end }}) && (selectedTeam === 'all' {{ range $postTeams }}|| selectedTeam === '{{ . }}'{{ end }})"
           x-transition
           class="h-full">
-          {{- partial "post-card.html" . -}}
+          {{- /* Use unified card system */ -}}
+          {{ $cardData := partial "mappers/post-to-card.html" . }}
+          {{ partial "card.html" $cardData }}
         </div>
       {{ end }}
     </div>

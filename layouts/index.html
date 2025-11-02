@@ -20,9 +20,11 @@
   {{ if $posts }}
   <section class="mb-12">
     <h2 class="text-3xl font-bold mb-6">Latest News</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
       {{ range $posts }}
-        {{- partial "post-card.html" . -}}
+        {{- /* Use unified card system */ -}}
+        {{ $cardData := partial "mappers/post-to-card.html" . }}
+        {{ partial "card.html" $cardData }}
       {{ end }}
     </div>
     <div class="text-center mt-6">
@@ -39,9 +41,11 @@
   {{ if $upcomingEvents }}
   <section class="mb-12">
     <h2 class="text-3xl font-bold mb-6">Upcoming Events</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
       {{ range $upcomingEvents }}
-        {{- partial "event-card.html" (dict "event" .) -}}
+        {{- /* Use unified card system */ -}}
+        {{ $cardData := partial "mappers/event-to-card.html" . }}
+        {{ partial "card.html" $cardData }}
       {{ end }}
     </div>
     <div class="text-center mt-6">
@@ -57,9 +61,11 @@
   {{ if $results }}
   <section class="mb-12">
     <h2 class="text-3xl font-bold mb-6">Recent Results</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
       {{ range $results }}
-        {{- partial "result-card.html" (dict "result" .) -}}
+        {{- /* Use unified card system */ -}}
+        {{ $cardData := partial "mappers/result-to-card.html" . }}
+        {{ partial "card.html" $cardData }}
       {{ end }}
     </div>
     <div class="text-center mt-6">
@@ -75,9 +81,11 @@
   {{ if $teams }}
   <section class="mb-12">
     <h2 class="text-3xl font-bold mb-6">Our Teams</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
       {{ range $teams }}
-        {{- partial "team-card.html" . -}}
+        {{- /* Use unified card system */ -}}
+        {{ $cardData := partial "mappers/team-to-card.html" . }}
+        {{ partial "card.html" $cardData }}
       {{ end }}
     </div>
     <div class="text-center mt-6">

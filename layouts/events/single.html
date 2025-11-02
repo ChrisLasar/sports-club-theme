@@ -26,7 +26,8 @@
       
       {{ with .Params.socialImage }}
       <figure class="w-full md:w-64 rounded-lg overflow-hidden shadow-lg">
-        {{- partial "responsive-image.html" (dict "context" $ "src" . "alt" $.Title "class" "w-full") -}}
+        {{- $eventImage := $.Resources.Get . -}}
+        {{- partial "responsive-image.html" (dict "resource" $eventImage "alt" $.Title "class" "w-full") -}}
       </figure>
       {{ end }}
     </div>

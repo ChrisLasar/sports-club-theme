@@ -1,47 +1,58 @@
 {{- /* 
   Responsive Image Partial
-  Usage: {{ partial "responsive-image.html" (dict "context" . "src" "image.jpg" "alt" "Description" "sizes" "(min-width: 768px) 50vw, 100vw") }}
+  Usage: {{ partial "responsive-image.html" (dict "resource" $imgResource "alt" "Description" "sizes" "(min-width: 768px) 50vw, 100vw") }}
+  
+  Parameters:
+    - resource (required): Hugo image resource (from .Resources.Get or resources.Get)
+    - alt (optional): Alt text for the image
+    - class (optional): CSS classes to apply to the img element
+    - sizes (optional): Sizes attribute for responsive images (default: "100vw")
+    - loading (optional): Loading strategy - "lazy" or "eager" (default: "lazy")
 */ -}}
 
-{{- $context := .context -}}
-{{- $src := .src -}}
+{{- $img := .resource -}}
 {{- $alt := .alt | default "" -}}
 {{- $class := .class | default "" -}}
 {{- $sizes := .sizes | default "100vw" -}}
 {{- $loading := .loading | default "lazy" -}}
 
-{{- /* Try to get image as page resource first */ -}}
-{{- $img := $context.Resources.Get $src -}}
-
 {{- if $img -}}
-  {{- /* Generate responsive variants */ -}}
-  {{- $small := $img.Resize "480x webp" -}}
-  {{- $medium := $img.Resize "768x webp" -}}
-  {{- $large := $img.Resize "1200x webp" -}}
-  {{- $fallback := $img.Resize "1200x" -}}
-  
-  <picture>
-    <source 
-      srcset="{{ $small.RelPermalink }} 480w,
-              {{ $medium.RelPermalink }} 768w,
-              {{ $large.RelPermalink }} 1200w"
-      type="image/webp"
-      sizes="{{ $sizes }}">
+  {{- /* Check if image is SVG - SVGs cannot be resized */ -}}
+  {{- if eq $img.MediaType.SubType "svg" -}}
+    {{- /* For SVG, just output a simple img tag */ -}}
     <img 
-      src="{{ $fallback.RelPermalink }}" 
+      src="{{ $img.RelPermalink }}" 
       alt="{{ $alt }}"
       {{ with $class }}class="{{ . }}"{{ end }}
       loading="{{ $loading }}"
-      width="{{ $img.Width }}"
-      height="{{ $img.Height }}"
       decoding="async">
-  </picture>
+  {{- else -}}
+    {{- /* Generate responsive variants for raster images */ -}}
+    {{- /* Multiple sizes for different use cases: cards (small), hero images (large), etc. */ -}}
+    {{- $tiny := $img.Resize "320x webp" -}}
+    {{- $small := $img.Resize "480x webp" -}}
+    {{- $medium := $img.Resize "768x webp" -}}
+    {{- $large := $img.Resize "1200x webp" -}}
+    {{- $fallback := $img.Resize "1200x" -}}
+    
+    <picture>
+      <source 
+        srcset="{{ $tiny.RelPermalink }} 320w,
+                {{ $small.RelPermalink }} 480w,
+                {{ $medium.RelPermalink }} 768w,
+                {{ $large.RelPermalink }} 1200w"
+        type="image/webp"
+        sizes="{{ $sizes }}">
+      <img 
+        src="{{ $fallback.RelPermalink }}" 
+        alt="{{ $alt }}"
+        {{ with $class }}class="{{ . }}"{{ end }}
+        loading="{{ $loading }}"
+        width="{{ $img.Width }}"
+        height="{{ $img.Height }}"
+        decoding="async">
+    </picture>
+  {{- end -}}
 {{- else -}}
-  {{- /* Fallback to static image */ -}}
-  <img 
-    src="{{ $src | relURL }}" 
-    alt="{{ $alt }}"
-    {{ with $class }}class="{{ . }}"{{ end }}
-    loading="{{ $loading }}"
-    decoding="async">
+  {{- warnf "responsive-image.html: No image resource provided" -}}
 {{- end -}}

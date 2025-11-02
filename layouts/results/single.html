@@ -97,7 +97,8 @@
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {{ range . }}
         <figure class="rounded-lg overflow-hidden shadow-lg">
-          {{- partial "responsive-image.html" (dict "context" $ "src" . "alt" "Match photo" "class" "w-full h-48 object-cover") -}}
+          {{- $galleryImage := $.Resources.Get . -}}
+          {{- partial "responsive-image.html" (dict "resource" $galleryImage "alt" "Match photo" "class" "w-full h-48 object-cover") -}}
         </figure>
         {{ end }}
       </div>

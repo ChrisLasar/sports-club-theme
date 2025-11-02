@@ -49,7 +49,8 @@
     {{- /* Featured Image */ -}}
     {{ with .Params.featured_image }}
     <figure class="mb-8 rounded-lg overflow-hidden shadow-xl">
-      {{- partial "responsive-image.html" (dict "context" $ "src" . "alt" $.Title "class" "w-full") -}}
+      {{- $featuredImage := $.Resources.Get . -}}
+      {{- partial "responsive-image.html" (dict "resource" $featuredImage "alt" $.Title "class" "w-full") -}}
     </figure>
     {{ end }}
     
@@ -78,9 +79,11 @@
   {{ with $related }}
   <aside class="container mx-auto px-4 py-12 max-w-6xl">
     <h2 class="text-2xl font-bold mb-6">Related Posts</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
       {{ range . }}
-        {{- partial "post-card.html" . -}}
+        {{- /* Use unified card system */ -}}
+        {{ $cardData := partial "mappers/post-to-card.html" . }}
+        {{ partial "card.html" $cardData }}
       {{ end }}
     </div>
   </aside>

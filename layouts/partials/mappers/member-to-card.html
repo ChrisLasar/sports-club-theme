@@ -1,0 +1,110 @@
+{{- /*
+  Member to Card Mapper
+  
+  Transforms a member page context into the unified Card data model.
+  
+  Context: Member page object (Hugo .Page)
+  Returns: Dict conforming to Card data model
+  
+  Mandatory fields:
+    - title: Member name
+    - href: Member permalink
+    - image: Member photo (per FR-011 requirement)
+  
+  Optional fields:
+    - primaryMeta: Member role/position
+    - secondaryMeta: Team or department
+    - badge: Membership type or status
+  
+  See: /specs/001-unify-card-component/data-model.md
+*/ -}}
+
+{{- /* Validate mandatory fields */ -}}
+{{ $memberName := .Params.name | default .Title }}
+{{ if not $memberName }}
+  {{ errorf "Member card missing required field: name/title. Page: %s" .RelPermalink }}
+{{ end }}
+
+{{- /* Build image object - MANDATORY for members per FR-011 */ -}}
+{{ $image := dict }}
+{{ $imageResource := "" }}
+
+{{- /* Try to get member image from various sources */ -}}
+{{ with .Params.socialImage }}
+  {{- /* Try to get as a page resource first */ -}}
+  {{ $imageResource = $.Resources.Get . }}
+  {{ if not $imageResource }}
+    {{- /* Try global resources */ -}}
+    {{ $imageResource = resources.Get . }}
+  {{ end }}
+{{ end }}
+
+{{- /* If no socialImage, try portrait field */ -}}
+{{ if not $imageResource }}
+  {{ with .Params.portrait }}
+    {{ $imageResource = $.Resources.Get . }}
+    {{ if not $imageResource }}
+      {{ $imageResource = resources.Get . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{- /* If we have an image resource, use it; otherwise use placeholder */ -}}
+{{ if $imageResource }}
+  {{ $image = dict "resource" $imageResource "alt" $memberName }}
+{{ else }}
+  {{- /* Fallback to placeholder - required per FR-011 */ -}}
+  {{ $placeholderResource := resources.Get "images/placeholders/member-placeholder.svg" }}
+  {{ if $placeholderResource }}
+    {{ $image = dict "resource" $placeholderResource "alt" (printf "%s (placeholder)" $memberName) }}
+  {{ else }}
+    {{- /* Placeholder not found - warn but continue without image */ -}}
+    {{ warnf "Member placeholder image not found for %s" $.RelPermalink }}
+    {{ $image = dict }}
+  {{ end }}
+{{ end }}
+
+{{- /* Build primary metadata (role/position) */ -}}
+{{ $primaryMeta := "" }}
+{{ with .Params.role }}
+  {{ $primaryMeta = . }}
+{{ else }}
+  {{ with $.Params.position }}
+    {{ $primaryMeta = . }}
+  {{ end }}
+{{ end }}
+
+{{- /* Build secondary metadata (team or department) */ -}}
+{{ $secondaryMeta := "" }}
+{{ with .Params.team }}
+  {{ $secondaryMeta = . }}
+{{ else }}
+  {{ with $.Params.department }}
+    {{ $secondaryMeta = . }}
+  {{ end }}
+{{ end }}
+
+{{- /* Determine badge from membership type or status */ -}}
+{{ $badge := "" }}
+{{ with .Params.membershipType }}
+  {{ $badge = . | humanize }}
+{{ else }}
+  {{ with $.Params.status }}
+    {{ $badge = . | humanize }}
+  {{ end }}
+{{ end }}
+
+{{- /* Collect tags */ -}}
+{{ $tags := .Params.tags }}
+
+{{- /* Return card data dict */ -}}
+{{ return dict
+  "title" $memberName
+  "href" .RelPermalink
+  "primaryMeta" $primaryMeta
+  "secondaryMeta" $secondaryMeta
+  "image" $image
+  "badge" $badge
+  "tags" $tags
+  "variant" "default"
+}}

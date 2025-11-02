@@ -1,0 +1,75 @@
+{{- /*
+  Post to Card Mapper
+  
+  Transforms a post/news page context into the unified Card data model.
+  
+  Context: Post page object (Hugo .Page)
+  Returns: Dict conforming to Card data model
+  
+  Mandatory fields:
+    - title: Post title
+    - href: Post permalink
+    - primaryMeta: Publish date OR summary (at least one required)
+  
+  Optional fields:
+    - description: Post summary/excerpt
+    - image: Post image
+    - tags: Post tags
+    - badge: Post category
+  
+  See: /specs/001-unify-card-component/data-model.md
+*/ -}}
+
+{{- /* Validate mandatory fields */ -}}
+{{ if not .Title }}
+  {{ errorf "Post card missing required field: title. Page: %s" .RelPermalink }}
+{{ end }}
+
+{{- /* Build image object if available */ -}}
+{{ $image := dict }}
+{{ $imageResource := "" }}
+{{ with .Params.socialImage }}
+  {{- /* Try to get as a page resource first */ -}}
+  {{ $imageResource = $.Resources.Get . }}
+  {{ if not $imageResource }}
+    {{- /* Try global resources */ -}}
+    {{ $imageResource = resources.Get . }}
+  {{ end }}
+{{ end }}
+{{ if $imageResource }}
+  {{ $image = dict "resource" $imageResource "alt" $.Title }}
+{{ end }}
+
+{{- /* Format date for display */ -}}
+{{ $formattedDate := "" }}
+{{ with .PublishDate }}
+  {{ $formattedDate = dateFormat "January 2, 2006" . }}
+{{ end }}
+
+{{- /* Get summary/description */ -}}
+{{ $description := "" }}
+{{ with .Summary }}
+  {{ $description = . | plainify | truncate 200 }}
+{{ end }}
+
+{{- /* Determine badge from category */ -}}
+{{ $badge := "" }}
+{{ $categories := .Params.categories }}
+{{ if $categories }}
+  {{ $badge = index $categories 0 | humanize }}
+{{ end }}
+
+{{- /* Collect tags */ -}}
+{{ $tags := .Params.tags }}
+
+{{- /* Return card data dict */ -}}
+{{ return dict
+  "title" .Title
+  "href" .RelPermalink
+  "primaryMeta" $formattedDate
+  "description" $description
+  "image" $image
+  "badge" $badge
+  "tags" $tags
+  "variant" "default"
+}}

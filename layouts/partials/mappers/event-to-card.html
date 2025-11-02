@@ -1,0 +1,89 @@
+{{- /*
+  Event to Card Mapper
+  
+  Transforms an event page context into the unified Card data model.
+  
+  Context: Event page object (Hugo .Page)
+  Returns: Dict conforming to Card data model
+  
+  Mandatory fields:
+    - title: Event title
+    - href: Event permalink
+    - primaryMeta: Event date
+  
+  Optional fields:
+    - secondaryMeta: Venue/location
+    - image: Event image
+    - tags: Event tags
+    - badge: Event status or type
+  
+  See: /specs/001-unify-card-component/data-model.md
+*/ -}}
+
+{{- /* Validate mandatory fields */ -}}
+{{ if not .Title }}
+  {{ errorf "Event card missing required field: title. Page: %s" .RelPermalink }}
+{{ end }}
+{{ if not .Params.date }}
+  {{ errorf "Event card missing required field: date. Page: %s" .RelPermalink }}
+{{ end }}
+
+{{- /* Build image object if available */ -}}
+{{ $image := dict }}
+{{ $imageResource := "" }}
+{{ with .Params.socialImage }}
+  {{- /* Try to get as a page resource first */ -}}
+  {{ $imageResource = $.Resources.Get . }}
+  {{ if not $imageResource }}
+    {{- /* Try global resources */ -}}
+    {{ $imageResource = resources.Get . }}
+  {{ end }}
+{{ end }}
+{{ if $imageResource }}
+  {{ $image = dict "resource" $imageResource "alt" $.Title }}
+{{ end }}
+
+{{- /* Format date for display */ -}}
+{{ $formattedDate := "" }}
+{{ with .Params.date }}
+  {{ $formattedDate = dateFormat "January 2, 2006" . }}
+{{ end }}
+
+{{- /* Determine badge based on status or event type */ -}}
+{{ $badge := "" }}
+{{ with .Params.status }}
+  {{ if eq . "upcoming" }}
+    {{ $badge = "Upcoming" }}
+  {{ else if eq . "completed" }}
+    {{ $badge = "Completed" }}
+  {{ else if eq . "cancelled" }}
+    {{ $badge = "Cancelled" }}
+  {{ else if eq . "postponed" }}
+    {{ $badge = "Postponed" }}
+  {{ end }}
+{{ else }}
+  {{ with $.Params.eventType }}
+    {{ $badge = . | humanize }}
+  {{ end }}
+{{ end }}
+
+{{- /* Build secondary metadata (location/venue) */ -}}
+{{ $secondaryMeta := "" }}
+{{ with .Params.location }}
+  {{ $secondaryMeta = printf "📍 %s" . }}
+{{ end }}
+
+{{- /* Collect tags */ -}}
+{{ $tags := .Params.tags }}
+
+{{- /* Return card data dict */ -}}
+{{ return dict
+  "title" .Title
+  "href" .RelPermalink
+  "primaryMeta" $formattedDate
+  "secondaryMeta" $secondaryMeta
+  "image" $image
+  "badge" $badge
+  "tags" $tags
+  "variant" "default"
+}}

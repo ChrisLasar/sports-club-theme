@@ -177,6 +177,34 @@ npm run build
 
 ## Customization
 
+### Unified Card System
+
+This template uses a unified card component system for consistent content display across all archetypes (teams, members, events, results, posts). Changes to card styling propagate automatically to all pages.
+
+**Key Features**:
+- Single reusable card partial: `layouts/partials/card.html`
+- Archetype-specific mappers: `layouts/partials/mappers/{type}-to-card.html`
+- Built with daisyUI card components
+- Responsive grid layouts with equal-height cards
+- Support for default and compact variants
+
+**Quick Example**:
+
+```go-html-template
+{{- /* Display cards in a responsive grid */ -}}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+  {{ range .Pages }}
+    {{ $cardData := partial "mappers/event-to-card.html" . }}
+    {{ partial "card.html" $cardData }}
+  {{ end }}
+</div>
+```
+
+**Documentation**:
+- **Usage Guide**: `specs/003-unify-card-component/quickstart.md`
+- **Data Model**: `specs/003-unify-card-component/data-model.md`
+- **Contract**: `specs/003-unify-card-component/contracts/card-partial.md`
+
 ### Theming
 
 Edit `tailwind.config.js` to customize colors and styling:

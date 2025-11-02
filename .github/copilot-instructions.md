@@ -5,6 +5,7 @@ Auto-generated from all feature plans. Last updated: 2025-10-25
 ## Active Technologies
 - Hugo 0.152+ (Extended edition for Tailwind processing) + daisyUI 5.x, Tailwind CSS 4.x, Alpine.js 3.x (optional progressive enhancement), Sveltia CMS (Git-based CMS; Decap CMS documentation as reference) (001-sports-club-ssg)
 - Files only (Markdown + YAML/TOML front matter); page bundles supported for colocated media (001-sports-club-ssg)
+- Hugo 0.152+ (Extended edition) (001-unify-card-component)
 
 ## Project Structure
 
@@ -23,6 +24,7 @@ tests/
 Hugo 0.152+ (Extended edition for Tailwind processing): Follow standard conventions
 
 ## Recent Changes
+- 001-unify-card-component: Added Hugo 0.152+ (Extended edition)
 - 002-preview-deployment: Added Hugo 0.152+ (Extended edition for Tailwind processing)
 - 001-sports-club-ssg: Added Hugo 0.152+ (Extended edition for Tailwind processing) + daisyUI 5.x, Tailwind CSS 4.x, Alpine.js 3.x (optional progressive enhancement), Sveltia CMS (Git-based CMS; Decap CMS documentation as reference)
 

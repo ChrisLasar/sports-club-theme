@@ -1,0 +1,132 @@
+{{- /*
+  Result to Card Mapper
+  
+  Transforms a result page context into the unified Card data model.
+  
+  Context: Result page object (Hugo .Page)
+  Returns: Dict conforming to Card data model
+  
+  Mandatory fields:
+    - title: Result title (or opponent as title)
+    - href: Result permalink
+    - primaryMeta: Score
+  
+  Optional fields:
+    - secondaryMeta: Competition or round
+    - image: Result/match image
+    - badge: Result outcome (Win/Loss/Draw)
+  
+  See: /specs/001-unify-card-component/data-model.md
+*/ -}}
+
+{{- /* Validate mandatory fields */ -}}
+{{ if not .Title }}
+  {{ errorf "Result card missing required field: title. Page: %s" .RelPermalink }}
+{{ end }}
+
+{{- /* Build image object if available */ -}}
+{{ $image := dict }}
+{{ $imageResource := "" }}
+{{ with .Params.socialImage }}
+  {{- /* Try to get as a page resource first */ -}}
+  {{ $imageResource = $.Resources.Get . }}
+  {{ if not $imageResource }}
+    {{- /* Try global resources */ -}}
+    {{ $imageResource = resources.Get . }}
+  {{ end }}
+{{ end }}
+{{ if $imageResource }}
+  {{ $image = dict "resource" $imageResource "alt" $.Title }}
+{{ end }}
+
+{{- /* Format score for display */ -}}
+{{ $score := "" }}
+{{ with .Params.score }}
+  {{- /* Check if score is a nested object or string */ -}}
+  {{ if reflect.IsMap . }}
+    {{- /* Handle nested score structure (home/away) */ -}}
+    {{ $homeScore := .home }}
+    {{ $awayScore := .away }}
+    {{ if and $homeScore $awayScore }}
+      {{ $score = printf "%v - %v" $homeScore $awayScore }}
+    {{ end }}
+  {{ else }}
+    {{- /* Handle simple string score */ -}}
+    {{ $score = . }}
+  {{ end }}
+{{ end }}
+
+{{- /* Build secondary metadata (competition/round) */ -}}
+{{ $secondaryMeta := "" }}
+{{ with .Params.competition }}
+  {{ $secondaryMeta = . }}
+  {{ with $.Params.round }}
+    {{ $secondaryMeta = printf "%s - %s" $secondaryMeta . }}
+  {{ end }}
+{{ else }}
+  {{ with $.Params.round }}
+    {{ $secondaryMeta = . }}
+  {{ end }}
+{{ end }}
+
+{{- /* Determine badge from result outcome */ -}}
+{{ $badge := "" }}
+{{ with .Params.outcome }}
+  {{ if eq . "win" }}
+    {{ $badge = "Win" }}
+  {{ else if eq . "loss" }}
+    {{ $badge = "Loss" }}
+  {{ else if eq . "draw" }}
+    {{ $badge = "Draw" }}
+  {{ end }}
+{{ else }}
+  {{- /* Try to derive outcome from score */ -}}
+  {{ with $.Params.score }}
+    {{ if reflect.IsMap . }}
+      {{ $homeScore := .home }}
+      {{ $awayScore := .away }}
+      {{ if and $homeScore $awayScore }}
+        {{ if gt $homeScore $awayScore }}
+          {{ $badge = "Win" }}
+        {{ else if lt $homeScore $awayScore }}
+          {{ $badge = "Loss" }}
+        {{ else }}
+          {{ $badge = "Draw" }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{- /* If still no badge, check tags for win/loss/draw */ -}}
+  {{ if not $badge }}
+    {{ with $.Params.tags }}
+      {{ if in . "win" }}
+        {{ $badge = "Win" }}
+      {{ else if in . "loss" }}
+        {{ $badge = "Loss" }}
+      {{ else if in . "draw" }}
+        {{ $badge = "Draw" }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{- /* Check for placement (tournament results) */ -}}
+  {{ if not $badge }}
+    {{ with $.Params.placement }}
+      {{ $badge = printf "%s Place" . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{- /* Collect tags */ -}}
+{{ $tags := .Params.tags }}
+
+{{- /* Return card data dict */ -}}
+{{ return dict
+  "title" .Title
+  "href" .RelPermalink
+  "primaryMeta" $score
+  "secondaryMeta" $secondaryMeta
+  "image" $image
+  "badge" $badge
+  "tags" $tags
+  "variant" "default"
+}}

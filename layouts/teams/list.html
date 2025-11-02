@@ -18,9 +18,11 @@
     {{ if $sportTeams }}
     <section class="mb-12">
       <h2 class="text-3xl font-bold mb-6">{{ $sport }}</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
         {{ range $sportTeams }}
-          {{- partial "team-card.html" . -}}
+          {{- /* Use unified card system */ -}}
+          {{ $cardData := partial "mappers/team-to-card.html" . }}
+          {{ partial "card.html" $cardData }}
         {{ end }}
       </div>
     </section>
