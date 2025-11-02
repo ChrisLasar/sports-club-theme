@@ -40,7 +40,7 @@
     {{ $results := where site.RegularPages "Type" "results" }}
     {{ $results = sort $results ".Params.date" "desc" }}
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
       {{ range $results }}
         {{ $resultTeams := .Params.teams }}
         <div 

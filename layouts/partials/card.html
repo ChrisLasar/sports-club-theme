@@ -34,7 +34,7 @@
     {{ $variantClass = "card-sm" }}
   {{ end }}
 
-  <article class="card {{ $variantClass }} bg-base-100 text-base-content shadow-xl hover:shadow-2xl transition-shadow">
+  <article class="card {{ $variantClass }} bg-base-100 text-base-content shadow-xl hover:shadow-2xl transition-shadow flex flex-col h-full">
     {{- /* Optional: Image */ -}}
     {{ with .image }}
       {{ if .resource }}
@@ -50,7 +50,7 @@
       {{ end }}
     {{ end }}
     
-    <div class="card-body">
+    <div class="card-body flex flex-col flex-grow">
       {{- /* Optional: Badge */ -}}
       {{ with .badge }}
         <div class="mb-2">
@@ -92,7 +92,7 @@
       {{ end }}
       
       {{- /* Card Actions */ -}}
-      <div class="card-actions justify-end mt-4">
+      <div class="card-actions justify-end mt-auto">
         <a href="{{ $.href }}" class="btn btn-primary {{ if eq $.variant "compact" }}btn-sm{{ end }}">View</a>
       </div>
     </div>

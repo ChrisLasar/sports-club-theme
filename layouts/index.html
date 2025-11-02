@@ -20,7 +20,7 @@
   {{ if $posts }}
   <section class="mb-12">
     <h2 class="text-3xl font-bold mb-6">Latest News</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
       {{ range $posts }}
         {{- /* Use unified card system */ -}}
         {{ $cardData := partial "mappers/post-to-card.html" . }}
@@ -41,7 +41,7 @@
   {{ if $upcomingEvents }}
   <section class="mb-12">
     <h2 class="text-3xl font-bold mb-6">Upcoming Events</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
       {{ range $upcomingEvents }}
         {{- /* Use unified card system */ -}}
         {{ $cardData := partial "mappers/event-to-card.html" . }}
@@ -61,7 +61,7 @@
   {{ if $results }}
   <section class="mb-12">
     <h2 class="text-3xl font-bold mb-6">Recent Results</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
       {{ range $results }}
         {{- /* Use unified card system */ -}}
         {{ $cardData := partial "mappers/result-to-card.html" . }}
@@ -81,7 +81,7 @@
   {{ if $teams }}
   <section class="mb-12">
     <h2 class="text-3xl font-bold mb-6">Our Teams</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
       {{ range $teams }}
         {{- /* Use unified card system */ -}}
         {{ $cardData := partial "mappers/team-to-card.html" . }}
