@@ -1,9 +1,9 @@
 {
   "branch": "001-unify-card-component",
-  "commit": "af1fa5296cea926fa55009b820ba762b90921202",
-  "commit_message": "feat: add member placeholder SVG and enhance image handling in member-to-card and responsive-image partials\n",
+  "commit": "0ca23279b8df180cade758b0687e8380ac28e6e5",
+  "commit_message": "fix folder name, as cards ist the third spec\n",
   "commit_author": "Christian Lasarczyk",
-  "timestamp": "2025-11-02T10:18:55Z",
+  "timestamp": "2025-11-02T10:22:25Z",
   "build_status": "success",
   "build_duration_seconds": 0,
   "hugo_version": "0.152.0",
