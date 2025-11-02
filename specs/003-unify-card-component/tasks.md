@@ -4,7 +4,7 @@ description: "Task list for unified card component implementation"
 
 # Tasks: Unified Card System
 
-**Input**: Design documents from `/specs/001-unify-card-component/`
+**Input**: Design documents from `/specs/003-unify-card-component/`
 **Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/card-partial.md
 
 **Tests**: Not explicitly requested in specification - tests omitted. Using manual QA approach (HTML validation, accessibility linting, Lighthouse audits).
@@ -122,7 +122,7 @@ description: "Task list for unified card component implementation"
 - [ ] T051 [P] [US3] Search codebase for any remaining old card partials using `find layouts/partials -name "*-card.html"`
 - [ ] T052 [US3] Update homepage in layouts/index.html to use unified card partial for latest posts/events if applicable
 - [ ] T053 [US3] Search for any widgets or shortcodes that render cards and update to use unified system
-- [ ] T054 [US3] Create example usage documentation in specs/001-unify-card-component/quickstart.md showing how to add new content types
+- [ ] T054 [US3] Create example usage documentation in specs/003-unify-card-component/quickstart.md showing how to add new content types
 - [ ] T055 [US3] Add code comments in layouts/_partials/card.html documenting the contract (required vs optional fields)
 - [ ] T056 [US3] Add code comments in each mapper explaining field transformations
 - [ ] T057 [US3] Verify no duplicate card definitions exist by running `grep -r "class=\"card" layouts/ | grep -v "card.html" | grep -v "mappers/"`

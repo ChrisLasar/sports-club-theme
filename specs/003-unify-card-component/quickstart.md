@@ -1,6 +1,6 @@
 # Quickstart: Using the Unified Card System
 
-**Feature**: 001-unify-card-component  
+**Feature**: 003-unify-card-component  
 **Audience**: Template developers, content maintainers  
 **Time to Complete**: 5-10 minutes
 
@@ -297,8 +297,8 @@ This ensures action buttons are horizontally aligned across all cards in the sam
 
 ## Reference
 
-- **Card Data Model**: See `specs/001-unify-card-component/data-model.md`
-- **Card Partial Contract**: See `specs/001-unify-card-component/contracts/card-partial.md`
+- **Card Data Model**: See `specs/003-unify-card-component/data-model.md`
+- **Card Partial Contract**: See `specs/003-unify-card-component/contracts/card-partial.md`
 - **daisyUI Card Docs**: See `.github/instructions/daisyui.instructions.md`
 - **Hugo Partials Docs**: https://gohugo.io/templates/partials/
 

@@ -1,7 +1,7 @@
 # Implementation Plan: Unified Card System
 
 **Branch**: `001-unify-card-component` | **Date**: 2025-11-01 | **Spec**: [spec.md](./spec.md)  
-**Input**: Feature specification from `/specs/001-unify-card-component/spec.md`
+**Input**: Feature specification from `/specs/003-unify-card-component/spec.md`
 
 ## Summary
 

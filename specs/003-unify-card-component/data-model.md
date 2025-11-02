@@ -1,6 +1,6 @@
 # Data Model: Unified Card System
 
-**Feature**: 001-unify-card-component  
+**Feature**: 003-unify-card-component  
 **Date**: 2025-11-01  
 **Purpose**: Define the canonical data structure for card rendering across all archetypes
 
