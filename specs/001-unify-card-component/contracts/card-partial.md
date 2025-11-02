@@ -70,21 +70,41 @@ All other fields defined in the Card data model are optional:
 The partial MUST output valid HTML5 conforming to this structure:
 
 ```html
-<article class="card [variant-class] [utility-classes]">
+<article class="card [variant-class] [utility-classes] flex flex-col h-full">
   [Optional: figure with image if provided]
-  <div class="card-body">
+  <div class="card-body flex flex-col flex-grow">
     <h2 class="card-title">[title linked to href]</h2>
     [Optional: description paragraph]
     [Optional: primary metadata]
     [Optional: secondary metadata]
     [Optional: badge]
     [Optional: tags list]
-    <div class="card-actions">
+    <div class="card-actions mt-auto">
       <a href="[href]" class="btn btn-primary">View</a>
     </div>
   </div>
 </article>
 ```
+
+**Layout Classes for Equal Height**:
+
+- Root `<article>`: `flex flex-col h-full` - Makes card fill container height and enables vertical flex layout
+- `<div class="card-body">`: `flex flex-col flex-grow` - Body expands to fill available space
+- `<div class="card-actions">`: `mt-auto` - Pushes action buttons to bottom of card
+
+**Grid Container Requirements**:
+
+When cards are displayed in a grid layout, the grid container MUST include `items-stretch` to ensure all cards in a row have equal height:
+
+```html
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+  {{ range . }}
+    {{ partial "card.html" $cardData }}
+  {{ end }}
+</div>
+```
+
+This ensures action buttons are horizontally aligned across all cards in the same row, regardless of content length variations.
 
 ### CSS Classes
 
@@ -143,12 +163,12 @@ The partial MUST:
 **Output** (formatted for readability):
 
 ```html
-<article class="card bg-base-100 text-base-content">
-  <div class="card-body">
+<article class="card bg-base-100 text-base-content flex flex-col h-full">
+  <div class="card-body flex flex-col flex-grow">
     <h2 class="card-title">
       <a href="/events/example/">Event Title</a>
     </h2>
-    <div class="card-actions">
+    <div class="card-actions mt-auto">
       <a href="/events/example/" class="btn btn-primary">View</a>
     </div>
   </div>
@@ -181,11 +201,11 @@ The partial MUST:
 **Output** (formatted for readability):
 
 ```html
-<article class="card bg-base-100 text-base-content">
+<article class="card bg-base-100 text-base-content flex flex-col h-full">
   <figure>
     <img src="/images/posts/kickoff.jpg" alt="Team photo after kickoff match" width="800" height="600" />
   </figure>
-  <div class="card-body">
+  <div class="card-body flex flex-col flex-grow">
     <h2 class="card-title">
       <a href="/posts/season-kickoff/">Season Kickoff Success</a>
     </h2>
@@ -202,7 +222,7 @@ The partial MUST:
       <span class="badge badge-outline">Match Report</span>
       <span class="badge badge-outline">Victory</span>
     </div>
-    <div class="card-actions">
+    <div class="card-actions mt-auto">
       <a href="/posts/season-kickoff/" class="btn btn-primary">View</a>
     </div>
   </div>
@@ -225,15 +245,15 @@ The partial MUST:
 **Output** (formatted for readability):
 
 ```html
-<article class="card card-sm bg-base-100 text-base-content">
-  <div class="card-body">
+<article class="card card-sm bg-base-100 text-base-content flex flex-col h-full">
+  <div class="card-body flex flex-col flex-grow">
     <h2 class="card-title">
       <a href="/results/u13-boys-win-3-1/">U13 Boys Win 3-1</a>
     </h2>
     <div class="text-sm text-base-content/70">
       <span>3 - 1</span>
     </div>
-    <div class="card-actions">
+    <div class="card-actions mt-auto">
       <a href="/results/u13-boys-win-3-1/" class="btn btn-sm btn-primary">View</a>
     </div>
   </div>

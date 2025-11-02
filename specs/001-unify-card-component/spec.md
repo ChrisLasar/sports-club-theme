@@ -76,6 +76,7 @@ As a developer, I want all card renderings to use one definition so there is a s
 - FR-002: Define a standard card input model (title, description/excerpt, href, image URL + alt, primary meta, secondary meta, badge/label, tag list) that can be mapped from each archetype’s fields.
 - FR-003: Support two presentational variants to cover common use cases: Default and Compact (reduced spacing/typography), selectable per usage.
 - FR-004: Ensure visual consistency: spacing, typography scale, color roles, and hover/focus states are uniform for all variants.
+- FR-004a: Ensure layout consistency in grid displays: cards in the same row must have equal height with action buttons aligned horizontally at the bottom of each card, regardless of content length variations.
 - FR-005: Accessibility: cards are fully keyboard-navigable; focus is visible; images include alt text (or are marked decorative); contrast meets WCAG 2.1 AA.
 - FR-006: Graceful data fallbacks: if an optional field is empty (e.g., image, secondary meta), the card hides that section without leaving visual gaps.
 - FR-007: Performance: card usage must not materially regress page load experience; list pages maintain perceived speed comparable to baseline (see Success Criteria).

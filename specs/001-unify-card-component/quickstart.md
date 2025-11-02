@@ -24,7 +24,7 @@ Edit your list template (e.g., `layouts/events/list.html`):
 {{ define "main" }}
   <h1>{{ .Title }}</h1>
   
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
     {{ range .Pages }}
       {{ $cardData := partial "mappers/event-to-card.html" . }}
       {{ partial "card.html" $cardData }}
@@ -35,9 +35,12 @@ Edit your list template (e.g., `layouts/events/list.html`):
 
 **What this does**:
 
-1. **Line 5**: Iterate over all pages in the current section
-2. **Line 6**: Transform each page into card data using the event mapper
-3. **Line 7**: Render the card using the unified card partial
+1. **Line 4**: Creates a responsive grid with `items-stretch` to ensure equal card heights in each row
+2. **Line 5**: Iterate over all pages in the current section
+3. **Line 6**: Transform each page into card data using the event mapper
+4. **Line 7**: Render the card using the unified card partial
+
+**Important**: The `items-stretch` class on the grid container is required to ensure all cards in a row have equal height with action buttons aligned at the bottom, regardless of content length variations.
 
 ### Step 2: Understand the Mapper
 
@@ -95,7 +98,7 @@ Use the `variant` field to change card appearance:
 ```go-html-template
 <section>
   <h2>Latest News</h2>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
     {{ range first 4 (where site.RegularPages "Type" "posts") }}
       {{ $cardData := partial "mappers/post-to-card.html" . }}
       {{ partial "card.html" $cardData }}
@@ -110,7 +113,7 @@ Use the `variant` field to change card appearance:
 
 ```go-html-template
 <h2>Team Members</h2>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-2 items-stretch">
   {{ range .Params.members }}
     {{ with site.GetPage (printf "/members/%s" .) }}
       {{ $cardData := partial "mappers/member-to-card.html" . }}
@@ -206,6 +209,39 @@ Document which fields are required for sponsors in your content guidelines:
 - Optional: `tier`, `summary`
 
 ## Troubleshooting
+
+### Problem: Cards Have Different Heights in Grid
+
+**Symptom**: Action buttons are not aligned horizontally across cards in the same row.
+
+**Cause**: Missing `items-stretch` class on the grid container.
+
+**Fix**: Ensure your grid container includes `items-stretch`:
+
+```go-html-template
+<!-- ❌ Wrong - cards will have different heights -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  {{ range .Pages }}
+    {{ partial "card.html" $cardData }}
+  {{ end }}
+</div>
+
+<!-- ✅ Correct - cards will stretch to equal height -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+  {{ range .Pages }}
+    {{ partial "card.html" $cardData }}
+  {{ end }}
+</div>
+```
+
+**How it works**:
+
+1. The card partial includes `flex flex-col h-full` on the root `<article>` element
+2. The card-body has `flex flex-col flex-grow` to expand vertically
+3. The card-actions has `mt-auto` to push buttons to the bottom
+4. The grid container's `items-stretch` makes all grid items take the full height of the tallest item in their row
+
+This ensures action buttons are horizontally aligned across all cards in the same row, regardless of content length variations.
 
 ### Problem: Cards Not Displaying
 
