@@ -45,21 +45,31 @@ The mapper (`layouts/_partials/mappers/event-to-card.html`) transforms a Hugo pa
 
 ```go-html-template
 {{ $page := . }}
+{{ $imageResource := "" }}
+{{ with $page.Params.socialImage }}
+  {{ $imageResource = $page.Resources.Get . }}
+  {{ if not $imageResource }}
+    {{ $imageResource = resources.Get . }}
+  {{ end }}
+{{ end }}
+
 {{ return (dict
   "title" $page.Title
   "href" $page.RelPermalink
   "primaryMeta" ($page.Params.date | time.Format ":date_long")
   "secondaryMeta" $page.Params.venue
-  "image" (dict 
-    "src" $page.Params.image 
+  "image" (if $imageResource (dict 
+    "resource" $imageResource
     "alt" $page.Title
-  )
+  ) dict)
   "variant" "default"
 ) }}
 ```
 
 **Mapper inputs**: Hugo page object (`.`)  
-**Mapper outputs**: Dict with card fields (title, href, image, etc.)
+**Mapper outputs**: Dict with card fields (title, href, image resource, etc.)
+
+**Image handling**: The mapper retrieves Hugo resources from page bundles or global resources, not static paths
 
 ### Step 3: Customize Card Display (Optional)
 
@@ -156,11 +166,22 @@ To add cards for a new content type (e.g., `sponsors`):
 
 ```go-html-template
 {{ $page := . }}
+{{ $imageResource := "" }}
+{{ with $page.Params.logo }}
+  {{ $imageResource = $page.Resources.Get . }}
+  {{ if not $imageResource }}
+    {{ $imageResource = resources.Get . }}
+  {{ end }}
+{{ end }}
+
 {{ return (dict
   "title" $page.Title
   "href" $page.RelPermalink
   "description" $page.Summary
-  "image" (dict "src" $page.Params.logo "alt" $page.Title)
+  "image" (if $imageResource (dict 
+    "resource" $imageResource
+    "alt" $page.Title
+  ) dict)
   "badge" $page.Params.tier
   "variant" "default"
 ) }}
@@ -206,17 +227,22 @@ Document which fields are required for sponsors in your content guidelines:
 
 **Check**:
 
-1. Is `image.src` a valid path (relative to site root or absolute URL)?
-2. Is the image file present in `static/` or as a page resource?
-3. Does the image have correct permissions?
+1. Is the image a valid Hugo resource from a page bundle or global resources?
+2. Does the `socialImage` (or equivalent) parameter point to a valid resource path?
+3. Is the image file present in the page bundle or `assets/` directory?
 
-**Fix**: Use Hugo's `resources.Get` for asset pipeline images:
+**Debug**: Check if the resource is being found:
 
 ```go-html-template
-{{ with resources.Get .Params.image }}
-  "image" (dict "src" .RelPermalink "alt" $page.Title)
+{{ $imageResource := .Resources.Get .Params.socialImage }}
+{{ if $imageResource }}
+  Image found: {{ $imageResource.RelPermalink }}
+{{ else }}
+  Image NOT found: {{ .Params.socialImage }}
 {{ end }}
 ```
+
+**Fix**: Ensure images are Hugo resources, not static files. The card system uses the `responsive-image.html` partial which requires Hugo resources to generate multiple sizes and WebP format.
 
 ### Problem: Card Layout Breaks
 

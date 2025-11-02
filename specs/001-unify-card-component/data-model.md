@@ -39,15 +39,15 @@ The unified card system uses a single, standardized data structure that all arch
 
 | Field | Type | Required | Description | Validation Rules |
 |-------|------|----------|-------------|------------------|
-| `src` | string | Yes | Image source URL (absolute or relative) | Must be valid path; supports Hugo resources or static assets |
+| `resource` | Hugo Resource | Yes | Hugo image resource object | Must be a valid Hugo resource from page bundle or global resources |
 | `alt` | string | No | Alternative text for accessibility | Required unless image is purely decorative; max 125 chars |
-| `width` | int | No | Image width in pixels | Positive integer; used for aspect ratio hints |
-| `height` | int | No | Image height in pixels | Positive integer; used for aspect ratio hints |
+| `sizes` | string | No | Responsive sizes attribute | CSS sizes syntax for responsive images; defaults to "(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" |
+| `loading` | string | No | Loading strategy | Enum: "lazy", "eager"; defaults to "lazy" |
 
 **Validation**:
 
 - If `alt` is empty, image is treated as decorative (`role="presentation"`)
-- If `width` and `height` are provided, card can reserve space to prevent layout shift (CLS optimization)
+- The card partial uses `responsive-image.html` partial to render images with multiple sizes (480w, 768w, 1200w) and WebP format
 
 ## Archetype Mappings
 
@@ -66,7 +66,7 @@ Each content type (archetype) defines a mapper partial (`layouts/_partials/mappe
 **Optional Fields**:
 
 - `secondaryMeta` ← `.Params.venue`
-- `image.src` ← `.Params.image`
+- `image.resource` ← `.Resources.Get .Params.socialImage` or `resources.Get .Params.socialImage`
 - `image.alt` ← `.Title` (fallback)
 - `tags` ← `.Params.tags`
 
@@ -79,7 +79,7 @@ Each content type (archetype) defines a mapper partial (`layouts/_partials/mappe
   "primaryMeta": "November 15, 2025",
   "secondaryMeta": "Main Stadium",
   "image": {
-    "src": "/images/events/u13-match.jpg",
+    "resource": <Hugo Resource Object>,
     "alt": "U13 Boys vs Rival Team"
   },
   "variant": "default"
@@ -99,7 +99,7 @@ Each content type (archetype) defines a mapper partial (`layouts/_partials/mappe
 **Optional Fields**:
 
 - `description` ← `.Summary` (if not used in primaryMeta)
-- `image.src` ← `.Params.image`
+- `image.resource` ← `.Resources.Get .Params.socialImage` or `resources.Get .Params.socialImage`
 - `image.alt` ← `.Title` (fallback)
 - `tags` ← `.Params.tags`
 
@@ -112,7 +112,7 @@ Each content type (archetype) defines a mapper partial (`layouts/_partials/mappe
   "primaryMeta": "October 27, 2025",
   "description": "The U13 boys team started their season with an impressive 3-1 victory...",
   "image": {
-    "src": "/images/posts/kickoff.jpg",
+    "resource": <Hugo Resource Object>,
     "alt": "Season Kickoff Success"
   },
   "tags": ["U13", "Match Report"],
@@ -133,7 +133,7 @@ Each content type (archetype) defines a mapper partial (`layouts/_partials/mappe
 **Optional Fields**:
 
 - `secondaryMeta` ← `.Params.competition` or `.Params.round`
-- `image.src` ← `.Params.image`
+- `image.resource` ← `.Resources.Get .Params.socialImage` or `resources.Get .Params.socialImage`
 - `image.alt` ← `.Title`
 
 **Example Output**:
@@ -161,7 +161,7 @@ Each content type (archetype) defines a mapper partial (`layouts/_partials/mappe
 
 - `primaryMeta` ← `.Params.ageGroup` or `.Params.category`
 - `secondaryMeta` ← `.Params.coach`
-- `image.src` ← `.Params.image`
+- `image.resource` ← `.Resources.Get .Params.socialImage` or `resources.Get .Params.socialImage`
 - `image.alt` ← `.Title`
 
 **Example Output**:
@@ -173,7 +173,7 @@ Each content type (archetype) defines a mapper partial (`layouts/_partials/mappe
   "primaryMeta": "Under 13",
   "secondaryMeta": "Coach: John Smith",
   "image": {
-    "src": "/images/teams/u13-boys.jpg",
+    "resource": <Hugo Resource Object>,
     "alt": "U13 Boys"
   },
   "variant": "default"
@@ -188,7 +188,7 @@ Each content type (archetype) defines a mapper partial (`layouts/_partials/mappe
 
 - `title` ← `.Params.name` or `.Title` (member name)
 - `href` ← `.RelPermalink`
-- `image.src` ← `.Params.image` (mandatory per FR-011)
+- `image.resource` ← `.Resources.Get .Params.socialImage` or `resources.Get .Params.socialImage` (mandatory per FR-011)
 - `image.alt` ← `.Title`
 
 **Optional Fields**:
@@ -205,7 +205,7 @@ Each content type (archetype) defines a mapper partial (`layouts/_partials/mappe
   "primaryMeta": "Team Captain",
   "secondaryMeta": "U15 Girls",
   "image": {
-    "src": "/images/members/sarah-jones.jpg",
+    "resource": <Hugo Resource Object>,
     "alt": "Sarah Jones"
   },
   "variant": "default"
@@ -234,7 +234,17 @@ The card partial MUST handle missing optional fields gracefully:
 
 ```go-html-template
 {{ with .image }}
-  <figure><img src="{{ .src }}" alt="{{ .alt }}" /></figure>
+  {{ if .resource }}
+    <figure>
+      {{ partial "responsive-image.html" (dict 
+        "resource" .resource 
+        "alt" (.alt | default "") 
+        "class" "w-full h-48 object-cover"
+        "sizes" (.sizes | default "(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw")
+        "loading" (.loading | default "lazy")
+      ) }}
+    </figure>
+  {{ end }}
 {{ end }}
 
 {{ with .description }}
@@ -261,7 +271,7 @@ The card model is read-only (immutable). Cards do not have lifecycle states. The
 ## Performance Considerations
 
 - **Card data size**: Keep card data structures small (< 1KB per card) to minimize Hugo template memory overhead
-- **Image optimization**: Images SHOULD be processed through Hugo's image pipeline (resize, WebP) before being assigned to `image.src`
+- **Image optimization**: Images are automatically processed through Hugo's image pipeline via the `responsive-image.html` partial, generating multiple sizes (480w, 768w, 1200w) and WebP format for optimal performance
 - **Caching**: Use `partialCached` for static card lists to reduce build time (see research.md Decision 5)
 
 ## Extension Points

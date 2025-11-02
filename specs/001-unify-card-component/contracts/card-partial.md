@@ -50,10 +50,10 @@ All other fields defined in the Card data model are optional:
   "href": "<string>",            // Required
   "description": "<string>",     // Optional
   "image": {                     // Optional
-    "src": "<string>",
-    "alt": "<string>",
-    "width": <int>,
-    "height": <int>
+    "resource": <Hugo Resource>, // Hugo resource object
+    "alt": "<string>",           // Alt text
+    "sizes": "<string>",         // Responsive sizes attribute
+    "loading": "<string>"        // "lazy" or "eager"
   },
   "primaryMeta": "<string>",     // Optional
   "secondaryMeta": "<string>",   // Optional
@@ -114,8 +114,9 @@ The partial MUST ensure:
    - Card title MUST be a link: `<h2 class="card-title"><a href="{{ .href }}">{{ .title }}</a></h2>`
    - OR entire card is wrapped in a link (alternative pattern)
 4. **Image Alt Text**:
-   - If `image.alt` is provided, use it: `<img src="..." alt="{{ .image.alt }}" />`
-   - If `image.alt` is empty, add `role="presentation"`: `<img src="..." role="presentation" alt="" />`
+   - The `responsive-image.html` partial handles alt text appropriately
+   - If `image.alt` is provided, it's used
+   - If `image.alt` is empty, the image is treated as decorative with `alt=""`
 5. **Keyboard Navigation**: All interactive elements (links, buttons) are keyboard-accessible (native HTML behavior)
 
 ### Performance Constraints

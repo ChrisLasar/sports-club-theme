@@ -87,13 +87,13 @@ As a developer, I want all card renderings to use one definition so there is a s
 
 ### Key Entities (data involved)
 
-- Card: a display model comprising attributes: title, excerpt/description, href, image (src, alt), primary meta (e.g., date/score), secondary meta (e.g., venue/opponent), badge/label, tags, and variant.
+- Card: a display model comprising attributes: title, excerpt/description, href, image (Hugo resource, alt, sizes, loading), primary meta (e.g., date/score), secondary meta (e.g., venue/opponent), badge/label, tags, and variant.
 - Archetype mapping: a per-content-type mapping that transforms native fields into the card model. Defaults and mandates:
   - Event → Mandatory: title, href, date. Optional: venue, image, tags.
   - Post → Mandatory: title, href, at least one of (published date, excerpt). Optional: image, tags.
   - Result → Mandatory: title (or opponent as title), href, score. Optional: competition/round, image.
   - Team → Mandatory: team name (title), href. Optional: age group/category, coach, image.
-  - Member → Mandatory: name (title), href, image. Optional: role, team/department.
+  - Member → Mandatory: name (title), href, image (Hugo resource). Optional: role, team/department.
 
 ## Success Criteria (mandatory)
 
