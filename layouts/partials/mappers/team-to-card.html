@@ -26,13 +26,17 @@
 
 {{- /* Build image object if available */ -}}
 {{ $image := dict }}
+{{ $imageResource := "" }}
 {{ with .Params.socialImage }}
-  {{ $image = dict "src" . "alt" $.Title }}
-{{ else }}
-  {{- /* Check for page bundle resources */ -}}
-  {{ with $.Resources.Get $.Params.socialImage }}
-    {{ $image = dict "src" .RelPermalink "alt" $.Title }}
+  {{- /* Try to get as a page resource first */ -}}
+  {{ $imageResource = $.Resources.Get . }}
+  {{ if not $imageResource }}
+    {{- /* Try global resources */ -}}
+    {{ $imageResource = resources.Get . }}
   {{ end }}
+{{ end }}
+{{ if $imageResource }}
+  {{ $image = dict "resource" $imageResource "alt" $.Title }}
 {{ end }}
 
 {{- /* Build primary metadata (age group or category) */ -}}

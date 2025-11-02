@@ -8,7 +8,7 @@
       - title (required): string - Primary heading
       - href (required): string - Link target URL
       - description (optional): string - Secondary text/excerpt
-      - image (optional): map with src, alt, width, height
+      - image (optional): map with resource (Hugo resource), alt, sizes, loading
       - primaryMeta (optional): string - First metadata line
       - secondaryMeta (optional): string - Second metadata line
       - badge (optional): string - Label/category badge
@@ -37,15 +37,17 @@
   <article class="card {{ $variantClass }} bg-base-100 text-base-content shadow-xl hover:shadow-2xl transition-shadow">
     {{- /* Optional: Image */ -}}
     {{ with .image }}
-      <figure>
-        <img 
-          src="{{ .src }}" 
-          {{ with .alt }}alt="{{ . }}"{{ else }}role="presentation" alt=""{{ end }}
-          {{ with .width }}width="{{ . }}"{{ end }}
-          {{ with .height }}height="{{ . }}"{{ end }}
-          class="w-full h-48 object-cover"
-        />
-      </figure>
+      {{ if .resource }}
+        <figure>
+          {{ partial "responsive-image.html" (dict 
+            "resource" .resource 
+            "alt" (.alt | default "") 
+            "class" "w-full h-48 object-cover"
+            "sizes" (.sizes | default "(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw")
+            "loading" (.loading | default "lazy")
+          ) }}
+        </figure>
+      {{ end }}
     {{ end }}
     
     <div class="card-body">

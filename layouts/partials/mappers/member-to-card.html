@@ -27,15 +27,22 @@
 
 {{- /* Build image object - MANDATORY for members per FR-011 */ -}}
 {{ $image := dict }}
+{{ $imageResource := "" }}
 {{ with .Params.socialImage }}
-  {{ $image = dict "src" . "alt" $memberName }}
+  {{- /* Try to get as a page resource first */ -}}
+  {{ $imageResource = $.Resources.Get . }}
+  {{ if not $imageResource }}
+    {{- /* Try global resources */ -}}
+    {{ $imageResource = resources.Get . }}
+  {{ end }}
+{{ end }}
+{{ if $imageResource }}
+  {{ $image = dict "resource" $imageResource "alt" $memberName }}
 {{ else }}
-  {{- /* Check for page bundle resources */ -}}
-  {{ with $.Resources.Get $.Params.socialImage }}
-    {{ $image = dict "src" .RelPermalink "alt" $memberName }}
-  {{ else }}
-    {{- /* Fallback to placeholder if no image */ -}}
-    {{ $image = dict "src" "/images/placeholders/member-placeholder.svg" "alt" $memberName }}
+  {{- /* Fallback to placeholder if no image */ -}}
+  {{ $placeholderResource := resources.Get "images/placeholders/member-placeholder.svg" }}
+  {{ if $placeholderResource }}
+    {{ $image = dict "resource" $placeholderResource "alt" $memberName }}
   {{ end }}
 {{ end }}
 
