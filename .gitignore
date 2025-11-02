@@ -56,3 +56,5 @@ coverage/
 
 # CMS local backend
 .netlify/
+
+public-dev/

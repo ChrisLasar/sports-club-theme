@@ -61,21 +61,21 @@ description: "Task list for unified card component implementation"
 - [X] T016 [US1] Remove old per-archetype card partials (event-card.html, post-card.html, result-card.html, team-card.html, member-card.html) from layouts/partials/
 - [X] T017 [US1] Build site with `hugo` command and verify all five list pages render cards correctly
 - [X] T018 [US1] Test change propagation: modify card title styling in layouts/_partials/card.html and verify all five pages reflect the change
-- [ ] T019 [P] [US1] Run HTML validation on generated public/events/index.html
-- [ ] T020 [P] [US1] Run HTML validation on generated public/posts/index.html
-- [ ] T021 [P] [US1] Run HTML validation on generated public/results/index.html
-- [ ] T022 [P] [US1] Run HTML validation on generated public/teams/index.html
-- [ ] T023 [P] [US1] Run HTML validation on generated public/members/index.html
-- [ ] T024 [P] [US1] Run accessibility audit (pa11y or axe) on public/events/index.html for WCAG 2.1 AA compliance
-- [ ] T025 [P] [US1] Run accessibility audit on public/posts/index.html for WCAG 2.1 AA compliance
-- [ ] T026 [P] [US1] Run accessibility audit on public/results/index.html for WCAG 2.1 AA compliance
-- [ ] T027 [P] [US1] Run accessibility audit on public/teams/index.html for WCAG 2.1 AA compliance
-- [ ] T028 [P] [US1] Run accessibility audit on public/members/index.html for WCAG 2.1 AA compliance
-- [ ] T029 [P] [US1] Run Lighthouse audit on events list page (target: LCP ≤ 2.5s, CLS ≤ 0.1)
-- [ ] T030 [P] [US1] Run Lighthouse audit on posts list page (target: LCP ≤ 2.5s, CLS ≤ 0.1)
-- [ ] T031 [P] [US1] Run Lighthouse audit on results list page (target: LCP ≤ 2.5s, CLS ≤ 0.1)
-- [ ] T032 [US1] Manual QA: Test keyboard navigation on all five list pages (Tab, Enter, Shift+Tab)
-- [ ] T033 [US1] Manual QA: Test responsive behavior on mobile (≤320px) and desktop (≥1440px) viewports
+- [X] T019 [P] [US1] Run HTML validation on generated public/events/index.html
+- [X] T020 [P] [US1] Run HTML validation on generated public/posts/index.html
+- [X] T021 [P] [US1] Run HTML validation on generated public/results/index.html
+- [X] T022 [P] [US1] Run HTML validation on generated public/teams/index.html
+- [X] T023 [P] [US1] Run HTML validation on generated public/members/index.html
+- [X] T024 [P] [US1] Run accessibility audit (pa11y or axe) on public/events/index.html for WCAG 2.1 AA compliance
+- [X] T025 [P] [US1] Run accessibility audit on public/posts/index.html for WCAG 2.1 AA compliance
+- [X] T026 [P] [US1] Run accessibility audit on public/results/index.html for WCAG 2.1 AA compliance
+- [X] T027 [P] [US1] Run accessibility audit on public/teams/index.html for WCAG 2.1 AA compliance
+- [X] T028 [P] [US1] Run accessibility audit on public/members/index.html for WCAG 2.1 AA compliance
+- [X] T029 [P] [US1] Run Lighthouse audit on events list page (target: LCP ≤ 2.5s, CLS ≤ 0.1)
+- [X] T030 [P] [US1] Run Lighthouse audit on posts list page (target: LCP ≤ 2.5s, CLS ≤ 0.1)
+- [X] T031 [P] [US1] Run Lighthouse audit on results list page (target: LCP ≤ 2.5s, CLS ≤ 0.1)
+- [X] T032 [US1] Manual QA: Test keyboard navigation on all five list pages (Tab, Enter, Shift+Tab)
+- [X] T033 [US1] Manual QA: Test responsive behavior on mobile (≤320px) and desktop (≥1440px) viewports
 
 **Checkpoint**: At this point, User Story 1 should be fully functional - cards unified and testable independently
 
@@ -89,22 +89,22 @@ description: "Task list for unified card component implementation"
 
 ### Implementation for User Story 2
 
-- [ ] T034 [P] [US2] Create test event content in content/events/test-event/ with mandatory fields only (title, date, no venue, no image)
-- [ ] T035 [P] [US2] Create test post content in content/posts/test-post/ with minimal fields (title, date, no excerpt, no image)
-- [ ] T036 [P] [US2] Create test result content in content/results/test-result/ with minimal fields (title, score, no image, no competition)
-- [ ] T037 [P] [US2] Create test team content in content/teams/test-team/ with minimal fields (title only, no coach, no image)
-- [ ] T038 [P] [US2] Create test member content in content/members/test-member/ with minimal fields (name, image only, no role, no team)
-- [ ] T039 [US2] Verify event card gracefully handles missing venue and image in layouts/_partials/mappers/event-to-card.html
-- [ ] T040 [US2] Verify post card gracefully handles missing excerpt and image in layouts/_partials/mappers/post-to-card.html
-- [ ] T041 [US2] Verify result card gracefully handles missing image and competition in layouts/_partials/mappers/result-to-card.html
-- [ ] T042 [US2] Verify team card gracefully handles missing coach and image in layouts/_partials/mappers/team-to-card.html
-- [ ] T043 [US2] Verify member card gracefully handles missing role and team in layouts/_partials/mappers/member-to-card.html
-- [ ] T044 [US2] Build site and visually verify test content cards render without layout breaks
-- [ ] T045 [P] [US2] Create test event content with very long title (>100 chars) in content/events/test-long-title/
-- [ ] T046 [US2] Verify long title truncation/wrapping in card.html partial using CSS (text-ellipsis or line-clamp)
-- [ ] T047 [US2] Test edge case: event with long title and venue both present, verify venue remains visible
-- [ ] T048 [US2] Manual QA: Verify field order consistency across all five archetypes (title → primary meta → secondary meta → description)
-- [ ] T049 [US2] Manual QA: Verify cards maintain visual balance when optional fields are missing
+- [X] T034 [P] [US2] Create test event content in content/events/test-event/ with mandatory fields only (title, date, no venue, no image)
+- [X] T035 [P] [US2] Create test post content in content/posts/test-post/ with minimal fields (title, date, no excerpt, no image)
+- [X] T036 [P] [US2] Create test result content in content/results/test-result/ with minimal fields (title, score, no image, no competition)
+- [X] T037 [P] [US2] Create test team content in content/teams/test-team/ with minimal fields (title only, no coach, no image)
+- [X] T038 [P] [US2] Create test member content in content/members/test-member/ with minimal fields (name, image only, no role, no team)
+- [X] T039 [US2] Verify event card gracefully handles missing venue and image in layouts/_partials/mappers/event-to-card.html
+- [X] T040 [US2] Verify post card gracefully handles missing excerpt and image in layouts/_partials/mappers/post-to-card.html
+- [X] T041 [US2] Verify result card gracefully handles missing image and competition in layouts/_partials/mappers/result-to-card.html
+- [X] T042 [US2] Verify team card gracefully handles missing coach and image in layouts/_partials/mappers/team-to-card.html
+- [X] T043 [US2] Verify member card gracefully handles missing role and team in layouts/_partials/mappers/member-to-card.html
+- [X] T044 [US2] Build site and visually verify test content cards render without layout breaks
+- [X] T045 [P] [US2] Create test event content with very long title (>100 chars) in content/events/test-long-title/
+- [X] T046 [US2] Verify long title truncation/wrapping in card.html partial using CSS (text-ellipsis or line-clamp)
+- [X] T047 [US2] Test edge case: event with long title and venue both present, verify venue remains visible
+- [X] T048 [US2] Manual QA: Verify field order consistency across all five archetypes (title → primary meta → secondary meta → description)
+- [X] T049 [US2] Manual QA: Verify cards maintain visual balance when optional fields are missing
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently - cards unified and content mapping validated
 
@@ -118,17 +118,17 @@ description: "Task list for unified card component implementation"
 
 ### Implementation for User Story 3
 
-- [ ] T050 [P] [US3] Search codebase for any remaining direct card markup using `grep -r '<article class="card"' layouts/`
-- [ ] T051 [P] [US3] Search codebase for any remaining old card partials using `find layouts/partials -name "*-card.html"`
-- [ ] T052 [US3] Update homepage in layouts/index.html to use unified card partial for latest posts/events if applicable
-- [ ] T053 [US3] Search for any widgets or shortcodes that render cards and update to use unified system
-- [ ] T054 [US3] Create example usage documentation in specs/003-unify-card-component/quickstart.md showing how to add new content types
-- [ ] T055 [US3] Add code comments in layouts/_partials/card.html documenting the contract (required vs optional fields)
-- [ ] T056 [US3] Add code comments in each mapper explaining field transformations
-- [ ] T057 [US3] Verify no duplicate card definitions exist by running `grep -r "class=\"card" layouts/ | grep -v "card.html" | grep -v "mappers/"`
-- [ ] T058 [US3] Create example of adding a new content type (e.g., sponsors) with mapper in quickstart.md
-- [ ] T059 [US3] Manual QA: Confirm single source of truth - modify card.html and verify change affects all usages
-- [ ] T060 [US3] Manual QA: Verify no visual drift between archetype card renderings (consistent spacing, colors, typography)
+- [X] T050 [P] [US3] Search codebase for any remaining direct card markup using `grep -r '<article class="card"' layouts/`
+- [X] T051 [P] [US3] Search codebase for any remaining old card partials using `find layouts/partials -name "*-card.html"`
+- [X] T052 [US3] Update homepage in layouts/index.html to use unified card partial for latest posts/events if applicable
+- [X] T053 [US3] Search for any widgets or shortcodes that render cards and update to use unified system
+- [X] T054 [US3] Create example usage documentation in specs/003-unify-card-component/quickstart.md showing how to add new content types
+- [X] T055 [US3] Add code comments in layouts/_partials/card.html documenting the contract (required vs optional fields)
+- [X] T056 [US3] Add code comments in each mapper explaining field transformations
+- [X] T057 [US3] Verify no duplicate card definitions exist by running `grep -r "class=\"card" layouts/ | grep -v "card.html" | grep -v "mappers/"`
+- [X] T058 [US3] Create example of adding a new content type (e.g., sponsors) with mapper in quickstart.md
+- [X] T059 [US3] Manual QA: Confirm single source of truth - modify card.html and verify change affects all usages
+- [X] T060 [US3] Manual QA: Verify no visual drift between archetype card renderings (consistent spacing, colors, typography)
 
 **Checkpoint**: All user stories should now be independently functional - unified card system complete and enforced
 
@@ -138,21 +138,21 @@ description: "Task list for unified card component implementation"
 
 **Purpose**: Improvements that affect multiple user stories and final validation
 
-- [ ] T061 [P] Update quickstart.md with performance optimization guidance (partialCached usage)
-- [ ] T062 [P] Add responsive grid examples to quickstart.md for each archetype
-- [ ] T063 [P] Document compact variant usage in quickstart.md with before/after examples
-- [ ] T064 [US1] Add accessibility best practices section to quickstart.md (alt text, semantic HTML, keyboard nav)
-- [ ] T065 [P] Create example content demonstrating all card variants (default, compact) in content/
-- [ ] T066 [P] Add troubleshooting section to quickstart.md (common issues and solutions)
-- [ ] T067 Verify all card images have proper alt text or role="presentation"
-- [ ] T068 Run final HTML validation pass on all generated pages
-- [ ] T069 Run final accessibility audit on all archetype list pages
-- [ ] T070 Run final Lighthouse audit on all archetype list pages and verify performance budgets met
-- [ ] T071 Manual QA: Test site from clean clone following quickstart.md instructions
-- [ ] T072 Manual QA: Verify responsive behavior on small (320px), medium (768px), large (1440px) viewports
-- [ ] T073 Manual QA: Test keyboard navigation and screen reader compatibility
-- [ ] T074 Document any Constitution violations or deviations (none expected per plan.md)
-- [ ] T075 Update main project README.md with link to unified card system documentation
+- [X] T061 [P] Update quickstart.md with performance optimization guidance (partialCached usage)
+- [X] T062 [P] Add responsive grid examples to quickstart.md for each archetype
+- [X] T063 [P] Document compact variant usage in quickstart.md with before/after examples
+- [X] T064 [US1] Add accessibility best practices section to quickstart.md (alt text, semantic HTML, keyboard nav)
+- [X] T065 [P] Create example content demonstrating all card variants (default, compact) in content/
+- [X] T066 [P] Add troubleshooting section to quickstart.md (common issues and solutions)
+- [X] T067 Verify all card images have proper alt text or role="presentation"
+- [X] T068 Run final HTML validation pass on all generated pages
+- [X] T069 Run final accessibility audit on all archetype list pages
+- [X] T070 Run final Lighthouse audit on all archetype list pages and verify performance budgets met
+- [X] T071 Manual QA: Test site from clean clone following quickstart.md instructions
+- [X] T072 Manual QA: Verify responsive behavior on small (320px), medium (768px), large (1440px) viewports
+- [X] T073 Manual QA: Test keyboard navigation and screen reader compatibility
+- [X] T074 Document any Constitution violations or deviations (none expected per plan.md)
+- [X] T075 Update main project README.md with link to unified card system documentation
 
 ---
 
