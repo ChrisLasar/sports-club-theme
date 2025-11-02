@@ -28,6 +28,8 @@
 {{- /* Build image object - MANDATORY for members per FR-011 */ -}}
 {{ $image := dict }}
 {{ $imageResource := "" }}
+
+{{- /* Try to get member image from various sources */ -}}
 {{ with .Params.socialImage }}
   {{- /* Try to get as a page resource first */ -}}
   {{ $imageResource = $.Resources.Get . }}
@@ -36,13 +38,29 @@
     {{ $imageResource = resources.Get . }}
   {{ end }}
 {{ end }}
+
+{{- /* If no socialImage, try portrait field */ -}}
+{{ if not $imageResource }}
+  {{ with .Params.portrait }}
+    {{ $imageResource = $.Resources.Get . }}
+    {{ if not $imageResource }}
+      {{ $imageResource = resources.Get . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{- /* If we have an image resource, use it; otherwise use placeholder */ -}}
 {{ if $imageResource }}
   {{ $image = dict "resource" $imageResource "alt" $memberName }}
 {{ else }}
-  {{- /* Fallback to placeholder if no image */ -}}
+  {{- /* Fallback to placeholder - required per FR-011 */ -}}
   {{ $placeholderResource := resources.Get "images/placeholders/member-placeholder.svg" }}
   {{ if $placeholderResource }}
-    {{ $image = dict "resource" $placeholderResource "alt" $memberName }}
+    {{ $image = dict "resource" $placeholderResource "alt" (printf "%s (placeholder)" $memberName) }}
+  {{ else }}
+    {{- /* Placeholder not found - warn but continue without image */ -}}
+    {{ warnf "Member placeholder image not found for %s" $.RelPermalink }}
+    {{ $image = dict }}
   {{ end }}
 {{ end }}
 

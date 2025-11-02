@@ -17,28 +17,39 @@
 {{- $loading := .loading | default "lazy" -}}
 
 {{- if $img -}}
-  {{- /* Generate responsive variants */ -}}
-  {{- $small := $img.Resize "480x webp" -}}
-  {{- $medium := $img.Resize "768x webp" -}}
-  {{- $large := $img.Resize "1200x webp" -}}
-  {{- $fallback := $img.Resize "1200x" -}}
-  
-  <picture>
-    <source 
-      srcset="{{ $small.RelPermalink }} 480w,
-              {{ $medium.RelPermalink }} 768w,
-              {{ $large.RelPermalink }} 1200w"
-      type="image/webp"
-      sizes="{{ $sizes }}">
+  {{- /* Check if image is SVG - SVGs cannot be resized */ -}}
+  {{- if eq $img.MediaType.SubType "svg" -}}
+    {{- /* For SVG, just output a simple img tag */ -}}
     <img 
-      src="{{ $fallback.RelPermalink }}" 
+      src="{{ $img.RelPermalink }}" 
       alt="{{ $alt }}"
       {{ with $class }}class="{{ . }}"{{ end }}
       loading="{{ $loading }}"
-      width="{{ $img.Width }}"
-      height="{{ $img.Height }}"
       decoding="async">
-  </picture>
+  {{- else -}}
+    {{- /* Generate responsive variants for raster images */ -}}
+    {{- $small := $img.Resize "480x webp" -}}
+    {{- $medium := $img.Resize "768x webp" -}}
+    {{- $large := $img.Resize "1200x webp" -}}
+    {{- $fallback := $img.Resize "1200x" -}}
+    
+    <picture>
+      <source 
+        srcset="{{ $small.RelPermalink }} 480w,
+                {{ $medium.RelPermalink }} 768w,
+                {{ $large.RelPermalink }} 1200w"
+        type="image/webp"
+        sizes="{{ $sizes }}">
+      <img 
+        src="{{ $fallback.RelPermalink }}" 
+        alt="{{ $alt }}"
+        {{ with $class }}class="{{ . }}"{{ end }}
+        loading="{{ $loading }}"
+        width="{{ $img.Width }}"
+        height="{{ $img.Height }}"
+        decoding="async">
+    </picture>
+  {{- end -}}
 {{- else -}}
   {{- warnf "responsive-image.html: No image resource provided" -}}
 {{- end -}}
