@@ -1,0 +1,77 @@
+{{- /*
+  Team to Card Mapper
+  
+  Transforms a team page context into the unified Card data model.
+  
+  Context: Team page object (Hugo .Page)
+  Returns: Dict conforming to Card data model
+  
+  Mandatory fields:
+    - title: Team name
+    - href: Team permalink
+  
+  Optional fields:
+    - primaryMeta: Age group or category
+    - secondaryMeta: Coach name
+    - image: Team image
+    - badge: Team division or league
+  
+  See: /specs/001-unify-card-component/data-model.md
+*/ -}}
+
+{{- /* Validate mandatory fields */ -}}
+{{ if not .Title }}
+  {{ errorf "Team card missing required field: title. Page: %s" .RelPermalink }}
+{{ end }}
+
+{{- /* Build image object if available */ -}}
+{{ $image := dict }}
+{{ with .Params.socialImage }}
+  {{ $image = dict "src" . "alt" $.Title }}
+{{ else }}
+  {{- /* Check for page bundle resources */ -}}
+  {{ with $.Resources.Get $.Params.socialImage }}
+    {{ $image = dict "src" .RelPermalink "alt" $.Title }}
+  {{ end }}
+{{ end }}
+
+{{- /* Build primary metadata (age group or category) */ -}}
+{{ $primaryMeta := "" }}
+{{ with .Params.ageGroup }}
+  {{ $primaryMeta = . }}
+{{ else }}
+  {{ with $.Params.category }}
+    {{ $primaryMeta = . }}
+  {{ end }}
+{{ end }}
+
+{{- /* Build secondary metadata (coach) */ -}}
+{{ $secondaryMeta := "" }}
+{{ with .Params.coach }}
+  {{ $secondaryMeta = printf "Coach: %s" . }}
+{{ end }}
+
+{{- /* Determine badge from division or league */ -}}
+{{ $badge := "" }}
+{{ with .Params.division }}
+  {{ $badge = . }}
+{{ else }}
+  {{ with $.Params.league }}
+    {{ $badge = . }}
+  {{ end }}
+{{ end }}
+
+{{- /* Collect tags */ -}}
+{{ $tags := .Params.tags }}
+
+{{- /* Return card data dict */ -}}
+{{ return dict
+  "title" .Title
+  "href" .RelPermalink
+  "primaryMeta" $primaryMeta
+  "secondaryMeta" $secondaryMeta
+  "image" $image
+  "badge" $badge
+  "tags" $tags
+  "variant" "default"
+}}

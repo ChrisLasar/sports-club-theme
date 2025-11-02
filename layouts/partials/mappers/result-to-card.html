@@ -1,0 +1,87 @@
+{{- /*
+  Result to Card Mapper
+  
+  Transforms a result page context into the unified Card data model.
+  
+  Context: Result page object (Hugo .Page)
+  Returns: Dict conforming to Card data model
+  
+  Mandatory fields:
+    - title: Result title (or opponent as title)
+    - href: Result permalink
+    - primaryMeta: Score
+  
+  Optional fields:
+    - secondaryMeta: Competition or round
+    - image: Result/match image
+    - badge: Result outcome (Win/Loss/Draw)
+  
+  See: /specs/001-unify-card-component/data-model.md
+*/ -}}
+
+{{- /* Validate mandatory fields */ -}}
+{{ if not .Title }}
+  {{ errorf "Result card missing required field: title. Page: %s" .RelPermalink }}
+{{ end }}
+
+{{- /* Build image object if available */ -}}
+{{ $image := dict }}
+{{ with .Params.socialImage }}
+  {{ $image = dict "src" . "alt" $.Title }}
+{{ else }}
+  {{- /* Check for page bundle resources */ -}}
+  {{ with $.Resources.Get $.Params.socialImage }}
+    {{ $image = dict "src" .RelPermalink "alt" $.Title }}
+  {{ end }}
+{{ end }}
+
+{{- /* Format score for display */ -}}
+{{ $score := "" }}
+{{ with .Params.homeScore }}
+  {{ $awayScore := $.Params.awayScore | default "0" }}
+  {{ $score = printf "%v - %v" . $awayScore }}
+{{ else }}
+  {{ with $.Params.score }}
+    {{ $score = . }}
+  {{ end }}
+{{ end }}
+
+{{- /* Build secondary metadata (competition/round) */ -}}
+{{ $secondaryMeta := "" }}
+{{ with .Params.competition }}
+  {{ $secondaryMeta = . }}
+  {{ with $.Params.round }}
+    {{ $secondaryMeta = printf "%s - %s" $secondaryMeta . }}
+  {{ end }}
+{{ else }}
+  {{ with $.Params.round }}
+    {{ $secondaryMeta = . }}
+  {{ end }}
+{{ end }}
+
+{{- /* Determine badge from result outcome */ -}}
+{{ $badge := "" }}
+{{ with .Params.outcome }}
+  {{ if eq . "win" }}
+    {{ $badge = "Win" }}
+  {{ else if eq . "loss" }}
+    {{ $badge = "Loss" }}
+  {{ else if eq . "draw" }}
+    {{ $badge = "Draw" }}
+  {{ end }}
+{{ end }}
+
+{{- /* Collect tags */ -}}
+{{ $tags := .Params.tags }}
+
+{{- /* Return card data dict */ -}}
+{{ return dict
+  "title" .Title
+  "href" .RelPermalink
+  "primaryMeta" $score
+  "secondaryMeta" $secondaryMeta
+  "image" $image
+  "badge" $badge
+  "tags" $tags
+  "variant" "default"
+}}

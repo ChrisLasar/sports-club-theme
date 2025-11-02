@@ -23,7 +23,9 @@
       <h2 class="text-3xl font-bold mb-6">{{ $role | pluralize }}</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {{ range $roleMembers }}
-          {{- partial "member-card.html" . -}}
+          {{- /* Use unified card system */ -}}
+          {{ $cardData := partial "mappers/member-to-card.html" . }}
+          {{ partial "card.html" $cardData }}
         {{ end }}
       </div>
     </section>

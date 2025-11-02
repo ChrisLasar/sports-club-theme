@@ -1,0 +1,98 @@
+{{- /*
+  Unified Card Partial
+  
+  Renders a standardized card UI element using daisyUI card components.
+  
+  Contract:
+    Input: A dict (map) with the following structure:
+      - title (required): string - Primary heading
+      - href (required): string - Link target URL
+      - description (optional): string - Secondary text/excerpt
+      - image (optional): map with src, alt, width, height
+      - primaryMeta (optional): string - First metadata line
+      - secondaryMeta (optional): string - Second metadata line
+      - badge (optional): string - Label/category badge
+      - tags (optional): array of strings - List of tags
+      - variant (optional): string - "default" or "compact"
+  
+    Output: HTML string (rendered card markup)
+  
+  Usage:
+    {{ partial "card.html" (dict "title" "Example" "href" "/example/") }}
+    
+  See: /specs/001-unify-card-component/contracts/card-partial.md
+*/ -}}
+
+{{- /* Validate required fields */ -}}
+{{ if not (and .title .href) }}
+  {{ warnf "Card partial: missing required fields (title=%v, href=%v)" .title .href }}
+  {{- /* Return empty string - no output */ -}}
+{{ else }}
+  {{- /* Determine variant class */ -}}
+  {{ $variantClass := "" }}
+  {{ if eq .variant "compact" }}
+    {{ $variantClass = "card-sm" }}
+  {{ end }}
+
+  <article class="card {{ $variantClass }} bg-base-100 text-base-content shadow-xl hover:shadow-2xl transition-shadow">
+    {{- /* Optional: Image */ -}}
+    {{ with .image }}
+      <figure>
+        <img 
+          src="{{ .src }}" 
+          {{ with .alt }}alt="{{ . }}"{{ else }}role="presentation" alt=""{{ end }}
+          {{ with .width }}width="{{ . }}"{{ end }}
+          {{ with .height }}height="{{ . }}"{{ end }}
+          class="w-full h-48 object-cover"
+        />
+      </figure>
+    {{ end }}
+    
+    <div class="card-body">
+      {{- /* Optional: Badge */ -}}
+      {{ with .badge }}
+        <div class="mb-2">
+          <span class="badge badge-primary">{{ . }}</span>
+        </div>
+      {{ end }}
+      
+      {{- /* Required: Title (linked) */ -}}
+      <h2 class="card-title">
+        <a href="{{ $.href }}" class="hover:text-primary transition-colors">{{ $.title }}</a>
+      </h2>
+      
+      {{- /* Optional: Primary Metadata */ -}}
+      {{ with .primaryMeta }}
+        <div class="text-sm text-base-content/70">
+          <span>{{ . }}</span>
+        </div>
+      {{ end }}
+      
+      {{- /* Optional: Secondary Metadata */ -}}
+      {{ with .secondaryMeta }}
+        <div class="text-xs text-base-content/60">
+          <span>{{ . }}</span>
+        </div>
+      {{ end }}
+      
+      {{- /* Optional: Description */ -}}
+      {{ with .description }}
+        <p class="text-sm text-base-content/80 mt-2">{{ . }}</p>
+      {{ end }}
+      
+      {{- /* Optional: Tags */ -}}
+      {{ with .tags }}
+        <div class="flex flex-wrap gap-2 mt-2">
+          {{ range . }}
+            <span class="badge badge-outline badge-sm">{{ . }}</span>
+          {{ end }}
+        </div>
+      {{ end }}
+      
+      {{- /* Card Actions */ -}}
+      <div class="card-actions justify-end mt-4">
+        <a href="{{ $.href }}" class="btn btn-primary {{ if eq $.variant "compact" }}btn-sm{{ end }}">View</a>
+      </div>
+    </div>
+  </article>
+{{ end }}

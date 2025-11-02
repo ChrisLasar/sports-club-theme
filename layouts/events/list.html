@@ -59,47 +59,10 @@
         {{ $eventTeams := $event.Params.teams }}
         <div 
           x-show="(selectedStatus === 'all' || selectedStatus === '{{ $event.Params.status }}') && (selectedTeam === 'all' {{ range $eventTeams }}|| selectedTeam === '{{ . }}'{{ end }})"
-          x-transition
-          class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
-
-          {{ with $event.Params.socialImage }}
-          <figure>
-            {{- partial "responsive-image.html" (dict "context" $event "src" . "alt" $.Title "class" "h-48 w-full object-cover") -}}
-          </figure>
-          {{ end }}
-          
-          <div class="card-body">
-            <div class="flex gap-2 flex-wrap mb-2">
-              <span class="badge {{ if eq $event.Params.eventType "fixture" }}badge-primary{{ else if eq $event.Params.eventType "tournament" }}badge-secondary{{ else }}badge-accent{{ end }} badge-sm">
-                {{ $event.Params.eventType | humanize }}
-              </span>
-              {{ if eq $event.Params.status "upcoming" }}
-                <span class="badge badge-success badge-sm">Upcoming</span>
-              {{ else if eq $event.Params.status "completed" }}
-                <span class="badge badge-ghost badge-sm">Completed</span>
-              {{ end }}
-            </div>
-            
-            <h3 class="card-title">{{ $event.Title }}</h3>
-            
-            {{ with $event.Params.date }}
-            <p class="text-sm opacity-70">
-              <time datetime="{{ . }}">{{ dateFormat "Jan 2, 2006 3:04 PM" . }}</time>
-            </p>
-            {{ end }}
-            
-            {{ with $event.Params.location }}
-            <p class="text-sm">📍 {{ . }}</p>
-            {{ end }}
-            
-            {{ with $event.Params.opponent }}
-            <p class="text-sm"><strong>vs</strong> {{ . }}</p>
-            {{ end }}
-            
-            <div class="card-actions justify-end mt-4">
-              <a href="{{ $event.RelPermalink }}" class="btn btn-sm btn-outline">Details</a>
-            </div>
-          </div>
+          x-transition>
+          {{- /* Use unified card system */ -}}
+          {{ $cardData := partial "mappers/event-to-card.html" $event }}
+          {{ partial "card.html" $cardData }}
         </div>
       {{ end }}
     </div>

@@ -21,10 +21,10 @@ description: "Task list for unified card component implementation"
 
 **Purpose**: Project initialization and verification
 
-- [ ] T001 Verify Hugo 0.152+ Extended edition is installed and available
-- [ ] T002 Verify daisyUI 5.x and Tailwind CSS 4.x are configured in assets/css/main.css
-- [ ] T003 [P] Scan existing codebase for current card implementations using `grep -r "class=\"card" layouts/`
-- [ ] T004 [P] Document current card usage locations in events, posts, results, teams, members templates
+- [X] T001 Verify Hugo 0.152+ Extended edition is installed and available
+- [X] T002 Verify daisyUI 5.x and Tailwind CSS 4.x are configured in assets/css/main.css
+- [X] T003 [P] Scan existing codebase for current card implementations using `grep -r "class=\"card" layouts/`
+- [X] T004 [P] Document current card usage locations in events, posts, results, teams, members templates
 
 ---
 
@@ -34,12 +34,12 @@ description: "Task list for unified card component implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T005 Create unified card partial in layouts/_partials/card.html per contract specification
-- [ ] T006 [P] Create event-to-card mapper in layouts/_partials/mappers/event-to-card.html
-- [ ] T007 [P] Create post-to-card mapper in layouts/_partials/mappers/post-to-card.html
-- [ ] T008 [P] Create result-to-card mapper in layouts/_partials/mappers/result-to-card.html
-- [ ] T009 [P] Create team-to-card mapper in layouts/_partials/mappers/team-to-card.html
-- [ ] T010 [P] Create member-to-card mapper in layouts/_partials/mappers/member-to-card.html
+- [X] T005 Create unified card partial in layouts/_partials/card.html per contract specification
+- [X] T006 [P] Create event-to-card mapper in layouts/_partials/mappers/event-to-card.html
+- [X] T007 [P] Create post-to-card mapper in layouts/_partials/mappers/post-to-card.html
+- [X] T008 [P] Create result-to-card mapper in layouts/_partials/mappers/result-to-card.html
+- [X] T009 [P] Create team-to-card mapper in layouts/_partials/mappers/team-to-card.html
+- [X] T010 [P] Create member-to-card mapper in layouts/_partials/mappers/member-to-card.html
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -53,14 +53,14 @@ description: "Task list for unified card component implementation"
 
 ### Implementation for User Story 1
 
-- [ ] T011 [P] [US1] Update events list page in layouts/events/list.html to use unified card partial with event mapper
-- [ ] T012 [P] [US1] Update posts list page in layouts/posts/list.html to use unified card partial with post mapper
-- [ ] T013 [P] [US1] Update results list page in layouts/results/list.html to use unified card partial with result mapper
-- [ ] T014 [P] [US1] Update teams list page in layouts/teams/list.html to use unified card partial with team mapper
-- [ ] T015 [P] [US1] Update members list page in layouts/members/list.html to use unified card partial with member mapper
-- [ ] T016 [US1] Remove old per-archetype card partials (event-card.html, post-card.html, result-card.html, team-card.html, member-card.html) from layouts/partials/
-- [ ] T017 [US1] Build site with `hugo` command and verify all five list pages render cards correctly
-- [ ] T018 [US1] Test change propagation: modify card title styling in layouts/_partials/card.html and verify all five pages reflect the change
+- [X] T011 [P] [US1] Update events list page in layouts/events/list.html to use unified card partial with event mapper
+- [X] T012 [P] [US1] Update posts list page in layouts/posts/list.html to use unified card partial with post mapper
+- [X] T013 [P] [US1] Update results list page in layouts/results/list.html to use unified card partial with result mapper
+- [X] T014 [P] [US1] Update teams list page in layouts/teams/list.html to use unified card partial with team mapper
+- [X] T015 [P] [US1] Update members list page in layouts/members/list.html to use unified card partial with member mapper
+- [X] T016 [US1] Remove old per-archetype card partials (event-card.html, post-card.html, result-card.html, team-card.html, member-card.html) from layouts/partials/
+- [X] T017 [US1] Build site with `hugo` command and verify all five list pages render cards correctly
+- [X] T018 [US1] Test change propagation: modify card title styling in layouts/_partials/card.html and verify all five pages reflect the change
 - [ ] T019 [P] [US1] Run HTML validation on generated public/events/index.html
 - [ ] T020 [P] [US1] Run HTML validation on generated public/posts/index.html
 - [ ] T021 [P] [US1] Run HTML validation on generated public/results/index.html

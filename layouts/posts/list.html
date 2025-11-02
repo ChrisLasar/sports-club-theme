@@ -71,7 +71,9 @@
           x-show="(selectedCategory === 'all' {{ range $postCategories }}|| selectedCategory === '{{ . }}'{{ end }}) && (selectedTeam === 'all' {{ range $postTeams }}|| selectedTeam === '{{ . }}'{{ end }})"
           x-transition
           class="h-full">
-          {{- partial "post-card.html" . -}}
+          {{- /* Use unified card system */ -}}
+          {{ $cardData := partial "mappers/post-to-card.html" . }}
+          {{ partial "card.html" $cardData }}
         </div>
       {{ end }}
     </div>

@@ -1,0 +1,85 @@
+{{- /*
+  Member to Card Mapper
+  
+  Transforms a member page context into the unified Card data model.
+  
+  Context: Member page object (Hugo .Page)
+  Returns: Dict conforming to Card data model
+  
+  Mandatory fields:
+    - title: Member name
+    - href: Member permalink
+    - image: Member photo (per FR-011 requirement)
+  
+  Optional fields:
+    - primaryMeta: Member role/position
+    - secondaryMeta: Team or department
+    - badge: Membership type or status
+  
+  See: /specs/001-unify-card-component/data-model.md
+*/ -}}
+
+{{- /* Validate mandatory fields */ -}}
+{{ $memberName := .Params.name | default .Title }}
+{{ if not $memberName }}
+  {{ errorf "Member card missing required field: name/title. Page: %s" .RelPermalink }}
+{{ end }}
+
+{{- /* Build image object - MANDATORY for members per FR-011 */ -}}
+{{ $image := dict }}
+{{ with .Params.socialImage }}
+  {{ $image = dict "src" . "alt" $memberName }}
+{{ else }}
+  {{- /* Check for page bundle resources */ -}}
+  {{ with $.Resources.Get $.Params.socialImage }}
+    {{ $image = dict "src" .RelPermalink "alt" $memberName }}
+  {{ else }}
+    {{- /* Fallback to placeholder if no image */ -}}
+    {{ $image = dict "src" "/images/placeholders/member-placeholder.svg" "alt" $memberName }}
+  {{ end }}
+{{ end }}
+
+{{- /* Build primary metadata (role/position) */ -}}
+{{ $primaryMeta := "" }}
+{{ with .Params.role }}
+  {{ $primaryMeta = . }}
+{{ else }}
+  {{ with $.Params.position }}
+    {{ $primaryMeta = . }}
+  {{ end }}
+{{ end }}
+
+{{- /* Build secondary metadata (team or department) */ -}}
+{{ $secondaryMeta := "" }}
+{{ with .Params.team }}
+  {{ $secondaryMeta = . }}
+{{ else }}
+  {{ with $.Params.department }}
+    {{ $secondaryMeta = . }}
+  {{ end }}
+{{ end }}
+
+{{- /* Determine badge from membership type or status */ -}}
+{{ $badge := "" }}
+{{ with .Params.membershipType }}
+  {{ $badge = . | humanize }}
+{{ else }}
+  {{ with $.Params.status }}
+    {{ $badge = . | humanize }}
+  {{ end }}
+{{ end }}
+
+{{- /* Collect tags */ -}}
+{{ $tags := .Params.tags }}
+
+{{- /* Return card data dict */ -}}
+{{ return dict
+  "title" $memberName
+  "href" .RelPermalink
+  "primaryMeta" $primaryMeta
+  "secondaryMeta" $secondaryMeta
+  "image" $image
+  "badge" $badge
+  "tags" $tags
+  "variant" "default"
+}}

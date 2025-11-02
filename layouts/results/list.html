@@ -45,62 +45,10 @@
         {{ $resultTeams := .Params.teams }}
         <div 
           x-show="selectedTeam === 'all' {{ range $resultTeams }}|| selectedTeam === '{{ . }}'{{ end }}"
-          x-transition
-          class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
-          
-          <div class="card-body">
-            <h3 class="card-title text-lg">{{ .Title }}</h3>
-            
-            {{ with .Params.date }}
-            <p class="text-sm opacity-70">
-              <time datetime="{{ . }}">{{ dateFormat "January 2, 2006" . }}</time>
-            </p>
-            {{ end }}
-            
-            {{ with .Params.score }}
-              {{ if .home }}
-              <div class="text-center my-4">
-                <div class="text-3xl font-bold">
-                  <span class="{{ if gt .home .away }}text-success{{ end }}">{{ .home }}</span>
-                  <span class="text-base-content/50 mx-2">-</span>
-                  <span class="{{ if gt .away .home }}text-success{{ end }}">{{ .away }}</span>
-                </div>
-                <div class="text-xs opacity-70 mt-1">
-                  {{ .homeTeam }} vs {{ .awayTeam }}
-                </div>
-              </div>
-              {{ end }}
-            {{ end }}
-            
-            {{ with .Params.placement }}
-            <div class="text-center my-4">
-              <div class="text-3xl font-bold">{{ . }}</div>
-              {{ if eq . "1st" }}
-                <div class="text-xl">🥇</div>
-              {{ else if eq . "2nd" }}
-                <div class="text-xl">🥈</div>
-              {{ else if eq . "3rd" }}
-                <div class="text-xl">🥉</div>
-              {{ end }}
-            </div>
-            {{ end }}
-            
-            {{ with .Params.highlights }}
-            <p class="text-sm line-clamp-3">{{ . }}</p>
-            {{ end }}
-            
-            <div class="flex gap-2 flex-wrap mt-2">
-              {{ range $.Params.teams }}
-                {{ with site.GetPage (printf "teams/%s" .) }}
-                <span class="badge badge-primary badge-sm">{{ .Title }}</span>
-                {{ end }}
-              {{ end }}
-            </div>
-            
-            <div class="card-actions justify-end mt-4">
-              <a href="{{ .RelPermalink }}" class="btn btn-sm btn-outline">View Result</a>
-            </div>
-          </div>
+          x-transition>
+          {{- /* Use unified card system */ -}}
+          {{ $cardData := partial "mappers/result-to-card.html" . }}
+          {{ partial "card.html" $cardData }}
         </div>
       {{ end }}
     </div>
