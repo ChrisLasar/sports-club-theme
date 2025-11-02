@@ -28,6 +28,8 @@
       decoding="async">
   {{- else -}}
     {{- /* Generate responsive variants for raster images */ -}}
+    {{- /* Multiple sizes for different use cases: cards (small), hero images (large), etc. */ -}}
+    {{- $tiny := $img.Resize "320x webp" -}}
     {{- $small := $img.Resize "480x webp" -}}
     {{- $medium := $img.Resize "768x webp" -}}
     {{- $large := $img.Resize "1200x webp" -}}
@@ -35,7 +37,8 @@
     
     <picture>
       <source 
-        srcset="{{ $small.RelPermalink }} 480w,
+        srcset="{{ $tiny.RelPermalink }} 320w,
+                {{ $small.RelPermalink }} 480w,
                 {{ $medium.RelPermalink }} 768w,
                 {{ $large.RelPermalink }} 1200w"
         type="image/webp"

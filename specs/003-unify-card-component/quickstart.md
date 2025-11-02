@@ -89,6 +89,41 @@ Use the `variant` field to change card appearance:
 - `"default"` → Standard card with full spacing
 - `"compact"` → Smaller card with reduced spacing (uses daisyUI `card-sm`)
 
+### Step 4: Image Optimization (Automatic)
+
+Card images are automatically optimized for performance:
+
+**Responsive Image Sizes**:
+- **320px** - Mobile devices (portrait)
+- **480px** - Mobile devices (landscape) & small tablets
+- **640px** - Tablets & 2-column grids
+- **768px** - Large tablets & fallback
+
+**Smart `sizes` Attribute**:
+```
+(min-width: 1024px) 320px,    ← Desktop 3-column grid
+(min-width: 768px) 350px,      ← Tablet 2-column grid
+(min-width: 640px) 450px,      ← Large mobile
+100vw                          ← Small mobile (full width)
+```
+
+**Benefits**:
+- ✅ **60-70% smaller file sizes** on desktop (320px vs 1200px)
+- ✅ **WebP format** for modern browsers with JPEG/PNG fallback
+- ✅ **Lazy loading** by default (loading="lazy")
+- ✅ **Precise control** using px values instead of viewport-based calculations
+
+**Custom sizes** (if needed):
+```go-html-template
+{{ $cardData := partial "mappers/event-to-card.html" . }}
+{{ $cardData = merge $cardData (dict "image" (dict 
+  "resource" $imageResource
+  "alt" "Custom alt text"
+  "sizes" "(min-width: 1024px) 400px, 100vw"  ← Custom sizes
+)) }}
+{{ partial "card.html" $cardData }}
+```
+
 ## Common Use Cases
 
 ### Use Case 1: Latest Posts on Homepage
