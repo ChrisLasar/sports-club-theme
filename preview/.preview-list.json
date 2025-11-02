@@ -1,9 +1,9 @@
-{"generated_at":"2025-11-02T10:46:04Z","total_previews":1,"previews":[{
+{"generated_at":"2025-11-02T11:07:48Z","total_previews":1,"previews":[{
   "branch": "001-unify-card-component",
-  "commit": "4ca6819bc78548a221e76fecd962e9ef6e7128e3",
-  "commit_message": "feat: add unified card system documentation for consistent content display across archetypes\n",
+  "commit": "5bfba77b014f5162387eb4ee3e094f184ce61d6c",
+  "commit_message": "feat: enhance image handling in card and responsive-image partials for optimized performance and responsive sizes\n",
   "commit_author": "Christian Lasarczyk",
-  "timestamp": "2025-11-02T10:46:03Z",
+  "timestamp": "2025-11-02T11:07:46Z",
   "build_status": "success",
   "build_duration_seconds": 0,
   "hugo_version": "0.152.0",
