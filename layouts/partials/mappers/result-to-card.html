@@ -41,11 +41,17 @@
 
 {{- /* Format score for display */ -}}
 {{ $score := "" }}
-{{ with .Params.homeScore }}
-  {{ $awayScore := $.Params.awayScore | default "0" }}
-  {{ $score = printf "%v - %v" . $awayScore }}
-{{ else }}
-  {{ with $.Params.score }}
+{{ with .Params.score }}
+  {{- /* Check if score is a nested object or string */ -}}
+  {{ if reflect.IsMap . }}
+    {{- /* Handle nested score structure (home/away) */ -}}
+    {{ $homeScore := .home }}
+    {{ $awayScore := .away }}
+    {{ if and $homeScore $awayScore }}
+      {{ $score = printf "%v - %v" $homeScore $awayScore }}
+    {{ end }}
+  {{ else }}
+    {{- /* Handle simple string score */ -}}
     {{ $score = . }}
   {{ end }}
 {{ end }}
@@ -72,6 +78,41 @@
     {{ $badge = "Loss" }}
   {{ else if eq . "draw" }}
     {{ $badge = "Draw" }}
+  {{ end }}
+{{ else }}
+  {{- /* Try to derive outcome from score */ -}}
+  {{ with $.Params.score }}
+    {{ if reflect.IsMap . }}
+      {{ $homeScore := .home }}
+      {{ $awayScore := .away }}
+      {{ if and $homeScore $awayScore }}
+        {{ if gt $homeScore $awayScore }}
+          {{ $badge = "Win" }}
+        {{ else if lt $homeScore $awayScore }}
+          {{ $badge = "Loss" }}
+        {{ else }}
+          {{ $badge = "Draw" }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{- /* If still no badge, check tags for win/loss/draw */ -}}
+  {{ if not $badge }}
+    {{ with $.Params.tags }}
+      {{ if in . "win" }}
+        {{ $badge = "Win" }}
+      {{ else if in . "loss" }}
+        {{ $badge = "Loss" }}
+      {{ else if in . "draw" }}
+        {{ $badge = "Draw" }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{- /* Check for placement (tournament results) */ -}}
+  {{ if not $badge }}
+    {{ with $.Params.placement }}
+      {{ $badge = printf "%s Place" . }}
+    {{ end }}
   {{ end }}
 {{ end }}
 
