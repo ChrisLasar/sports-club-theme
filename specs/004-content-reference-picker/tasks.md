@@ -22,10 +22,10 @@
 
 **Purpose**: Verify project structure and ensure Sveltia CMS is properly configured
 
-- [ ] T001 Verify Hugo 0.152+ (Extended) is installed and configured in `config/_default/hugo.toml`
-- [ ] T002 Verify Sveltia CMS is accessible at `/admin/` and loads the current config from `static/admin/config.yml`
+- [x] T001 Verify Hugo 0.152+ (Extended) is installed and configured in `config/_default/hugo.toml`
+- [x] T002 Verify Sveltia CMS is accessible at `/admin/` and loads the current config from `static/admin/config.yml`
 - [ ] T003 [P] Create venues content collection directory structure at `content/venues/` (migration from data file to content collection)
-- [ ] T004 [P] Verify existing content structure matches data model: `content/members/`, `content/teams/`, `content/events/`, `content/results/`, `content/posts/`
+- [x] T004 [P] Verify existing content structure matches data model: `content/members/`, `content/teams/`, `content/events/`, `content/results/`, `content/posts/`
 
 ---
 
@@ -35,11 +35,11 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T005 Migrate venues from `data/venues.yaml` to content collection in `content/venues/{slug}/index.md` (create one file per venue with front matter: title, date, address, map_link, facilities)
-- [ ] T006 Create Hugo partial for reference validation at `layouts/partials/validate-reference.html` (validates content references exist using `.Site.GetPage`)
-- [ ] T007 [P] Update team templates in `layouts/teams/single.html` to resolve venue references via `.Site.GetPage` instead of `.Site.Data.venues`
-- [ ] T008 [P] Update event templates in `layouts/events/single.html` to resolve venue references via `.Site.GetPage`
-- [ ] T009 Create venues collection entry in CMS config at `static/admin/config.yml` with fields: title, date, address, map_link, facilities, image, description
+- [x] T005 Migrate venues from `data/venues.yaml` to content collection in `content/venues/{slug}/index.md` (create one file per venue with front matter: title, date, address, map_link, facilities)
+- [x] T006 Create Hugo partial for reference validation at `layouts/partials/validate-reference.html` (validates content references exist using `.Site.GetPage`)
+- [x] T007 [P] Update team templates in `layouts/teams/single.html` to resolve venue references via `.Site.GetPage` instead of `.Site.Data.venues`
+- [x] T008 [P] Update event templates in `layouts/events/single.html` to resolve venue references via `.Site.GetPage`
+- [x] T009 Create venues collection entry in CMS config at `static/admin/config.yml` with fields: title, date, address, map_link, facilities, image, description
 
 **Checkpoint**: Foundation ready - venues migrated to content, validation infrastructure in place, user story implementation can begin
 
@@ -53,12 +53,12 @@
 
 ### Implementation for User Story 1
 
-- [ ] T010 [P] [US1] Update members collection in `static/admin/config.yml` to ensure proper fields for relation widget (title, role, teams)
-- [ ] T011 [US1] Add Relation widget configuration for coaches field in teams collection in `static/admin/config.yml` (collection: members, search_fields: ["title", "role"], value_field: "{{slug}}", display_fields: ["{{title}} ({{role}})"], multiple: true, hint: "Select members who coach this team. If no members appear, create members first.")
-- [ ] T012 [US1] Update team archetype at `archetypes/teams/index.md` to use `coaches: []` array format instead of `coach: ""`
-- [ ] T013 [US1] Update team single template at `layouts/teams/single.html` to resolve and display coach references using `.Site.GetPage` with error handling for missing references
-- [ ] T014 [US1] Add validation calls in team list template at `layouts/teams/list.html` to validate all coach references exist
-- [ ] T015 [US1] Create example team content at `content/teams/example-team/index.md` with multiple coach references demonstrating the feature
+- [x] T010 [P] [US1] Update members collection in `static/admin/config.yml` to ensure proper fields for relation widget (title, role, teams)
+- [x] T011 [US1] Add Relation widget configuration for coaches field in teams collection in `static/admin/config.yml` (collection: members, search_fields: ["title", "role"], value_field: "{{slug}}", display_fields: ["{{title}} ({{role}})"], multiple: true, hint: "Select members who coach this team. If no members appear, create members first.")
+- [x] T012 [US1] Update team archetype at `archetypes/teams/index.md` to use `coaches: []` array format instead of `coach: ""`
+- [x] T013 [US1] Update team single template at `layouts/teams/single.html` to resolve and display coach references using `.Site.GetPage` with error handling for missing references
+- [x] T014 [US1] Add validation calls in team list template at `layouts/teams/list.html` to validate all coach references exist
+- [x] T015 [US1] Create example team content at `content/teams/example-team/index.md` with multiple coach references demonstrating the feature
 - [ ] T016 [US1] Update quickstart.md section "Adding Coaches to a Team" with screenshots and step-by-step workflow using the new relation widget
 
 **Checkpoint**: User Story 1 complete - team coach selection works via dropdown, validates correctly, displays properly
@@ -73,13 +73,13 @@
 
 ### Implementation for User Story 2
 
-- [ ] T017 [P] [US2] Update teams collection in `static/admin/config.yml` to ensure fields are properly configured for relation widget display (title, sport, group)
-- [ ] T018 [US2] Add Relation widget configuration for teams field in events collection in `static/admin/config.yml` (collection: teams, search_fields: ["title", "sport", "group"], value_field: "{{slug}}", display_fields: ["{{title}} ({{sport}})"], multiple: true, min: 1, required: true, hint: "Select at least one team for this event.")
-- [ ] T019 [US2] Add Relation widget configuration for venue field in events collection in `static/admin/config.yml` (collection: venues, search_fields: ["title", "address"], value_field: "{{slug}}", display_fields: ["{{title}}"], required: false, hint: "Where is this event taking place? If no venues appear, create venues first.")
-- [ ] T020 [US2] Update event archetype at `archetypes/events.md` to include `teams: []` and `venue: ""` with proper format
-- [ ] T021 [US2] Update event single template at `layouts/events/single.html` to resolve and display team and venue references using `.Site.GetPage`
-- [ ] T022 [US2] Add validation calls in event list template at `layouts/events/list.html` to validate all team and venue references exist
-- [ ] T023 [US2] Create example event content at `content/events/example-event/index.md` with multiple team references and venue reference
+- [x] T017 [P] [US2] Update teams collection in `static/admin/config.yml` to ensure fields are properly configured for relation widget display (title, sport, group)
+- [x] T018 [US2] Add Relation widget configuration for teams field in events collection in `static/admin/config.yml` (collection: teams, search_fields: ["title", "sport", "group"], value_field: "{{slug}}", display_fields: ["{{title}} ({{sport}})"], multiple: true, min: 1, required: true, hint: "Select at least one team for this event.")
+- [x] T019 [US2] Add Relation widget configuration for venue field in events collection in `static/admin/config.yml` (collection: venues, search_fields: ["title", "address"], value_field: "{{slug}}", display_fields: ["{{title}}"], required: false, hint: "Where is this event taking place? If no venues appear, create venues first.")
+- [x] T020 [US2] Update event archetype at `archetypes/events.md` to include `teams: []` and `venue: ""` with proper format
+- [x] T021 [US2] Update event single template at `layouts/events/single.html` to resolve and display team and venue references using `.Site.GetPage`
+- [x] T022 [US2] Add validation calls in event list template at `layouts/events/list.html` to validate all team and venue references exist
+- [x] T023 [US2] Create example event content at `content/events/example-event/index.md` with multiple team references and venue reference
 - [ ] T024 [US2] Update quickstart.md section "Linking Events to Teams" with workflow documentation
 
 **Checkpoint**: User Story 2 complete - event team selection works, searchable dropdown functions, references validate

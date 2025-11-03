@@ -2,12 +2,12 @@
 title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
 draft: true
-author: ""
+author: ""  # Member path, e.g., "members/john-smith"
 summary: ""
 featured_image: ""
 tags: []
 categories: []
-teams: []
+teams: []  # Array of team paths, e.g., ["teams/u13-boys"]
 ---
 
 Write your news post content here. This will appear on the news/blog listing page and individual post pages.

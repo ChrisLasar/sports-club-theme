@@ -5,7 +5,7 @@ date: 2025-12-20T11:36:00+01:00
 location: Gartenklause
 venue: ''
 teams:
-  - flotter-federball
+  - teams/flotter-federball
 opponent: ''
 description: Noch ne Feier
 registrationRequired: false

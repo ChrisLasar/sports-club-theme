@@ -2,12 +2,12 @@
 title: "Season Kickoff: U13 Boys Ready for Action"
 date: 2025-09-15T10:00:00+02:00
 draft: false
-author: "Sarah Mitchell"
+author: "members/sarah-jones"
 summary: "The U13 Boys team is gearing up for an exciting new season with fresh talent and ambitious goals."
 featured_image: ""
 tags: ["season-start", "youth-development"]
 categories: ["team-news"]
-teams: ["u13-boys"]
+teams: ["teams/u13-boys"]
 ---
 
 The U13 Boys team is back in action and ready for what promises to be an exciting season! With a mix of returning players and talented newcomers, Coach Anderson is optimistic about the team's prospects.

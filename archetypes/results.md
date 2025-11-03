@@ -1,8 +1,8 @@
 ---
 title: "{{ replace .Name "-" " " | title }}"
-event: ""  # Path to event, e.g., "events/u13-boys-vs-rival-2025-11-15"
+event: ""  # Path to event from content, e.g., "events/u13-boys-vs-rival-2025-11-15"
 date: "{{ .Date }}"
-teams: []  # Team slugs (taxonomy)
+teams: []  # Array of team paths, e.g., ["teams/u13-boys", "teams/u15-girls"]
 score:
   home: 0
   away: 0

@@ -5,8 +5,28 @@
     <p class="text-lg text-base-content/70">Browse all teams at {{ site.Data.club.name }}</p>
   </header>
   
-  {{- /* Group teams by sport */ -}}
+  {{- /* Validate coach references across all teams */ -}}
   {{ $teams := where site.RegularPages "Type" "teams" }}
+  {{ range $teams }}
+    {{ with .Params.coaches }}
+      {{ if reflect.IsSlice . }}
+        {{ range . }}
+          {{- /* Handle both string paths and old object structure */ -}}
+          {{ if reflect.IsMap . }}
+            {{- /* Old structure with .member field */ -}}
+            {{ with .member }}
+              {{ $coach := partial "validate-reference.html" (dict "ref" . "context" $) }}
+            {{ end }}
+          {{ else }}
+            {{- /* New structure: direct string path */ -}}
+            {{ $coach := partial "validate-reference.html" (dict "ref" . "context" $) }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  
+  {{- /* Group teams by sport */ -}}
   {{ $sports := slice }}
   {{ range $teams }}
     {{ $sports = $sports | append .Params.sport }}

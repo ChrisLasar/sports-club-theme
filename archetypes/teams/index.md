@@ -10,12 +10,9 @@ training:
   - day: "Tuesday"
     startTime: "18:00"
     endTime: "19:30"
-    venue: "main-field"
-venue: "main-field"
-coaches:
-  - member: ""  # Path to member entry, e.g., members/jane-doe
-    role: "Head Coach"
-    email: ""  # Generic team email, e.g., u13@club.org
+    venue: "venues/main-field"  # Path to venue content, e.g., venues/main-field
+venue: "venues/main-field"  # Path to primary venue content
+coaches: []  # Array of member paths, e.g., ["members/jane-doe", "members/john-smith"]
 members: []
 socialImage: ""  # Filename of image in this page bundle
 description: ""

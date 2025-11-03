@@ -36,15 +36,33 @@ collections:
           - {label: "Day", name: "day", widget: "select", options: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]}
           - {label: "Start Time", name: "startTime", widget: "string", pattern: ["^([01]?[0-9]|2[0-3]):[0-5][0-9]$", "Must be HH:MM format"]}
           - {label: "End Time", name: "endTime", widget: "string", pattern: ["^([01]?[0-9]|2[0-3]):[0-5][0-9]$", "Must be HH:MM format"]}
-          - {label: "Venue", name: "venue", widget: "string", hint: "Venue slug from data/venues.yaml"}
-      - {label: "Primary Venue", name: "venue", widget: "string"}
+          - label: "Venue"
+            name: "venue"
+            widget: "relation"
+            collection: "venues"
+            search_fields: ["title"]
+            value_field: "{{slug}}"
+            display_fields: ["{{title}}"]
+            hint: "Select training venue"
+      - label: "Primary Venue"
+        name: "venue"
+        widget: "relation"
+        collection: "venues"
+        search_fields: ["title", "address"]
+        value_field: "{{slug}}"
+        display_fields: ["{{title}}"]
+        required: false
+        hint: "Select the team's home venue. If no venues appear, create venues first."
       - label: "Coaches"
         name: "coaches"
-        widget: "list"
-        fields:
-          - {label: "Member", name: "member", widget: "relation", collection: "members", search_fields: ["title"], value_field: "{{slug}}", display_fields: ["title", "role"], hint: "Select member entry for this coach"}
-          - {label: "Role", name: "role", widget: "string", default: "Coach", hint: "Coach's role on this team"}
-          - {label: "Generic Team Email", name: "email", widget: "string", hint: "Use generic team email (e.g., u13@club.org), NOT personal email"}
+        widget: "relation"
+        collection: "members"
+        search_fields: ["title", "role"]
+        value_field: "{{slug}}"
+        display_fields: ["{{title}} ({{role}})"]
+        multiple: true
+        required: false
+        hint: "Select members who coach this team. If no members appear, create members first."
       - {label: "Social Image", name: "socialImage", widget: "image", required: false, hint: "Team photo for social sharing"}
       - {label: "Description", name: "description", widget: "text"}
       - {label: "Tags", name: "tags", widget: "list", required: false}
@@ -94,8 +112,26 @@ collections:
       - {label: "Event Type", name: "eventType", widget: "select", options: ["fixture", "tournament", "training-camp", "social"]}
       - {label: "Date & Time", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ"}
       - {label: "Location", name: "location", widget: "string"}
-      - {label: "Venue Slug", name: "venue", widget: "string", required: false}
-      - {label: "Teams", name: "teams", widget: "list", hint: "Team slugs (taxonomy)"}
+      - label: "Venue"
+        name: "venue"
+        widget: "relation"
+        collection: "venues"
+        search_fields: ["title", "address"]
+        value_field: "{{slug}}"
+        display_fields: ["{{title}}"]
+        required: false
+        hint: "Where is this event taking place? If no venues appear, create venues first."
+      - label: "Teams"
+        name: "teams"
+        widget: "relation"
+        collection: "teams"
+        search_fields: ["title", "sport", "group"]
+        value_field: "{{slug}}"
+        display_fields: ["{{title}} ({{sport}})"]
+        multiple: true
+        min: 1
+        required: true
+        hint: "Select at least one team for this event."
       - {label: "Opponent", name: "opponent", widget: "string", required: false, hint: "For fixtures"}
       - {label: "Description", name: "description", widget: "text"}
       - {label: "Registration Required", name: "registrationRequired", widget: "boolean", default: false}
@@ -118,9 +154,26 @@ collections:
       preview: false
     fields:
       - {label: "Title", name: "title", widget: "string", required: true}
-      - {label: "Event Reference", name: "event", widget: "string", hint: "Path to event, e.g., events/u13-boys-vs-rival"}
+      - label: "Event"
+        name: "event"
+        widget: "relation"
+        collection: "events"
+        search_fields: ["title", "date"]
+        value_field: "{{slug}}"
+        display_fields: ["{{title}} - {{date}}"]
+        required: false
+        hint: "Link this result to an event (optional)."
       - {label: "Date", name: "date", widget: "datetime", time_format: false, format: "YYYY-MM-DD"}
-      - {label: "Teams", name: "teams", widget: "list", hint: "Team slugs (taxonomy)"}
+      - label: "Teams"
+        name: "teams"
+        widget: "relation"
+        collection: "teams"
+        search_fields: ["title", "sport"]
+        value_field: "{{slug}}"
+        display_fields: ["{{title}} ({{sport}})"]
+        multiple: true
+        required: false
+        hint: "Select teams involved in this result."
       - label: "Score"
         name: "score"
         widget: "object"
@@ -152,14 +205,52 @@ collections:
     fields:
       - {label: "Title", name: "title", widget: "string", required: true}
       - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Author", name: "author", widget: "string", default: "Club Admin"}
+      - label: "Author"
+        name: "author"
+        widget: "relation"
+        collection: "members"
+        search_fields: ["title", "role"]
+        value_field: "{{slug}}"
+        display_fields: ["{{title}} ({{role}})"]
+        required: true
+        hint: "Select the post author from members."
       - {label: "Summary", name: "summary", widget: "text", required: true, hint: "Used in previews and social sharing"}
       - {label: "Featured Image", name: "featured_image", widget: "image", required: false}
-      - {label: "Teams", name: "teams", widget: "list", required: false, hint: "Optional team tags"}
+      - label: "Related Teams"
+        name: "teams"
+        widget: "relation"
+        collection: "teams"
+        search_fields: ["title", "sport"]
+        value_field: "{{slug}}"
+        display_fields: ["{{title}} ({{sport}})"]
+        multiple: true
+        required: false
+        hint: "Tag teams related to this post."
       - {label: "Tags", name: "tags", widget: "list", required: false}
       - {label: "Categories", name: "categories", widget: "list", required: false}
       - {label: "Social Image", name: "socialImage", widget: "image", required: false}
       - {label: "Body", name: "body", widget: "markdown", required: true}
+
+  - name: "venues"
+    label: "Venues"
+    label_singular: "Venue"
+    folder: "content/venues"
+    path: "{{slug}}/index"
+    media_folder: ""
+    public_folder: ""
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - {label: "Venue Name", name: "title", widget: "string", required: true, hint: "e.g., Main Training Field, Tennis Courts"}
+      - {label: "Date", name: "date", widget: "datetime", required: true}
+      - {label: "Address", name: "address", widget: "string", required: true}
+      - {label: "Map Link", name: "map_link", widget: "string", required: false, hint: "Google Maps URL"}
+      - {label: "Facilities", name: "facilities", widget: "text", required: false, hint: "Describe available facilities"}
+      - {label: "Image", name: "image", widget: "image", required: false}
+      - {label: "Description", name: "description", widget: "text", required: false}
+      - {label: "Body", name: "body", widget: "markdown", required: false}
 
   - name: "pages"
     label: "Pages"

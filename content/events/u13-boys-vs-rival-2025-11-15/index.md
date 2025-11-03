@@ -3,9 +3,9 @@ title: "U13 Boys vs Rival Club"
 eventType: "fixture"
 date: "2025-11-15T14:00:00Z"
 location: "Away - Rival Club Stadium"
-venue: "main-field"
+venue: "venues/main-field"
 teams:
-  - u13-boys
+  - teams/u13-boys
 opponent: "Rival Club U13"
 description: "League match away at Rival Club"
 registrationRequired: false

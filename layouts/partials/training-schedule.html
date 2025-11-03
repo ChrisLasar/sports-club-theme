@@ -34,21 +34,21 @@
             <td>{{ .startTime }} - {{ .endTime }}</td>
             <td>
               {{ $trainingVenue := .venue }}
-              {{ with site.Data.venues }}
-                {{ $venueData := index . $trainingVenue }}
-                {{ with $venueData }}
-                  <div>
-                    <div class="font-medium">{{ .name }}</div>
-                    {{ with .address }}
-                    <div class="text-sm opacity-70">{{ . }}</div>
-                    {{ end }}
-                    {{ with .mapLink }}
-                    <a href="{{ . }}" target="_blank" rel="noopener" class="link link-primary text-sm">
-                      View Map →
-                    </a>
-                    {{ end }}
-                  </div>
-                {{ end }}
+              {{- /* Use .Site.GetPage to resolve venue reference from content collection */ -}}
+              {{ with $.Site.GetPage $trainingVenue }}
+                <div>
+                  <div class="font-medium">{{ .Title }}</div>
+                  {{ with .Params.address }}
+                  <div class="text-sm opacity-70">{{ . }}</div>
+                  {{ end }}
+                  {{ with .Params.map_link }}
+                  <a href="{{ . }}" target="_blank" rel="noopener" class="link link-primary text-sm">
+                    View Map →
+                  </a>
+                  {{ end }}
+                </div>
+              {{ else }}
+                <span class="text-sm opacity-50">{{ $trainingVenue }}</span>
               {{ end }}
             </td>
           </tr>
@@ -58,21 +58,18 @@
     </div>
     {{ end }}
     
-    {{- /* Venue details */ -}}
-    {{ with site.Data.venues }}
-      {{ $venue := index . $.Params.venue }}
-      {{ with $venue }}
+    {{- /* Venue details - resolve from content collection */ -}}
+    {{ with $.Site.GetPage $.Params.venue }}
       <div class="mt-4 p-4 bg-base-200 rounded-lg">
-        <h3 class="font-semibold mb-2">Venue Information</h3>
-        <p class="text-sm"><strong>{{ .name }}</strong></p>
-        {{ with .address }}
+        <h3 class="font-semibold mb-2">Primary Venue Information</h3>
+        <p class="text-sm"><strong>{{ .Title }}</strong></p>
+        {{ with .Params.address }}
         <p class="text-sm">{{ . }}</p>
         {{ end }}
-        {{ with .facilities }}
+        {{ with .Params.facilities }}
         <p class="text-sm mt-2"><strong>Facilities:</strong> {{ . }}</p>
         {{ end }}
       </div>
-      {{ end }}
     {{ end }}
     
     {{ end }}

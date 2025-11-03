@@ -5,6 +5,17 @@
     <p class="text-lg text-base-content/70">Browse upcoming and past events for all teams</p>
   </header>
   
+  {{- /* Validate team and venue references across all events */ -}}
+  {{ $events := where site.RegularPages "Type" "events" }}
+  {{ range $events }}
+    {{ range .Params.teams }}
+      {{ $team := partial "validate-reference.html" (dict "ref" . "context" $) }}
+    {{ end }}
+    {{ with .Params.venue }}
+      {{ $venue := partial "validate-reference.html" (dict "ref" . "context" $) }}
+    {{ end }}
+  {{ end }}
+  
   {{- /* Filter Controls */ -}}
   <div class="mb-8" x-data="{ 
     selectedStatus: 'all', 
@@ -36,13 +47,14 @@
         <select class="select select-bordered" x-model="selectedTeam">
           <option value="all">All Teams</option>
           {{ $teams := slice }}
-          {{ range where site.RegularPages "Type" "events" }}
+          {{ range $events }}
             {{ range .Params.teams }}
               {{ $teams = $teams | append . }}
             {{ end }}
           {{ end }}
           {{ range $teams | uniq }}
-            {{ with site.GetPage (printf "teams/%s" .) }}
+            {{ $team := partial "validate-reference.html" (dict "ref" . "context" $) }}
+            {{ with $team }}
             <option value="{{ path.Base .RelPermalink }}">{{ .Title }}</option>
             {{ end }}
           {{ end }}

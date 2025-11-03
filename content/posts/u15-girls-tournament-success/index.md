@@ -2,12 +2,12 @@
 title: "U15 Girls Excel at Regional Tournament"
 date: 2025-10-05T14:30:00+02:00
 draft: false
-author: "Emily Roberts"
+author: "members/sarah-jones"
 summary: "Our U15 Girls team secured an impressive 2nd place finish at the Regional Youth Tournament, showcasing exceptional skill and teamwork."
 featured_image: ""
 tags: ["tournament", "achievement", "girls-football"]
 categories: ["match-reports", "achievements"]
-teams: ["u15-girls"]
+teams: ["teams/u15-girls"]
 ---
 
 What a weekend for our U15 Girls team! The players delivered outstanding performances throughout the Regional Youth Tournament, ultimately securing a well-deserved 2nd place finish.
