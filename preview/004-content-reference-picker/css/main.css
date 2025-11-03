@@ -6798,9 +6798,6 @@
   .items-stretch {
     align-items: stretch;
   }
-  .justify-between {
-    justify-content: space-between;
-  }
   .justify-center {
     justify-content: center;
   }
@@ -8304,6 +8301,9 @@
         opacity: 100%;
       }
     }
+  }
+  .opacity-50 {
+    opacity: 50%;
   }
   .opacity-70 {
     opacity: 70%;
