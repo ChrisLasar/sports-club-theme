@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="800" height="800" viewBox="0 0 800 800" role="img"
+     aria-labelledby="titleDesc"
+     style="--primary:#2b8cbe; --accent:#f3a712; --dark:#0f1724; --bg:#ffffff;">
+  <title id="titleDesc">Mock Club — circular crest logo</title>
+  <desc id="titleDesc">A circular badge with monogram "MC", ribbon, stars, and year — customizable colors via CSS variables.</desc>
+
+  <!-- Background circle -->
+  <defs>
+    <linearGradient id="grad" x1="0" x2="1">
+      <stop offset="0" stop-color="var(--primary)" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#115f8a" stop-opacity="0.98"/>
+    </linearGradient>
+
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#000" flood-opacity="0.18"/>
+    </filter>
+
+    <clipPath id="innerCut">
+      <circle cx="400" cy="360" r="260"/>
+    </clipPath>
+  </defs>
+
+  <!-- outer ring -->
+  <g filter="url(#softShadow)">
+    <circle cx="400" cy="360" r="300" fill="var(--bg)"/>
+    <circle cx="400" cy="360" r="288" fill="url(#grad)"/>
+  </g>
+
+  <!-- decorative ring with dashed stroke -->
+  <circle cx="400" cy="360" r="240" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="8" stroke-dasharray="8 14"/>
+
+  <!-- inner badge -->
+  <g clip-path="url(#innerCut)">
+    <rect x="140" y="120" width="520" height="480" rx="48" ry="48" fill="rgba(0,0,0,0.06)"/>
+    <g transform="translate(0,40)">
+      <!-- monogram circle -->
+      <circle cx="400" cy="300" r="140" fill="var(--dark)"/>
+      <!-- monogram letters -->
+      <text x="400" y="340" text-anchor="middle" font-family="Montserrat, Arial, sans-serif"
+            font-weight="700" font-size="140" fill="var(--bg)" style="letter-spacing:-6px">MC</text>
+    </g>
+  </g>
+
+  <!-- ribbon -->
+  <g transform="translate(0,520)">
+    <path d="M160 40 L640 40 L610 100 L190 100 Z" fill="var(--accent)" stroke="#b06e08" stroke-width="2"/>
+    <path d="M160 40 L200 100 L190 100 L160 40 Z" fill="#d68f1e" opacity="0.12"/>
+    <path d="M640 40 L600 100 L610 100 L640 40 Z" fill="#d68f1e" opacity="0.12"/>
+    <text x="400" y="92" text-anchor="middle" font-family="Montserrat, Arial, sans-serif"
+          font-size="34" font-weight="700" fill="var(--dark)">MOCK CLUB</text>
+  </g>
+
+  <!-- stars and year -->
+  <g transform="translate(0,0)" fill="var(--accent)">
+    <!-- left star -->
+    <polygon points="270,150 285,200 240,175 300,175 255,200" transform="translate(-10,80) scale(0.7)"/>
+    <!-- right star -->
+    <polygon points="530,150 545,200 500,175 560,175 515,200" transform="translate(10,80) scale(0.7)"/>
+    <!-- small accents -->
+    <circle cx="400" cy="120" r="8"/>
+  </g>
+
+  <!-- optional thin outline for crispness when small -->
+  <circle cx="400" cy="360" r="299" fill="none" stroke="rgba(0,0,0,0.05)" stroke-width="2"/>
+</svg>
