@@ -1,18 +1,23 @@
 ---
-title: "Example Result - U14 Mixed Victory"
-event: "events/example-event-u14-fixture"
-date: "2025-11-03"
+title: Example Result - U14 Mixed Victory
+event: events/example-event-u14-fixture
+date: 2025-11-03
 teams:
-  - "teams/example-team-u14-mixed"
+  - teams/example-team-u14-mixed
+  - example-team-u14-mixed
 score:
   home: 45
   away: 38
-  homeTeam: "Example Team U14 Mixed"
-  awayTeam: "City Rivals U14"
-highlights: "Outstanding defensive performance in the final quarter secured the victory. Team captain scored 18 points."
-tags: ["example", "basketball", "victory"]
+  homeTeam: Example Team U14 Mixed
+  awayTeam: City Rivals U14
+placement: ''
+highlights: Outstanding defensive performance in the final quarter secured the victory. Team captain scored 18 points.
+notes: ''
+tags:
+  - example
+  - basketball
+  - victory
 ---
-
 ## Match Report
 
 This is an example result demonstrating the content reference picker feature. The event is selected from the events collection using a searchable dropdown in the CMS.
