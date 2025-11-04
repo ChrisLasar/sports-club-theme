@@ -24,7 +24,7 @@
 
 - [x] T001 Verify Hugo 0.152+ (Extended) is installed and configured in `config/_default/hugo.toml`
 - [x] T002 Verify Sveltia CMS is accessible at `/admin/` and loads the current config from `static/admin/config.yml`
-- [ ] T003 [P] Create venues content collection directory structure at `content/venues/` (migration from data file to content collection)
+- [x] T003 [P] Create venues content collection directory structure at `content/venues/` (migration from data file to content collection)
 - [x] T004 [P] Verify existing content structure matches data model: `content/members/`, `content/teams/`, `content/events/`, `content/results/`, `content/posts/`
 
 ---
@@ -59,7 +59,7 @@
 - [x] T013 [US1] Update team single template at `layouts/teams/single.html` to resolve and display coach references using `.Site.GetPage` with error handling for missing references
 - [x] T014 [US1] Add validation calls in team list template at `layouts/teams/list.html` to validate all coach references exist
 - [x] T015 [US1] Create example team content at `content/teams/example-team/index.md` with multiple coach references demonstrating the feature
-- [ ] T016 [US1] Update quickstart.md section "Adding Coaches to a Team" with screenshots and step-by-step workflow using the new relation widget
+- [x] T016 [US1] Update quickstart.md section "Adding Coaches to a Team" with screenshots and step-by-step workflow using the new relation widget
 
 **Checkpoint**: User Story 1 complete - team coach selection works via dropdown, validates correctly, displays properly
 
@@ -80,7 +80,7 @@
 - [x] T021 [US2] Update event single template at `layouts/events/single.html` to resolve and display team and venue references using `.Site.GetPage`
 - [x] T022 [US2] Add validation calls in event list template at `layouts/events/list.html` to validate all team and venue references exist
 - [x] T023 [US2] Create example event content at `content/events/example-event/index.md` with multiple team references and venue reference
-- [ ] T024 [US2] Update quickstart.md section "Linking Events to Teams" with workflow documentation
+- [x] T024 [US2] Update quickstart.md section "Linking Events to Teams" with workflow documentation
 
 **Checkpoint**: User Story 2 complete - event team selection works, searchable dropdown functions, references validate
 
@@ -94,15 +94,15 @@
 
 ### Implementation for User Story 3
 
-- [ ] T025 [P] [US3] Update events collection in `static/admin/config.yml` to ensure date field is properly formatted for relation widget display
-- [ ] T026 [US3] Add Relation widget configuration for event field in results collection in `static/admin/config.yml` (collection: events, search_fields: ["title", "date"], value_field: "{{slug}}", display_fields: ["{{title}} - {{date}}"], required: false, hint: "Link this result to an event (optional).")
-- [ ] T027 [US3] Add Relation widget configuration for teams field in results collection in `static/admin/config.yml` (collection: teams, search_fields: ["title", "sport"], value_field: "{{slug}}", display_fields: ["{{title}} ({{sport}})"], multiple: true, required: false)
-- [ ] T028 [US3] Update result archetype at `archetypes/results.md` to include `event: ""` and `teams: []` fields
-- [ ] T029 [US3] Update result single template at `layouts/results/single.html` to resolve and display event reference and team references using `.Site.GetPage`
-- [ ] T030 [US3] Update event single template at `layouts/events/single.html` to display linked results (find results that reference this event)
-- [ ] T031 [US3] Add validation calls in result list template at `layouts/results/list.html` to validate event and team references
-- [ ] T032 [US3] Create example result content at `content/results/example-result/index.md` with event reference demonstrating the feature
-- [ ] T033 [US3] Update quickstart.md section "Result-to-Event Reference" with workflow documentation
+- [x] T025 [P] [US3] Update events collection in `static/admin/config.yml` to ensure date field is properly formatted for relation widget display
+- [x] T026 [US3] Add Relation widget configuration for event field in results collection in `static/admin/config.yml` (collection: events, search_fields: ["title", "date"], value_field: "{{slug}}", display_fields: ["{{title}} - {{date}}"], required: false, hint: "Link this result to an event (optional).")
+- [x] T027 [US3] Add Relation widget configuration for teams field in results collection in `static/admin/config.yml` (collection: teams, search_fields: ["title", "sport"], value_field: "{{slug}}", display_fields: ["{{title}} ({{sport}})"], multiple: true, required: false)
+- [x] T028 [US3] Update result archetype at `archetypes/results.md` to include `event: ""` and `teams: []` fields
+- [x] T029 [US3] Update result single template at `layouts/results/single.html` to resolve and display event reference and team references using `.Site.GetPage`
+- [x] T030 [US3] Update event single template at `layouts/events/single.html` to display linked results (find results that reference this event)
+- [x] T031 [US3] Add validation calls in result list template at `layouts/results/list.html` to validate event and team references
+- [x] T032 [US3] Create example result content at `content/results/example-result/index.md` with event reference demonstrating the feature
+- [x] T033 [US3] Update quickstart.md section "Result-to-Event Reference" with workflow documentation
 
 **Checkpoint**: User Story 3 complete - results can be linked to events via dropdown, bidirectional display works
 
@@ -116,14 +116,14 @@
 
 ### Implementation for User Story 4
 
-- [ ] T034 [P] [US4] Add Relation widget configuration for author field in posts collection in `static/admin/config.yml` (collection: members, search_fields: ["title", "role"], value_field: "{{slug}}", display_fields: ["{{title}} ({{role}})"], required: true, hint: "Select the post author from members.")
-- [ ] T035 [US4] Add Relation widget configuration for teams field (related teams) in posts collection in `static/admin/config.yml` (collection: teams, search_fields: ["title", "sport"], value_field: "{{slug}}", display_fields: ["{{title}} ({{sport}})"], multiple: true, required: false, hint: "Tag teams related to this post.")
-- [ ] T036 [US4] Update post archetype at `archetypes/posts.md` to include `author: ""` and `teams: []` fields
-- [ ] T037 [US4] Update post single template at `layouts/posts/single.html` to resolve and display author reference with link to member profile using `.Site.GetPage`
-- [ ] T038 [US4] Update post single template at `layouts/posts/single.html` to display related teams with links
-- [ ] T039 [US4] Add validation calls in post list template at `layouts/posts/list.html` to validate author and team references
-- [ ] T040 [US4] Create example post content at `content/posts/example-post/index.md` with author reference and team references
-- [ ] T041 [US4] Update quickstart.md section "Setting Post Authors" with workflow documentation
+- [x] T034 [P] [US4] Add Relation widget configuration for author field in posts collection in `static/admin/config.yml` (collection: members, search_fields: ["title", "role"], value_field: "{{slug}}", display_fields: ["{{title}} ({{role}})"], required: true, hint: "Select the post author from members.")
+- [x] T035 [US4] Add Relation widget configuration for teams field (related teams) in posts collection in `static/admin/config.yml` (collection: teams, search_fields: ["title", "sport"], value_field: "{{slug}}", display_fields: ["{{title}} ({{sport}})"], multiple: true, required: false, hint: "Tag teams related to this post.")
+- [x] T036 [US4] Update post archetype at `archetypes/posts.md` to include `author: ""` and `teams: []` fields
+- [x] T037 [US4] Update post single template at `layouts/posts/single.html` to resolve and display author reference with link to member profile using `.Site.GetPage`
+- [x] T038 [US4] Update post single template at `layouts/posts/single.html` to display related teams with links
+- [x] T039 [US4] Add validation calls in post list template at `layouts/posts/list.html` to validate author and team references
+- [x] T040 [US4] Create example post content at `content/posts/example-post/index.md` with author reference and team references
+- [x] T041 [US4] Update quickstart.md section "Setting Post Authors" with workflow documentation
 
 **Checkpoint**: User Story 4 complete - post authors selectable from members, team tagging works, references validate
 
@@ -137,14 +137,14 @@
 
 ### Implementation for User Story 5
 
-- [ ] T042 [P] [US5] Add Relation widget configuration for primary_venue field in teams collection in `static/admin/config.yml` (collection: venues, search_fields: ["title", "address"], value_field: "{{slug}}", display_fields: ["{{title}}"], required: false, hint: "Select the team's home venue. If no venues appear, create venues first.")
-- [ ] T043 [US5] Add Relation widget configuration for venue field in training_schedule list widget in teams collection in `static/admin/config.yml` (collection: venues, search_fields: ["title"], value_field: "{{slug}}", display_fields: ["{{title}}"], hint: "Select training venue")
-- [ ] T044 [US5] Verify event venue relation widget configuration from US2 is working correctly in `static/admin/config.yml`
-- [ ] T045 [US5] Update team archetype at `archetypes/teams/index.md` to include `primary_venue: ""` and proper training_schedule format with venue field
-- [ ] T046 [US5] Verify team and event templates resolve venue references correctly using `.Site.GetPage` (completed in Phase 2 foundational tasks)
-- [ ] T047 [US5] Create example venue content at `content/venues/example-venue/index.md` demonstrating venue schema
-- [ ] T048 [US5] Update example team content to reference venue in primary_venue and training_schedule
-- [ ] T049 [US5] Update quickstart.md section "Selecting Venues" with workflow documentation
+- [x] T042 [P] [US5] Add Relation widget configuration for primary_venue field in teams collection in `static/admin/config.yml` (collection: venues, search_fields: ["title", "address"], value_field: "{{slug}}", display_fields: ["{{title}}"], required: false, hint: "Select the team's home venue. If no venues appear, create venues first.")
+- [x] T043 [US5] Add Relation widget configuration for venue field in training_schedule list widget in teams collection in `static/admin/config.yml` (collection: venues, search_fields: ["title"], value_field: "{{slug}}", display_fields: ["{{title}}"], hint: "Select training venue")
+- [x] T044 [US5] Verify event venue relation widget configuration from US2 is working correctly in `static/admin/config.yml`
+- [x] T045 [US5] Update team archetype at `archetypes/teams/index.md` to include `primary_venue: ""` and proper training_schedule format with venue field
+- [x] T046 [US5] Verify team and event templates resolve venue references correctly using `.Site.GetPage` (completed in Phase 2 foundational tasks)
+- [x] T047 [US5] Create example venue content at `content/venues/example-venue/index.md` demonstrating venue schema
+- [x] T048 [US5] Update example team content to reference venue in primary_venue and training_schedule
+- [x] T049 [US5] Update quickstart.md section "Selecting Venues" with workflow documentation
 
 **Checkpoint**: User Story 5 complete - all venue selections work via dropdowns, venues display correctly
 
@@ -154,14 +154,14 @@
 
 **Purpose**: Final refinements, validation, and documentation
 
-- [ ] T050 [P] Verify all CMS config changes in `static/admin/config.yml` follow consistent pattern (relation widgets for content, proper hints, search fields, display fields)
-- [ ] T051 [P] Add member-to-team relation widget in members collection in `static/admin/config.yml` for reverse relationship (optional - allows setting member's teams from member page)
+- [x] T050 [P] Verify all CMS config changes in `static/admin/config.yml` follow consistent pattern (relation widgets for content, proper hints, search fields, display fields)
+- [x] T051 [P] Add member-to-team relation widget in members collection in `static/admin/config.yml` for reverse relationship (optional - allows setting member's teams from member page)
 - [ ] T052 Test complete content creation workflow following recommended order: venues → members → teams → events → results → posts
-- [ ] T053 [P] Update IMPLEMENTATION_STATUS.md to mark feature 004 as complete
-- [ ] T054 [P] Update .github/copilot-instructions.md to include content reference picker patterns and relation widget usage
-- [ ] T055 Review all archetypes in `archetypes/` directory to ensure they align with CMS config relation widgets
+- [x] T053 [P] Update IMPLEMENTATION_STATUS.md to mark feature 004 as complete
+- [x] T054 [P] Update .github/copilot-instructions.md to include content reference picker patterns and relation widget usage
+- [x] T055 Review all archetypes in `archetypes/` directory to ensure they align with CMS config relation widgets
 - [ ] T056 [P] Add helpful error messages in templates when references are missing (graceful degradation option in addition to strict validation)
-- [ ] T057 Verify Hugo build succeeds with all example content and reference validation works correctly
+- [x] T057 Verify Hugo build succeeds with all example content and reference validation works correctly
 - [ ] T058 [P] Create CMS user guide screenshot placeholders in quickstart.md (annotate where screenshots should go)
 - [ ] T059 Test CMS with empty collections to verify helpful hint text appears ("No members available - create a member first")
 - [ ] T060 Final validation: Create one piece of content from each collection using only the CMS (no manual file editing) to verify end-to-end workflow

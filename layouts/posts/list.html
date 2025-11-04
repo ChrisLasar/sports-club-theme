@@ -63,6 +63,18 @@
     {{ $posts := where site.RegularPages "Type" "posts" }}
     {{ $posts = sort $posts ".Date" "desc" }}
     
+    {{- /* Validate references in all posts */ -}}
+    {{ range $posts }}
+      {{- /* Validate author reference */ -}}
+      {{ with .Params.author }}
+        {{ partial "validate-reference.html" (dict "ref" . "context" $) }}
+      {{ end }}
+      {{- /* Validate team references */ -}}
+      {{ range .Params.teams }}
+        {{ partial "validate-reference.html" (dict "ref" . "context" $) }}
+      {{ end }}
+    {{ end }}
+    
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
       {{ range $posts }}
         {{ $postCategories := .Params.categories }}

@@ -22,7 +22,7 @@
 {{- $page := "" -}}
 
 {{- if $ref -}}
-  {{- $page = $context.Site.GetPage $ref -}}
+    {{- $page = $context.Site.GetPage $ref -}}
   
   {{- if not $page -}}
     {{- if not $silent -}}

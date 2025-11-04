@@ -8,21 +8,8 @@
   {{- /* Validate coach references across all teams */ -}}
   {{ $teams := where site.RegularPages "Type" "teams" }}
   {{ range $teams }}
-    {{ with .Params.coaches }}
-      {{ if reflect.IsSlice . }}
-        {{ range . }}
-          {{- /* Handle both string paths and old object structure */ -}}
-          {{ if reflect.IsMap . }}
-            {{- /* Old structure with .member field */ -}}
-            {{ with .member }}
-              {{ $coach := partial "validate-reference.html" (dict "ref" . "context" $) }}
-            {{ end }}
-          {{ else }}
-            {{- /* New structure: direct string path */ -}}
-            {{ $coach := partial "validate-reference.html" (dict "ref" . "context" $) }}
-          {{ end }}
-        {{ end }}
-      {{ end }}
+    {{ range .Params.coaches }}
+      {{ partial "validate-reference.html" (dict "ref" . "context" $) }}
     {{ end }}
   {{ end }}
   

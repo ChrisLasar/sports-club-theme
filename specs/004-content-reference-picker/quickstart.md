@@ -153,6 +153,43 @@ training_schedule:
 
 ---
 
+### 5. Result-to-Event Reference
+
+**Scenario**: You're recording a match result that was part of a scheduled event.
+
+1. **Navigate** to "Results"
+2. **Click** "New Result"
+3. **Fill in** title (e.g., "U13 Boys Win 3-1")
+4. **Scroll** to "Event" field (optional)
+5. **Click** the dropdown
+   - You'll see events sorted by date: "U13 Boys vs Rivals - 2025-11-15", "Tournament Final - 2025-11-20"
+   - If empty, create events first or leave blank for standalone results
+6. **Search** (optional): Type part of the event name or date
+7. **Select** the related event
+8. **Fill in** teams involved, score, and highlights
+9. **Save** the result
+
+**What gets stored**:
+
+```yaml
+event: events/u13-boys-vs-rival-2025-11-15
+teams:
+  - teams/u13-boys
+score:
+  home: 3
+  away: 1
+  homeTeam: "U13 Boys"
+  awayTeam: "City Rivals"
+```
+
+**Result**:
+
+- The result automatically appears on the linked event's page
+- Bidirectional display: event shows result, result shows event details
+- If no event is selected, the result stands alone
+
+---
+
 ## Recommended Content Creation Order
 
 To make the most of reference pickers, create content in this order:

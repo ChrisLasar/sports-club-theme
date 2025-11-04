@@ -1,9 +1,9 @@
 ---
 title: Test
-event: none
+event: ""  # Leave empty if not linked to an event
 date: 2025-10-27
 teams:
-  - flotter-federball
+  - teams/flotter-federball
 score:
   home: 2
   away: 1
