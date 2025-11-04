@@ -1,9 +1,9 @@
-{"generated_at":"2025-11-03T18:49:18Z","total_previews":1,"previews":[{
+{"generated_at":"2025-11-04T17:14:20Z","total_previews":1,"previews":[{
   "branch": "004-content-reference-picker",
-  "commit": "e7e85e85dd10baa2b7d808267fa53fc53bd9577e",
-  "commit_message": "feat: Implement Content Reference Picker with relation widgets\n\n- Migrated venues from data file to content collection, enabling CMS editing.\n- Added relation widgets for teams, events, results, and posts to facilitate content linking.\n- Created a reference validation system to ensure all content references are valid at build time.\n- Updated multiple templates to utilize new reference resolution and maintain backward compatibility.\n- Migrated existing content to new path format, ensuring all references are explicit and self-documenting.\n- Created example content for teams, events, results, and posts to demonstrate new features.\n- Added documentation for the new content reference picker feature and updated related archetypes.\n",
-  "commit_author": "Christian Lasarczyk",
-  "timestamp": "2025-11-03T18:49:16Z",
+  "commit": "9262b5f26ab1110678d93045fae54e7d6bd97e4f",
+  "commit_message": "Create Venue “where-does-this-venue-appear”\n",
+  "commit_author": "ChrisLasar",
+  "timestamp": "2025-11-04T17:14:18Z",
   "build_status": "success",
   "build_duration_seconds": 0,
   "hugo_version": "0.152.0",
