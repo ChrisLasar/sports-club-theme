@@ -1,11 +1,11 @@
 {
   "branch": "004-content-reference-picker",
-  "commit": "922298397d88fcf3f7baa9af04c554b18fddcd3b",
-  "commit_message": "avoid ambiguity in path resolution by using absolut path\n",
-  "commit_author": "Christian Lasarczyk",
-  "timestamp": "2025-11-04T19:12:43Z",
-  "build_status": "success",
+  "commit": "217d5414386f801e602817664a4b5bf43dfeaad9",
+  "commit_message": "Update Event “test-event-long-title”\n",
+  "commit_author": "ChrisLasar",
+  "timestamp": "2025-11-04T19:14:04Z",
+  "build_status": "error",
   "build_duration_seconds": 0,
   "hugo_version": "0.152.0",
-  "error_message": null
+  "error_message": "Hugo build failed. See workflow logs for details."
 }
