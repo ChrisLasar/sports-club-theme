@@ -4,7 +4,6 @@ event: events/example-event-u14-fixture
 date: 2025-11-03
 teams:
   - teams/example-team-u14-mixed
-  - example-team-u14-mixed
 score:
   home: 45
   away: 38

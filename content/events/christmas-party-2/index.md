@@ -3,10 +3,9 @@ title: Christmas Party 2
 eventType: social
 date: 2025-12-20T11:36:00+01:00
 location: Gartenklause
-venue: athletics-track
+venue: ''
 teams:
   - teams/flotter-federball
-  - example-team-u14-mixed
 opponent: ''
 description: Noch ne Feier
 registrationRequired: false
