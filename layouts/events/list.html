@@ -9,10 +9,10 @@
   {{ $events := where site.RegularPages "Type" "events" }}
   {{ range $events }}
     {{ range .Params.teams }}
-      {{ $team := partial "validate-reference.html" (dict "ref" . "context" $) }}
+      {{- $_ := partial "validate-reference.html" (dict "ref" . "context" $) -}}
     {{ end }}
     {{ with .Params.venue }}
-      {{ $venue := partial "validate-reference.html" (dict "ref" . "context" $) }}
+      {{- $_ := partial "validate-reference.html" (dict "ref" . "context" $) -}}
     {{ end }}
   {{ end }}
   

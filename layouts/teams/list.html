@@ -9,7 +9,7 @@
   {{ $teams := where site.RegularPages "Type" "teams" }}
   {{ range $teams }}
     {{ range .Params.coaches }}
-      {{ partial "validate-reference.html" (dict "ref" . "context" $) }}
+      {{- $_ := partial "validate-reference.html" (dict "ref" . "context" $) -}}
     {{ end }}
   {{ end }}
   

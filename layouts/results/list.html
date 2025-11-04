@@ -44,11 +44,11 @@
     {{ range $results }}
       {{- /* Validate event reference */ -}}
       {{ with .Params.event }}
-        {{ partial "validate-reference.html" (dict "ref" . "context" $) }}
+        {{- $_ := partial "validate-reference.html" (dict "ref" . "context" $) -}}
       {{ end }}
       {{- /* Validate team references */ -}}
       {{ range .Params.teams }}
-        {{ partial "validate-reference.html" (dict "ref" . "context" $) }}
+        {{- $_ := partial "validate-reference.html" (dict "ref" . "context" $) -}}
       {{ end }}
     {{ end }}
     
