@@ -82,7 +82,16 @@ collections:
     fields:
       - {label: "Name", name: "title", widget: "string", required: true}
       - {label: "Role", name: "role", widget: "string", hint: "e.g., Coach, Manager, Player"}
-      - {label: "Teams", name: "teams", widget: "list", required: false, hint: "Team paths, e.g., teams/u13-boys"}
+      - label: "Teams"
+        name: "teams"
+        widget: "relation"
+        collection: "teams"
+        search_fields: ["title", "sport", "group"]
+        value_field: "{{slug}}"
+        display_fields: ["{{title}} ({{sport}})"]
+        multiple: true
+        required: false
+        hint: "Select teams this member belongs to or coaches."
       - {label: "Group", name: "group", widget: "string", required: false, hint: "For players (age/skill level); omit for staff"}
       - {label: "Biography", name: "bio", widget: "text", required: false}
       - {label: "Portrait", name: "portrait", widget: "image", required: false}
