@@ -1,9 +1,9 @@
-{"generated_at":"2025-11-04T17:14:20Z","total_previews":1,"previews":[{
+{"generated_at":"2025-11-04T17:16:30Z","total_previews":1,"previews":[{
   "branch": "004-content-reference-picker",
-  "commit": "9262b5f26ab1110678d93045fae54e7d6bd97e4f",
-  "commit_message": "Create Venue “where-does-this-venue-appear”\n",
+  "commit": "fecb48fe03b1000f24d1fe5c841f791c933dd771",
+  "commit_message": "Delete Venue “where-does-this-venue-appear”\n",
   "commit_author": "ChrisLasar",
-  "timestamp": "2025-11-04T17:14:18Z",
+  "timestamp": "2025-11-04T17:16:28Z",
   "build_status": "success",
   "build_duration_seconds": 0,
   "hugo_version": "0.152.0",
