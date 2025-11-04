@@ -12,7 +12,7 @@
   
   Parameters:
     - ref: The reference path (e.g., "members/jane-doe")
-    - context: The current page context (.)
+    - context: The current page context (.) - should be the page containing the reference
     - silent: Optional boolean to suppress warnings (default: false)
 */}}
 
@@ -26,7 +26,9 @@
   
   {{- if not $page -}}
     {{- if not $silent -}}
-      {{- warnf "Reference validation failed: '%s' does not exist (referenced from %s)" $ref $context.RelPermalink -}}
+      {{- /* Display both the source file path and the RelPermalink for better debugging */ -}}
+      {{- $sourcePath := $context.File.Path | default $context.RelPermalink -}}
+      {{- warnf "Reference validation failed: '%s' does not exist (referenced from %s [%s])" $ref $sourcePath $context.RelPermalink -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}

@@ -8,11 +8,12 @@
   {{- /* Validate team and venue references across all events */ -}}
   {{ $events := where site.RegularPages "Type" "events" }}
   {{ range $events }}
+    {{- $event := . -}}
     {{ range .Params.teams }}
-      {{- $_ := partial "validate-reference.html" (dict "ref" . "context" $) -}}
+      {{- $_ := partial "validate-reference.html" (dict "ref" . "context" $event) -}}
     {{ end }}
     {{ with .Params.venue }}
-      {{- $_ := partial "validate-reference.html" (dict "ref" . "context" $) -}}
+      {{- $_ := partial "validate-reference.html" (dict "ref" . "context" $event) -}}
     {{ end }}
   {{ end }}
   
@@ -53,7 +54,7 @@
             {{ end }}
           {{ end }}
           {{ range $teams | uniq }}
-            {{ $team := partial "validate-reference.html" (dict "ref" . "context" $) }}
+            {{ $team := site.GetPage . }}
             {{ with $team }}
             <option value="{{ path.Base .RelPermalink }}">{{ .Title }}</option>
             {{ end }}

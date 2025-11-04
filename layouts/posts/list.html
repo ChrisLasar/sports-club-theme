@@ -65,13 +65,14 @@
     
     {{- /* Validate references in all posts */ -}}
     {{ range $posts }}
+      {{- $post := . -}}
       {{- /* Validate author reference */ -}}
       {{ with .Params.author }}
-        {{- $_ := partial "validate-reference.html" (dict "ref" . "context" $) -}}
+        {{- $_ := partial "validate-reference.html" (dict "ref" . "context" $post) -}}
       {{ end }}
       {{- /* Validate team references */ -}}
       {{ range .Params.teams }}
-        {{- $_ := partial "validate-reference.html" (dict "ref" . "context" $) -}}
+        {{- $_ := partial "validate-reference.html" (dict "ref" . "context" $post) -}}
       {{ end }}
     {{ end }}
     

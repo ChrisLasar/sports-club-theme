@@ -8,8 +8,9 @@
   {{- /* Validate coach references across all teams */ -}}
   {{ $teams := where site.RegularPages "Type" "teams" }}
   {{ range $teams }}
+    {{- $team := . -}}
     {{ range .Params.coaches }}
-      {{- $_ := partial "validate-reference.html" (dict "ref" . "context" $) -}}
+      {{- $_ := partial "validate-reference.html" (dict "ref" . "context" $team) -}}
     {{ end }}
   {{ end }}
   
