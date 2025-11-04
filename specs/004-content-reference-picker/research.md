@@ -24,7 +24,7 @@ The **Relation widget** provides the exact functionality needed for content refe
 
 **Required Options**:
 - `collection`: Name of referenced collection (string)
-- `value_field`: Field from referenced collection to store (e.g., `{{slug}}` for entry slugs)
+- `value_field`: Field from referenced collection to store (e.g., `"collection/{{slug}}"` for absolute entry paths)
 - `search_fields`: List of fields to search when user types
 
 **Optional Options**:
@@ -41,7 +41,7 @@ Both `value_field` and `display_fields` support **template strings** using `{{fi
 
 Examples:
 ```yaml
-value_field: "{{slug}}"
+value_field: "members/{{slug}}"  # Absolute path for Hugo
 display_fields: ["{{name.first}} {{name.last}} - {{role}}"]
 ```
 
@@ -100,7 +100,7 @@ Sveltia CMS enhances the Relation widget with several improvements over Decap CM
 
 **Default Behavior**:
 - `search_fields` defaults to `display_fields`, then `value_field`, then collection's `identifier_field` (usually `title`)
-- `value_field` defaults to `{{slug}}`
+- `value_field` defaults to `{{slug}}` (but best practice: use `"collection/{{slug}}"` for absolute paths)
 - New items in referenced collection immediately available
 
 **Validation**:
@@ -203,9 +203,9 @@ Hugo build will fail if:
 
 ### 4.1 Value Field Patterns
 
-**For content references**, use slug-based paths:
+**For content references**, use collection-prefixed slug paths:
 ```yaml
-value_field: "{{slug}}"  # Stores: members/jane-doe
+value_field: "members/{{slug}}"  # Stores: members/jane-doe (absolute path)
 ```
 
 **For display**, show human-readable info:
@@ -227,7 +227,7 @@ For arrays of references (e.g., multiple teams in an event):
   widget: "relation"
   collection: "teams"
   search_fields: ["title", "sport"]
-  value_field: "{{slug}}"
+  value_field: "teams/{{slug}}"
   display_fields: ["{{title}} ({{sport}})"]
   multiple: true
   min: 1  # Require at least one team
@@ -242,7 +242,7 @@ For referencing specific files in a file collection:
   widget: "relation"
   collection: "pages"
   file: "about"  # References specific file
-  value_field: "{{slug}}"
+  value_field: "pages/{{slug}}"
 ```
 
 ### Decision: **Standardize Display Format**
@@ -456,7 +456,7 @@ Sveltia CMS may support dynamic Select options in future (not currently availabl
   widget: "relation"
   collection: "members"
   search_fields: ["title", "role"]
-  value_field: "{{slug}}"
+  value_field: "members/{{slug}}"
   display_fields: ["{{title}} ({{role}})"]
   required: true
 ```

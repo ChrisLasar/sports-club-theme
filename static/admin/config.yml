@@ -41,7 +41,7 @@ collections:
             widget: "relation"
             collection: "venues"
             search_fields: ["title"]
-            value_field: "{{slug}}"
+            value_field: "venues/{{slug}}"
             display_fields: ["{{title}}"]
             hint: "Select training venue"
       - label: "Primary Venue"
@@ -49,7 +49,7 @@ collections:
         widget: "relation"
         collection: "venues"
         search_fields: ["title", "address"]
-        value_field: "{{slug}}"
+        value_field: "venues/{{slug}}"
         display_fields: ["{{title}}"]
         required: false
         hint: "Select the team's home venue. If no venues appear, create venues first."
@@ -58,7 +58,7 @@ collections:
         widget: "relation"
         collection: "members"
         search_fields: ["title", "role"]
-        value_field: "{{slug}}"
+        value_field: "members/{{slug}}"
         display_fields: ["{{title}} ({{role}})"]
         multiple: true
         required: false
@@ -87,7 +87,7 @@ collections:
         widget: "relation"
         collection: "teams"
         search_fields: ["title", "sport", "group"]
-        value_field: "{{slug}}"
+        value_field: "teams/{{slug}}"
         display_fields: ["{{title}} ({{sport}})"]
         multiple: true
         required: false
@@ -126,7 +126,7 @@ collections:
         widget: "relation"
         collection: "venues"
         search_fields: ["title", "address"]
-        value_field: "{{slug}}"
+        value_field: "venues/{{slug}}"
         display_fields: ["{{title}}"]
         required: false
         hint: "Where is this event taking place? If no venues appear, create venues first."
@@ -135,7 +135,7 @@ collections:
         widget: "relation"
         collection: "teams"
         search_fields: ["title", "sport", "group"]
-        value_field: "{{slug}}"
+        value_field: "teams/{{slug}}"
         display_fields: ["{{title}} ({{sport}})"]
         multiple: true
         min: 1
@@ -168,7 +168,7 @@ collections:
         widget: "relation"
         collection: "events"
         search_fields: ["title", "date"]
-        value_field: "{{slug}}"
+        value_field: "events/{{slug}}"
         display_fields: ["{{title}} - {{date}}"]
         required: false
         hint: "Link this result to an event (optional)."
@@ -178,7 +178,7 @@ collections:
         widget: "relation"
         collection: "teams"
         search_fields: ["title", "sport"]
-        value_field: "{{slug}}"
+        value_field: "teams/{{slug}}"
         display_fields: ["{{title}} ({{sport}})"]
         multiple: true
         required: false
@@ -219,7 +219,7 @@ collections:
         widget: "relation"
         collection: "members"
         search_fields: ["title", "role"]
-        value_field: "{{slug}}"
+        value_field: "members/{{slug}}"
         display_fields: ["{{title}} ({{role}})"]
         required: true
         hint: "Select the post author from members."
@@ -230,7 +230,7 @@ collections:
         widget: "relation"
         collection: "teams"
         search_fields: ["title", "sport"]
-        value_field: "{{slug}}"
+        value_field: "teams/{{slug}}"
         display_fields: ["{{title}} ({{sport}})"]
         multiple: true
         required: false

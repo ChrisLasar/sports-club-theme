@@ -45,7 +45,7 @@ collections:
         widget: "relation"
         collection: "teams"
         search_fields: ["title", "sport", "group"]
-        value_field: "{{slug}}"
+        value_field: "teams/{{slug}}"
         display_fields: ["{{title}} ({{sport}})"]
         multiple: true
         required: false
@@ -83,7 +83,7 @@ collections:
         widget: "relation"
         collection: "members"
         search_fields: ["title", "role"]
-        value_field: "{{slug}}"
+        value_field: "members/{{slug}}"
         display_fields: ["{{title}} ({{role}})"]
         multiple: true
         required: false
@@ -95,7 +95,7 @@ collections:
         widget: "relation"
         collection: "venues"
         search_fields: ["title", "address"]
-        value_field: "{{slug}}"
+        value_field: "venues/{{slug}}"
         display_fields: ["{{title}}"]
         required: false
         hint: "Select the team's home venue. If no venues appear, create venues first."
@@ -113,7 +113,7 @@ collections:
             widget: "relation"
             collection: "venues"
             search_fields: ["title"]
-            value_field: "{{slug}}"
+            value_field: "venues/{{slug}}"
             display_fields: ["{{title}}"]
             hint: "Select training venue"
       
@@ -139,7 +139,7 @@ collections:
         widget: "relation"
         collection: "teams"
         search_fields: ["title", "sport", "group"]
-        value_field: "{{slug}}"
+        value_field: "teams/{{slug}}"
         display_fields: ["{{title}} ({{sport}})"]
         multiple: true
         min: 1
@@ -154,7 +154,7 @@ collections:
         widget: "relation"
         collection: "venues"
         search_fields: ["title", "address"]
-        value_field: "{{slug}}"
+        value_field: "venues/{{slug}}"
         display_fields: ["{{title}}"]
         required: false
         hint: "Where is this event taking place? If no venues appear, create venues first."
@@ -180,7 +180,7 @@ collections:
         widget: "relation"
         collection: "events"
         search_fields: ["title", "date"]
-        value_field: "{{slug}}"
+        value_field: "events/{{slug}}"
         display_fields: ["{{title}} - {{date}}"]
         required: false
         hint: "Link this result to an event (optional)."
@@ -200,7 +200,7 @@ collections:
         widget: "relation"
         collection: "teams"
         search_fields: ["title", "sport"]
-        value_field: "{{slug}}"
+        value_field: "teams/{{slug}}"
         display_fields: ["{{title}} ({{sport}})"]
         multiple: true
         required: false
@@ -228,7 +228,7 @@ collections:
         widget: "relation"
         collection: "members"
         search_fields: ["title", "role"]
-        value_field: "{{slug}}"
+        value_field: "members/{{slug}}"
         display_fields: ["{{title}} ({{role}})"]
         required: true
         hint: "Select the post author from members."
@@ -242,7 +242,7 @@ collections:
         widget: "relation"
         collection: "teams"
         search_fields: ["title", "sport"]
-        value_field: "{{slug}}"
+        value_field: "teams/{{slug}}"
         display_fields: ["{{title}} ({{sport}})"]
         multiple: true
         required: false
@@ -295,7 +295,7 @@ collections:
   widget: "relation"
   collection: "target_collection"
   search_fields: ["field1", "field2"]
-  value_field: "{{slug}}"
+  value_field: "target_collection/{{slug}}"
   display_fields: ["{{title}} ({{additional_context}})"]
   multiple: true|false
   min: 1  # For multiple selections
@@ -308,7 +308,7 @@ collections:
 
 - `collection`: Name of the collection to reference (must match collection `name`)
 - `search_fields`: Fields to search when user types (can be nested like `name.first`)
-- `value_field`: Field value to store (use `{{slug}}` for content path)
+- `value_field`: Field value to store (use `"collection/{{slug}}"` for absolute content path)
 - `display_fields`: Fields to show in dropdown (use templates for formatting)
 - `multiple`: Allow selecting multiple items
 - `required`: Prevent saving without selection
@@ -355,7 +355,7 @@ collections:
         name: "coaches"
         widget: "relation"
         collection: "members"
-        value_field: "{{slug}}"
+        value_field: "members/{{slug}}"
         # User selects from dropdown: "Jane Doe (Head Coach)"
         # Stores: members/jane-doe
 ```
@@ -372,7 +372,7 @@ These features work automatically in Sveltia CMS:
 2. **Instant search**: No delay when typing in relation fields
 3. **Auto-switch to radio/checkbox**: When ≤5 options, dropdown becomes radio buttons (single) or checkboxes (multiple)
 4. **Default search fields**: If `search_fields` omitted, defaults to `display_fields` → `value_field` → `identifier_field`
-5. **Default value field**: If `value_field` omitted, defaults to `{{slug}}`
+5. **Default value field**: If `value_field` omitted, defaults to `{{slug}}` (but best practice is to use `"collection/{{slug}}"` for absolute paths)
 6. **New items immediately available**: Creating a member makes it instantly selectable in team coaches
 
 ---

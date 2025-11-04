@@ -45,7 +45,7 @@ Use Relation widgets for all content references in `static/admin/config.yml`:
   widget: "relation"
   collection: "target_collection"
   search_fields: ["title", "context_field"]
-  value_field: "{{slug}}"
+  value_field: "target_collection/{{slug}}"
   display_fields: ["{{title}} ({{context_field}})"]
   multiple: true  # or false for single selection
   required: false  # or true if mandatory
@@ -54,7 +54,7 @@ Use Relation widgets for all content references in `static/admin/config.yml`:
 
 ### Front Matter Reference Format
 
-References use collection-prefixed paths:
+References use collection-prefixed paths (absolute paths):
 
 ```yaml
 author: "members/john-smith"  # Single reference
@@ -108,6 +108,7 @@ coaches:
   widget: "relation"
   collection: "members"
   search_fields: ["title", "role"]
+  value_field: "members/{{slug}}"
   display_fields: ["{{title}} ({{role}})"]
   multiple: true
 
@@ -116,6 +117,7 @@ teams:
   widget: "relation"
   collection: "teams"
   search_fields: ["title", "sport", "group"]
+  value_field: "teams/{{slug}}"
   display_fields: ["{{title}} ({{sport}})"]
   multiple: true
   min: 1
@@ -126,6 +128,7 @@ author:
   widget: "relation"
   collection: "members"
   search_fields: ["title", "role"]
+  value_field: "members/{{slug}}"
   display_fields: ["{{title}} ({{role}})"]
   required: true
 
@@ -134,6 +137,7 @@ venue:
   widget: "relation"
   collection: "venues"
   search_fields: ["title", "address"]
+  value_field: "venues/{{slug}}"
   display_fields: ["{{title}}"]
   required: false
 ```
@@ -143,10 +147,10 @@ venue:
 1. **Always include helpful hints** explaining when dropdowns will be empty
 2. **Use display_fields with context** (e.g., "Title (Role)") for clarity
 3. **Set search_fields** to include all relevant searchable content
-4. **Use value_field: "{{slug}}"** for all relation widgets
+4. **Use value_field: "collection/{{slug}}"** for all relation widgets to create absolute paths
 5. **Set min/required** appropriately for data integrity
 6. **Validate all references** in list templates to catch broken links at build time
-7. **Include collection prefix** in front matter (e.g., "members/name", not just "name")
+7. **Include collection prefix** in value_field (e.g., "members/{{slug}}") and front matter will store absolute paths
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->
