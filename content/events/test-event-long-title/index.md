@@ -5,8 +5,8 @@ location: Snowman alley
 venue: athletics-track
 teams:
   - teams/u13-boys
-  - example-team-u14-mixed
-  - flotter-federball
+  - teams/example-team-u14-mixed
+  - teams/flotter-federball
 opponent: ''
 description: Test event with a very long title to verify truncation behavior
 registrationDeadline: ''
