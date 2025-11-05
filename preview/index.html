@@ -38,25 +38,27 @@
                     return;
                 }
                 
-                container.innerHTML = data.previews.map(p => `
-                    <div class="preview-card ${p.build_status}">
-                        <div class="preview-header">
-                            <div class="branch-name">${p.branch}</div>
-                            <span class="status ${p.build_status}">${p.build_status}</span>
+                container.innerHTML = data.previews
+                    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+                    .map(p => \`
+                        <div class="preview-card \${p.build_status}">
+                            <div class="preview-header">
+                                <div class="branch-name">\${p.branch}</div>
+                                <span class="status \${p.build_status}">\${p.build_status}</span>
+                            </div>
+                            <div class="commit-info">
+                                <div>\${p.commit_message}</div>
+                                <div>by \${p.commit_author} • \${new Date(p.timestamp).toLocaleString()}</div>
+                            </div>
+                            <div class="actions">
+                                \${p.build_status === 'success' 
+                                    ? \`<a href="\${p.url}" class="btn btn-primary">View Preview</a>\`
+                                    : \`<a href="\${p.url}error.html" class="btn btn-secondary">View Error</a>\`
+                                }
+                                <a href="https://github.com/ChrisLasar/sports-club-theme/commit/\${p.commit}" class="btn btn-secondary">View Commit</a>
+                            </div>
                         </div>
-                        <div class="commit-info">
-                            <div>${p.commit_message}</div>
-                            <div>by ${p.author} • ${new Date(p.timestamp).toLocaleString()}</div>
-                        </div>
-                        <div class="actions">
-                            ${p.build_status === 'success' 
-                                ? `<a href="${p.url}" class="btn btn-primary">View Preview</a>`
-                                : `<a href="${p.url}error.html" class="btn btn-secondary">View Error</a>`
-                            }
-                            <a href="https://github.com/ChrisLasar/sports-club-theme/commit/${p.commit}" class="btn btn-secondary">View Commit</a>
-                        </div>
-                    </div>
-                `).join('');
+                    \`).join('');
             })
             .catch(err => {
                 document.getElementById('previews').innerHTML = '<p>Error loading previews</p>';
