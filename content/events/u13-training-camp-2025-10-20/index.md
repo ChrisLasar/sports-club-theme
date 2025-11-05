@@ -3,9 +3,9 @@ title: "U13 Pre-Season Training Camp"
 eventType: "training-camp"
 date: "2025-10-20T09:00:00Z"
 location: "Main Training Field"
-venue: "main-field"
+venue: "venues/main-field"
 teams:
-  - u13-boys
+  - teams/u13-boys
 opponent: ""
 description: "Intensive 2-day pre-season training camp for U13 Boys"
 registrationRequired: true

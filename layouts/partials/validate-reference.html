@@ -1,0 +1,36 @@
+{{/*
+  Partial: validate-reference.html
+  Purpose: Validate that a content reference exists and return the page or display an error
+  
+  Usage:
+    {{ $page := partial "validate-reference.html" (dict "ref" .Params.coach "context" .) }}
+    {{ if $page }}
+      {{ $page.Title }}
+    {{ else }}
+      Reference not found
+    {{ end }}
+  
+  Parameters:
+    - ref: The reference path (e.g., "members/jane-doe")
+    - context: The current page context (.) - should be the page containing the reference
+    - silent: Optional boolean to suppress warnings (default: false)
+*/}}
+
+{{- $ref := .ref -}}
+{{- $context := .context -}}
+{{- $silent := default false .silent -}}
+{{- $page := "" -}}
+
+{{- if $ref -}}
+    {{- $page = $context.Site.GetPage $ref -}}
+  
+  {{- if not $page -}}
+    {{- if not $silent -}}
+      {{- /* Display both the source file path and the RelPermalink for better debugging */ -}}
+      {{- $sourcePath := $context.File.Path | default $context.RelPermalink -}}
+      {{- warnf "Reference validation failed: '%s' does not exist (referenced from %s [%s])" $ref $sourcePath $context.RelPermalink -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- return $page -}}

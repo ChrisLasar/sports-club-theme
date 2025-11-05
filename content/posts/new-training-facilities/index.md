@@ -2,7 +2,7 @@
 title: "New Training Facilities Now Open"
 date: 2025-09-01T09:00:00+02:00
 draft: false
-author: "David Chen"
+author: "members/john-smith"
 summary: "The club celebrates the opening of our brand new training facilities, featuring state-of-the-art equipment and improved amenities."
 featured_image: ""
 tags: ["facilities", "club-news", "infrastructure"]

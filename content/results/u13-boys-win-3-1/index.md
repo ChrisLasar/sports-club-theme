@@ -3,7 +3,7 @@ title: "U13 Boys Win 3-1 Against City Youth"
 event: "events/u13-boys-vs-rival-2025-11-15"
 date: "2025-10-25"
 teams:
-  - u13-boys
+  - teams/u13-boys
 score:
   home: 3
   away: 1

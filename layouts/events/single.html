@@ -59,12 +59,34 @@
           </div>
           {{ end }}
           
+          {{ with .Params.venue }}
+          <div>
+            <h3 class="font-semibold text-sm uppercase tracking-wide opacity-70 mb-1">Venue</h3>
+            {{- /* Resolve venue reference from content collection */ -}}
+            {{ with $.Site.GetPage . }}
+              <p class="text-lg">{{ .Title }}</p>
+              {{ with .Params.address }}
+              <p class="text-sm opacity-70">{{ . }}</p>
+              {{ end }}
+              {{ with .Params.map_link }}
+              <a href="{{ . }}" target="_blank" rel="noopener" class="link link-primary text-sm">
+                View Map →
+              </a>
+              {{ end }}
+            {{ else }}
+              <p class="text-lg">{{ . }}</p>
+            {{ end }}
+          </div>
+          {{ end }}
+          
           {{ with .Params.teams }}
           <div>
             <h3 class="font-semibold text-sm uppercase tracking-wide opacity-70 mb-1">Teams</h3>
             <div class="flex gap-2 flex-wrap">
               {{ range . }}
-                {{ with site.GetPage (printf "teams/%s" .) }}
+                {{- /* Resolve team reference */ -}}
+                {{ $team := partial "validate-reference.html" (dict "ref" . "context" $) }}
+                {{ with $team }}
                 <a href="{{ .RelPermalink }}" class="badge badge-primary badge-lg">
                   {{ .Title }}
                 </a>

@@ -10,16 +10,14 @@ training:
   - day: Monday
     startTime: 20:00
     endTime: 21:30
-    venue: Irgendwo
+    venue: venues/main-field
   - day: Saturday
     startTime: 10:00
     endTime: 11:00
-    venue: Frühschoppenpaule
-venue: Court
+    venue: venues/main-field
+venue: venues/main-field
 coaches:
-  - member: john-smith
-    role: Coach
-    email: senior@club.org
+  - members/john-smith
 socialImage: pexels-leozhao-5767580.jpg
 description: What a nice team. Similar to sqidish.
 tags: []

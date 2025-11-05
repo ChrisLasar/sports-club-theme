@@ -3,9 +3,9 @@ title: Christmas party 2025
 eventType: social
 date: 2025-11-29T20:00:00+01:00
 location: Gemeindehalle
-venue: Gemeindehalle
+venue: ''
 teams:
-  - flotter-federball
+  - teams/flotter-federball
 opponent: ''
 description: Gemeinschaftsdienst
 registrationRequired: false

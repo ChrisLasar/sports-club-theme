@@ -3,9 +3,9 @@ title: "Regional Tennis Tournament"
 eventType: "tournament"
 date: "2025-12-01T09:00:00Z"
 location: "Regional Sports Center"
-venue: "tennis-court"
+venue: "venues/tennis-court"
 teams:
-  - u15-girls
+  - teams/u15-girls
 opponent: ""
 description: "U15 Girls Regional Tennis Tournament - 3 days of competition"
 registrationRequired: true

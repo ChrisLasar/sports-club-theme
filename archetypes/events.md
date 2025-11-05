@@ -3,8 +3,8 @@ title: "{{ replace .Name "-" " " | title }}"
 eventType: "fixture"  # fixture | tournament | training-camp | social
 date: "{{ .Date }}"
 location: ""
-venue: ""  # Venue slug from data/venues.yaml
-teams: []  # Team slugs (taxonomy)
+venue: ""  # Venue path from content, e.g., venues/main-field
+teams: []  # Array of team paths, e.g., ["teams/u13-boys", "teams/u15-girls"]
 opponent: ""  # For fixtures
 description: ""
 registrationRequired: false

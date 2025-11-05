@@ -3,7 +3,7 @@ title: "U15 Girls Tennis - Regional Tournament 2nd Place"
 event: "events/u15-tournament-2025-12-01"
 date: "2025-12-03"
 teams:
-  - u15-girls
+  - teams/u15-girls
 score:
   home: null
   away: null
