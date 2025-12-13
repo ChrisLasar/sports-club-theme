@@ -1,0 +1,52 @@
+# English (en-US) UI Terminology
+# Default translations for the sports club theme
+
+# Navigation
+home: "Home"
+teams: "Teams"
+events: "Events"
+results: "Results"
+news: "News"
+members: "Members"
+
+# Section Headings
+teams_heading: "Teams"
+teams_subtitle: "Browse all teams at our club"
+news_heading: "News & Updates"
+news_subtitle: "Stay updated with the latest club news"
+events_heading: "Events & Fixtures"
+events_subtitle: "Upcoming events and fixtures"
+results_heading: "Results"
+results_subtitle: "Latest match results and standings"
+members_heading: "Members"
+members_subtitle: "Meet our club members"
+
+# Actions/CTAs
+read_more: "Read More"
+view_details: "View Details"
+view_all: "View All"
+back_to: "Back to"
+filter_by_category: "Filter by Category"
+filter_by_team: "Filter by Team"
+all_categories: "All Categories"
+all_teams: "All Teams"
+
+# Accessibility
+skip_to_content: "Skip to content"
+skip_to_navigation: "Skip to navigation"
+main_navigation: "Main navigation"
+open_menu: "Open menu"
+close_menu: "Close menu"
+
+# Status/State
+upcoming: "Upcoming"
+past: "Past"
+date: "Date"
+time: "Time"
+venue: "Venue"
+no_results: "No results found"
+
+# Common
+no_items_yet: "No {{ .Type }} have been created yet. Check back soon!"
+loading: "Loading..."
+error: "Error"

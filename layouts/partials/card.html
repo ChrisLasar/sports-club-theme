@@ -93,7 +93,7 @@
       
       {{- /* Card Actions */ -}}
       <div class="card-actions justify-end mt-auto">
-        <a href="{{ $.href }}" class="btn btn-primary {{ if eq $.variant "compact" }}btn-sm{{ end }}">View</a>
+        <a href="{{ $.href }}" class="btn btn-primary {{ if eq $.variant "compact" }}btn-sm{{ end }}">{{ partial "i18n-term.html" (dict "key" "read_more") }}</a>
       </div>
     </div>
   </article>

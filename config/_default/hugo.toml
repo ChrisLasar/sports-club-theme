@@ -2,6 +2,47 @@ baseURL = "https://example.org/"
 languageCode = "en-us"
 title = "Sports Club"
 
+# Default content language
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+enableMissingTranslationPlaceholders = false
+
+# Language configuration
+[languages]
+  [languages.en]
+    languageCode = "en-US"
+    languageDirection = "ltr"
+    languageName = "English"
+    title = "Sports Club"
+    weight = 1
+    [languages.en.params]
+      subtitle = "Community sports for all ages"
+      # Optional term overrides
+      # terms.news = "Blog"
+      # terms.teams = "Groups"
+  
+  [languages.de]
+    languageCode = "de-DE"
+    languageDirection = "ltr"
+    languageName = "Deutsch"
+    title = "Sportverein"
+    weight = 2
+    [languages.de.params]
+      subtitle = "Gemeinschaftssport für alle Altersgruppen"
+      # Optional term overrides
+      # terms.teams = "Gruppen"
+  
+  [languages.fr]
+    languageCode = "fr-FR"
+    languageDirection = "ltr"
+    languageName = "Français"
+    title = "Club Sportif"
+    weight = 3
+    [languages.fr.params]
+      subtitle = "Sport communautaire pour tous les âges"
+      # Optional term overrides
+      # terms.news = "Blog"
+
 # Hugo version requirement
 [module]
   [module.hugoVersion]

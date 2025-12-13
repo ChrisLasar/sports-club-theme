@@ -156,3 +156,78 @@ venue:
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->
+
+## Multilingual UI Terminology Patterns
+
+**Feature**: 005-i18n-terms  
+**Status**: Complete (2025-12-13)
+
+### i18n-term Partial Usage
+
+Use the `i18n-term.html` partial for all UI labels in templates:
+
+```html
+{{/* Basic usage */}}
+{{ partial "i18n-term.html" (dict "key" "teams") }}
+
+{{/* With context for interpolation */}}
+{{ partial "i18n-term.html" (dict "key" "no_items_yet" "context" (dict "Type" "teams")) }}
+
+{{/* With count for pluralization */}}
+{{ partial "i18n-term.html" (dict "key" "items_count" "count" 5) }}
+```
+
+### Translation File Structure
+
+All translation keys in `i18n/*.yaml` files use `snake_case`:
+
+```yaml
+# Navigation
+home: "Home"
+teams: "Teams"
+events: "Events"
+
+# Section headings
+teams_heading: "Teams"
+teams_subtitle: "Browse all teams at our club"
+
+# Actions
+read_more: "Read More"
+view_all: "View All"
+
+# Accessibility
+skip_to_content: "Skip to content"
+main_navigation: "Main navigation"
+```
+
+### Config-Based Overrides
+
+Users can override any term per language in `config/_default/hugo.toml`:
+
+```toml
+[languages.en.params]
+  terms.news = "Blog"        # Override "News" → "Blog"
+  terms.teams = "Squads"     # Override "Teams" → "Squads"
+
+[languages.de.params]
+  terms.teams = "Gruppen"    # German-specific override
+```
+
+### Fallback Chain
+
+The i18n-term partial implements a four-level fallback:
+
+1. **Config Override**: `site.Language.Params.terms.{KEY}`
+2. **Current Language i18n**: `i18n/{lang}.yaml`
+3. **Default Language i18n**: `i18n/{defaultContentLanguage}.yaml`
+4. **Key Itself**: Raw key string (failsafe)
+
+### Best Practices
+
+1. **Always use i18n-term partial** for UI labels, never hard-code text
+2. **Keep keys consistent** across all three language files (en, de, fr)
+3. **Use snake_case** for all translation keys
+4. **Test with --printI18nWarnings** to catch missing translations
+5. **Document available term keys** in quickstart.md for users
+6. **Maintain lang attribute** in HTML using `site.Language.Lang`
+7. **Update aria-labels** to use translated terms for accessibility

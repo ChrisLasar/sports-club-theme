@@ -1,0 +1,52 @@
+# German (de-DE) UI Terminology
+# Default translations for the sports club theme
+
+# Navigation
+home: "Startseite"
+teams: "Mannschaften"
+events: "Veranstaltungen"
+results: "Ergebnisse"
+news: "Nachrichten"
+members: "Mitglieder"
+
+# Section Headings
+teams_heading: "Mannschaften"
+teams_subtitle: "Alle Mannschaften unseres Vereins"
+news_heading: "Nachrichten & Aktuelles"
+news_subtitle: "Bleiben Sie auf dem Laufenden mit den neuesten Vereinsnachrichten"
+events_heading: "Veranstaltungen & Termine"
+events_subtitle: "Kommende Veranstaltungen und Termine"
+results_heading: "Ergebnisse"
+results_subtitle: "Aktuelle Spielergebnisse und Tabellen"
+members_heading: "Mitglieder"
+members_subtitle: "Lernen Sie unsere Vereinsmitglieder kennen"
+
+# Actions/CTAs
+read_more: "Weiterlesen"
+view_details: "Details anzeigen"
+view_all: "Alle anzeigen"
+back_to: "Zurück zu"
+filter_by_category: "Nach Kategorie filtern"
+filter_by_team: "Nach Mannschaft filtern"
+all_categories: "Alle Kategorien"
+all_teams: "Alle Mannschaften"
+
+# Accessibility
+skip_to_content: "Zum Inhalt springen"
+skip_to_navigation: "Zur Navigation springen"
+main_navigation: "Hauptnavigation"
+open_menu: "Menü öffnen"
+close_menu: "Menü schließen"
+
+# Status/State
+upcoming: "Kommend"
+past: "Vergangen"
+date: "Datum"
+time: "Zeit"
+venue: "Austragungsort"
+no_results: "Keine Ergebnisse gefunden"
+
+# Common
+no_items_yet: "Es wurden noch keine {{ .Type }} erstellt. Schauen Sie bald wieder vorbei!"
+loading: "Wird geladen..."
+error: "Fehler"

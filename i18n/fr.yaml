@@ -1,0 +1,52 @@
+# French (fr-FR) UI Terminology
+# Default translations for the sports club theme
+
+# Navigation
+home: "Accueil"
+teams: "Équipes"
+events: "Événements"
+results: "Résultats"
+news: "Actualités"
+members: "Membres"
+
+# Section Headings
+teams_heading: "Équipes"
+teams_subtitle: "Parcourir toutes les équipes de notre club"
+news_heading: "Actualités & Mises à jour"
+news_subtitle: "Restez informé des dernières nouvelles du club"
+events_heading: "Événements & Calendrier"
+events_subtitle: "Événements et rencontres à venir"
+results_heading: "Résultats"
+results_subtitle: "Derniers résultats de match et classements"
+members_heading: "Membres"
+members_subtitle: "Rencontrez les membres de notre club"
+
+# Actions/CTAs
+read_more: "Lire la suite"
+view_details: "Voir les détails"
+view_all: "Voir tout"
+back_to: "Retour à"
+filter_by_category: "Filtrer par catégorie"
+filter_by_team: "Filtrer par équipe"
+all_categories: "Toutes les catégories"
+all_teams: "Toutes les équipes"
+
+# Accessibility
+skip_to_content: "Aller au contenu"
+skip_to_navigation: "Aller à la navigation"
+main_navigation: "Navigation principale"
+open_menu: "Ouvrir le menu"
+close_menu: "Fermer le menu"
+
+# Status/State
+upcoming: "À venir"
+past: "Passé"
+date: "Date"
+time: "Heure"
+venue: "Lieu"
+no_results: "Aucun résultat trouvé"
+
+# Common
+no_items_yet: "Aucun {{ .Type }} n'a encore été créé. Revenez bientôt!"
+loading: "Chargement..."
+error: "Erreur"

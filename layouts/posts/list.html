@@ -1,8 +1,8 @@
 {{ define "main" }}
 <div class="container mx-auto px-4 py-8">
   <header class="mb-8">
-    <h1 class="text-4xl font-bold mb-4">News & Updates</h1>
-    <p class="text-lg text-base-content/70">Stay updated with the latest club news, match reports, and announcements</p>
+    <h1 class="text-4xl font-bold mb-4">{{ partial "i18n-term.html" (dict "key" "news_heading") }}</h1>
+    <p class="text-lg text-base-content/70">{{ partial "i18n-term.html" (dict "key" "news_subtitle") }}</p>
   </header>
   
   {{- /* Filter Controls */ -}}
@@ -21,10 +21,10 @@
       {{- /* Category Filter */ -}}
       <div class="form-control">
         <label class="label">
-          <span class="label-text font-semibold">Filter by Category</span>
+          <span class="label-text font-semibold">{{ partial "i18n-term.html" (dict "key" "filter_by_category") }}</span>
         </label>
         <select class="select select-bordered" x-model="selectedCategory">
-          <option value="all">All Categories</option>
+          <option value="all">{{ partial "i18n-term.html" (dict "key" "all_categories") }}</option>
           {{ $categories := slice }}
           {{ range where site.RegularPages "Type" "posts" }}
             {{ range .Params.categories }}
@@ -40,10 +40,10 @@
       {{- /* Team Filter */ -}}
       <div class="form-control">
         <label class="label">
-          <span class="label-text font-semibold">Filter by Team</span>
+          <span class="label-text font-semibold">{{ partial "i18n-term.html" (dict "key" "filter_by_team") }}</span>
         </label>
         <select class="select select-bordered" x-model="selectedTeam">
-          <option value="all">All Teams</option>
+          <option value="all">{{ partial "i18n-term.html" (dict "key" "all_teams") }}</option>
           {{ $teams := slice }}
           {{ range where site.RegularPages "Type" "posts" }}
             {{ range .Params.teams }}

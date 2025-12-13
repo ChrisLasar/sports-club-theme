@@ -1,10 +1,10 @@
 <footer class="footer footer-center bg-base-300 text-base-content p-10 mt-auto">
   <div class="grid grid-flow-col gap-4">
-    <a href="{{ "teams" | relURL }}" class="link link-hover">Teams</a>
-    <a href="{{ "events" | relURL }}" class="link link-hover">Events</a>
-    <a href="{{ "results" | relURL }}" class="link link-hover">Results</a>
-    <a href="{{ "posts" | relURL }}" class="link link-hover">News</a>
-    <a href="{{ "members" | relURL }}" class="link link-hover">Members</a>
+    <a href="{{ "teams" | relURL }}" class="link link-hover">{{ partial "i18n-term.html" (dict "key" "teams") }}</a>
+    <a href="{{ "events" | relURL }}" class="link link-hover">{{ partial "i18n-term.html" (dict "key" "events") }}</a>
+    <a href="{{ "results" | relURL }}" class="link link-hover">{{ partial "i18n-term.html" (dict "key" "results") }}</a>
+    <a href="{{ "posts" | relURL }}" class="link link-hover">{{ partial "i18n-term.html" (dict "key" "news") }}</a>
+    <a href="{{ "members" | relURL }}" class="link link-hover">{{ partial "i18n-term.html" (dict "key" "members") }}</a>
   </div>
   
   {{ with site.Data.club.socialChannels }}

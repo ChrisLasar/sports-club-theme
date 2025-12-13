@@ -1,8 +1,8 @@
 {{ define "main" }}
 <div class="container mx-auto px-4 py-8">
   <header class="mb-8">
-    <h1 class="text-4xl font-bold mb-4">Teams</h1>
-    <p class="text-lg text-base-content/70">Browse all teams at {{ site.Data.club.name }}</p>
+    <h1 class="text-4xl font-bold mb-4">{{ partial "i18n-term.html" (dict "key" "teams_heading") }}</h1>
+    <p class="text-lg text-base-content/70">{{ partial "i18n-term.html" (dict "key" "teams_subtitle") }}</p>
   </header>
   
   {{- /* Validate coach references across all teams */ -}}
