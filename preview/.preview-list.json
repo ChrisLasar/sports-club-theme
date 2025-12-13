@@ -1,1 +1,12 @@
-{"generated_at":"2025-11-05T17:53:25Z","total_previews":0,"previews":[]}
+{"generated_at":"2025-12-13T16:23:58Z","total_previews":1,"previews":[{
+  "branch": "005-i18n-terms",
+  "commit": "907167076792d6e2a296ac8a85b68c0f3601151d",
+  "commit_message": "Implement multilingual UI terminology support with i18n integration\n\n- Added i18n-term partial for resolving UI terminology with multilingual support.\n- Created translation files for English, German, and French with consistent key structure.\n- Updated site configuration in hugo.toml to support multiple languages and term overrides.\n- Replaced hard-coded text in templates with i18n-term partial calls for dynamic translations.\n- Established a fallback mechanism for translations, ensuring robust handling of missing keys.\n- Documented best practices and usage patterns for multilingual support in the project.\n",
+  "commit_author": "Christian Lasarczyk",
+  "timestamp": "2025-12-13T16:23:55Z",
+  "build_status": "success",
+  "build_duration_seconds": 0,
+  "hugo_version": "0.152.0",
+  "error_message": null,
+  "url": "005-i18n-terms/"
+}]}
