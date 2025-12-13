@@ -8,6 +8,8 @@ Auto-generated from all feature plans. Last updated: 2025-10-25
 - Hugo 0.152+ (Extended edition) (001-unify-card-component)
 - Hugo 0.152+ (Extended) (004-content-reference-picker)
 - Files only (Markdown + YAML front matter); page bundles supported (004-content-reference-picker)
+- Hugo 0.152+ (Extended) + daisyUI 5.x, Tailwind CSS 4.x, Alpine.js 3.x (optional progressive enhancement), Sveltia CMS (005-i18n-terms)
+- SSG: files only (Markdown + YAML front matter); page bundles supported; i18n translations in YAML files (005-i18n-terms)
 
 ## Project Structure
 
@@ -26,9 +28,9 @@ tests/
 Hugo 0.152+ (Extended edition for Tailwind processing): Follow standard conventions
 
 ## Recent Changes
+- 005-i18n-terms: Added Hugo 0.152+ (Extended) + daisyUI 5.x, Tailwind CSS 4.x, Alpine.js 3.x (optional progressive enhancement), Sveltia CMS
 - 004-content-reference-picker: Added Hugo 0.152+ (Extended)
 - 001-unify-card-component: Added Hugo 0.152+ (Extended edition)
-- 002-preview-deployment: Added Hugo 0.152+ (Extended edition for Tailwind processing)
 
 ## Content Reference Picker Patterns
 
