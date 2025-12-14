@@ -1,9 +1,9 @@
 {
   "branch": "main",
-  "commit": "ebd0d7ae2ac6d327ea5e5d24cb56dfd3b5d16848",
-  "commit_message": "Merge pull request #18 from ChrisLasar/004-content-reference-picker",
-  "commit_author": "ChrisLasar",
-  "timestamp": "2025-11-05T17:53:16Z",
+  "commit": "e0561b5283fd246a84604145cd704f56069f896d",
+  "commit_message": "Remove venues.yaml file as it is no longer needed",
+  "commit_author": "Christian Lasarczyk",
+  "timestamp": "2025-12-14T16:38:21Z",
   "build_status": "success",
   "hugo_version": "0.152.0",
   "environment": "production"
