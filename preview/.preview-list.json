@@ -1,4 +1,4 @@
-{"generated_at":"2025-12-14T16:38:01Z","total_previews":1,"previews":[{
+{"generated_at":"2025-12-14T16:38:23Z","total_previews":1,"previews":[{
   "branch": "005-i18n-terms",
   "commit": "1fed1107ca6bc91fb6698f30bc3d6f68179e53be",
   "commit_message": "feat(i18n): Add multilingual content adapters and update list templates for language support\n",
