@@ -1,9 +1,9 @@
 {
   "branch": "main",
-  "commit": "e0561b5283fd246a84604145cd704f56069f896d",
-  "commit_message": "Remove venues.yaml file as it is no longer needed",
+  "commit": "67787ecb43314a5d68de367ccb0505ea66c3633e",
+  "commit_message": "update to latest spec-kit",
   "commit_author": "Christian Lasarczyk",
-  "timestamp": "2025-12-14T16:38:21Z",
+  "timestamp": "2025-12-14T16:48:53Z",
   "build_status": "success",
   "hugo_version": "0.152.0",
   "environment": "production"
