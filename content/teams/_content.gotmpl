@@ -1,0 +1,36 @@
+{{- /* Content adapter to generate team pages in all languages */ -}}
+{{- .EnableAllLanguages -}}
+
+{{- /* Get team pages from store on first run */ -}}
+{{- $teams := .Store.Get "teams" -}}
+{{- if not $teams -}}
+  {{- $teams = slice -}}
+  {{- range site.RegularPages -}}
+    {{- if eq .Type "teams" -}}
+      {{- $teams = $teams | append . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- .Store.Set "teams" $teams -}}
+{{- end -}}
+
+{{- /* Generate pages for all languages */ -}}
+{{- range $teams -}}
+  {{- $content := dict
+    "mediaType" "text/markdown"
+    "value" .RawContent
+  -}}
+  {{- $page := dict
+    "content" $content
+    "dates" (dict
+      "date" .Date
+      "lastmod" .Lastmod
+      "publishDate" .PublishDate
+      "expiryDate" .ExpiryDate
+    )
+    "kind" "page"
+    "params" .Params
+    "path" .File.Path
+    "title" .Title
+  -}}
+  {{- $.AddPage $page -}}
+{{- end -}}

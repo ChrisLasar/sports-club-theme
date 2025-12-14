@@ -6,6 +6,7 @@
   </header>
   
   {{- /* Validate team and venue references across all events */ -}}
+  {{- /* Use current language pages (content adapters generate pages for all languages) */ -}}
   {{ $events := where site.RegularPages "Type" "events" }}
   {{ range $events }}
     {{- $event := . -}}
@@ -64,7 +65,6 @@
     </div>
     
     {{- /* Events Grid */ -}}
-    {{ $events := where site.RegularPages "Type" "events" }}
     {{ $events = sort $events ".Params.date" "desc" }}
     
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">

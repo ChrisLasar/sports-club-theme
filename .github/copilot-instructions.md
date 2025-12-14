@@ -222,6 +222,18 @@ The i18n-term partial implements a four-level fallback:
 3. **Default Language i18n**: `i18n/{defaultContentLanguage}.yaml`
 4. **Key Itself**: Raw key string (failsafe)
 
+### Multilingual Content Access
+
+When accessing content in list templates, always use the default language site to ensure content appears in all language versions:
+
+```html
+{{- /* Access content from default language site (index 0) */ -}}
+{{ $defaultSite := index site.Sites 0 }}
+{{ $items := where $defaultSite.RegularPages "Type" "section_name" }}
+```
+
+**Why**: In Hugo's multilingual mode, `site.RegularPages` only returns pages for the current language. Since content only exists in the default language, accessing it via `index site.Sites 0` ensures all language versions can display the content.
+
 ### Best Practices
 
 1. **Always use i18n-term partial** for UI labels, never hard-code text
@@ -231,3 +243,4 @@ The i18n-term partial implements a four-level fallback:
 5. **Document available term keys** in quickstart.md for users
 6. **Maintain lang attribute** in HTML using `site.Language.Lang`
 7. **Update aria-labels** to use translated terms for accessibility
+8. **Access content from default site** in list templates using `index site.Sites 0`

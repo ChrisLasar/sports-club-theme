@@ -23,7 +23,9 @@
       <select class="select select-bordered" x-model="selectedTeam">
         <option value="all">All Teams</option>
         {{ $teams := slice }}
-        {{ range where site.RegularPages "Type" "results" }}
+          {{ $allResults := where site.AllPages "Type" "results" }}
+          {{ $allResults = where $allResults "Kind" "page" }}
+          {{ range $allResults }}
           {{ range .Params.teams }}
             {{ $teams = $teams | append . }}
           {{ end }}
@@ -37,6 +39,7 @@
     </div>
     
     {{- /* Results Grid */ -}}
+    {{- /* Use current language pages (content adapters generate pages for all languages) */ -}}
     {{ $results := where site.RegularPages "Type" "results" }}
     {{ $results = sort $results ".Params.date" "desc" }}
     

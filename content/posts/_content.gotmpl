@@ -1,0 +1,36 @@
+{{- /* Content adapter to generate post pages in all languages */ -}}
+{{- .EnableAllLanguages -}}
+
+{{- /* Get post pages from store on first run */ -}}
+{{- $posts := .Store.Get "posts" -}}
+{{- if not $posts -}}
+  {{- $posts = slice -}}
+  {{- range site.RegularPages -}}
+    {{- if eq .Type "posts" -}}
+      {{- $posts = $posts | append . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- .Store.Set "posts" $posts -}}
+{{- end -}}
+
+{{- /* Generate pages for all languages */ -}}
+{{- range $posts -}}
+  {{- $content := dict
+    "mediaType" "text/markdown"
+    "value" .RawContent
+  -}}
+  {{- $page := dict
+    "content" $content
+    "dates" (dict
+      "date" .Date
+      "lastmod" .Lastmod
+      "publishDate" .PublishDate
+      "expiryDate" .ExpiryDate
+    )
+    "kind" "page"
+    "params" .Params
+    "path" .File.Path
+    "title" .Title
+  -}}
+  {{- $.AddPage $page -}}
+{{- end -}}

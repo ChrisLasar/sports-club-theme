@@ -1,0 +1,36 @@
+{{- /* Content adapter to generate venue pages in all languages */ -}}
+{{- .EnableAllLanguages -}}
+
+{{- /* Get venue pages from store on first run */ -}}
+{{- $venues := .Store.Get "venues" -}}
+{{- if not $venues -}}
+  {{- $venues = slice -}}
+  {{- range site.RegularPages -}}
+    {{- if eq .Type "venues" -}}
+      {{- $venues = $venues | append . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- .Store.Set "venues" $venues -}}
+{{- end -}}
+
+{{- /* Generate pages for all languages */ -}}
+{{- range $venues -}}
+  {{- $content := dict
+    "mediaType" "text/markdown"
+    "value" .RawContent
+  -}}
+  {{- $page := dict
+    "content" $content
+    "dates" (dict
+      "date" .Date
+      "lastmod" .Lastmod
+      "publishDate" .PublishDate
+      "expiryDate" .ExpiryDate
+    )
+    "kind" "page"
+    "params" .Params
+    "path" .File.Path
+    "title" .Title
+  -}}
+  {{- $.AddPage $page -}}
+{{- end -}}

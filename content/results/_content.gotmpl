@@ -1,0 +1,36 @@
+{{- /* Content adapter to generate result pages in all languages */ -}}
+{{- .EnableAllLanguages -}}
+
+{{- /* Get result pages from store on first run */ -}}
+{{- $results := .Store.Get "results" -}}
+{{- if not $results -}}
+  {{- $results = slice -}}
+  {{- range site.RegularPages -}}
+    {{- if eq .Type "results" -}}
+      {{- $results = $results | append . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- .Store.Set "results" $results -}}
+{{- end -}}
+
+{{- /* Generate pages for all languages */ -}}
+{{- range $results -}}
+  {{- $content := dict
+    "mediaType" "text/markdown"
+    "value" .RawContent
+  -}}
+  {{- $page := dict
+    "content" $content
+    "dates" (dict
+      "date" .Date
+      "lastmod" .Lastmod
+      "publishDate" .PublishDate
+      "expiryDate" .ExpiryDate
+    )
+    "kind" "page"
+    "params" .Params
+    "path" .File.Path
+    "title" .Title
+  -}}
+  {{- $.AddPage $page -}}
+{{- end -}}

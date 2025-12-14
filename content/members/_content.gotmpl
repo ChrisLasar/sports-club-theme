@@ -1,0 +1,36 @@
+{{- /* Content adapter to generate member pages in all languages */ -}}
+{{- .EnableAllLanguages -}}
+
+{{- /* Get member pages from store on first run */ -}}
+{{- $members := .Store.Get "members" -}}
+{{- if not $members -}}
+  {{- $members = slice -}}
+  {{- range site.RegularPages -}}
+    {{- if eq .Type "members" -}}
+      {{- $members = $members | append . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- .Store.Set "members" $members -}}
+{{- end -}}
+
+{{- /* Generate pages for all languages */ -}}
+{{- range $members -}}
+  {{- $content := dict
+    "mediaType" "text/markdown"
+    "value" .RawContent
+  -}}
+  {{- $page := dict
+    "content" $content
+    "dates" (dict
+      "date" .Date
+      "lastmod" .Lastmod
+      "publishDate" .PublishDate
+      "expiryDate" .ExpiryDate
+    )
+    "kind" "page"
+    "params" .Params
+    "path" .File.Path
+    "title" .Title
+  -}}
+  {{- $.AddPage $page -}}
+{{- end -}}

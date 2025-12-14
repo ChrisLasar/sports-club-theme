@@ -1,0 +1,20 @@
+{{- /* Content adapter to generate event pages in all languages */ -}}
+{{- .EnableAllLanguages -}}
+
+{{- /* Read event directories from content folder */ -}}
+{{- $eventDirs := slice "christmas-party" "test-event-long-title" "u13-training-camp-2025-10-20" "u15-tournament-2025-12-01" "example-event-u14-fixture" "u13-boys-vs-rival-2025-11-15" "test-event-minimal" "christmas-party-2" -}}
+
+{{- range $eventDirs -}}
+  {{- $path := printf "content/events/%s/index.md" . -}}
+  {{- $fileContent := readFile $path -}}
+  {{- $content := dict
+    "mediaType" "text/markdown"
+    "value" $fileContent
+  -}}
+  {{- $page := dict
+    "content" $content
+    "kind" "page"
+    "path" (printf "events/%s" .)
+  -}}
+  {{- $.AddPage $page -}}
+{{- end -}}

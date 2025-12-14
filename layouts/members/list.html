@@ -6,6 +6,7 @@
   </header>
   
   {{- /* Filter members by public display */ -}}
+  {{- /* Use current language pages (content adapters generate pages for all languages) */ -}}
   {{ $members := where site.RegularPages "Type" "members" }}
   {{ $publicMembers := where $members ".Params.visibility.publicDisplay" true }}
   

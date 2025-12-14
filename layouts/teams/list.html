@@ -6,6 +6,7 @@
   </header>
   
   {{- /* Validate coach references across all teams */ -}}
+  {{- /* Use current language pages (content adapters generate pages for all languages) */ -}}
   {{ $teams := where site.RegularPages "Type" "teams" }}
   {{ range $teams }}
     {{- $team := . -}}

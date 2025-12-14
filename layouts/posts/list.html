@@ -26,7 +26,8 @@
         <select class="select select-bordered" x-model="selectedCategory">
           <option value="all">{{ partial "i18n-term.html" (dict "key" "all_categories") }}</option>
           {{ $categories := slice }}
-          {{ range where site.RegularPages "Type" "posts" }}
+          {{ $allPosts := where site.RegularPages "Type" "posts" }}
+          {{ range $allPosts }}
             {{ range .Params.categories }}
               {{ $categories = $categories | append . }}
             {{ end }}
@@ -45,7 +46,8 @@
         <select class="select select-bordered" x-model="selectedTeam">
           <option value="all">{{ partial "i18n-term.html" (dict "key" "all_teams") }}</option>
           {{ $teams := slice }}
-          {{ range where site.RegularPages "Type" "posts" }}
+          {{ $allPosts := where site.RegularPages "Type" "posts" }}
+          {{ range $allPosts }}
             {{ range .Params.teams }}
               {{ $teams = $teams | append . }}
             {{ end }}
@@ -60,6 +62,7 @@
     </div>
     
     {{- /* Posts Grid */ -}}
+    {{- /* Use current language pages (content adapters generate pages for all languages) */ -}}
     {{ $posts := where site.RegularPages "Type" "posts" }}
     {{ $posts = sort $posts ".Date" "desc" }}
     
